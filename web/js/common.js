@@ -1,4 +1,6 @@
 (function(BB){
+    BB.templates = {};
+
     BB.showView  = function (viewName, innerHTML) {
         var m = $.mobile,
             name = '#'+viewName;
