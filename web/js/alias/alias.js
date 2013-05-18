@@ -16,7 +16,8 @@
 
     BB.views = {
         join: new BB.classes.JoinView({root: '[data-view-name=join]'}),
-        teams: new BB.classes.TeamsView({root: '[data-view-name=teams]'})
+        teams: new BB.classes.TeamsView({root: '[data-view-name=teams]'}),
+        turnPrepare: new BB.classes.TurnPrepareView({root: '[data-view-name=turn-prepare]'})
     };
 
     $(document.body).on('click', '[data-game-action="create"]', function () {
