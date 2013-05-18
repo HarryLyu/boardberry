@@ -57,7 +57,10 @@
 <div data-role="page" id="teams" data-theme="b" data-view-name="teams">
 </div>
 
-<div data-role="page" id="turn-prepare" data-theme="b" data-view-name="turn-prepare">
+<div data-role="page" id="turn-started" data-theme="b" data-view-name="turn-started">
+</div>
+
+<div data-role="page" id="explanation-started" data-theme="b" data-view-name="explanation-started">
 </div>
 
 <script type="text/html" id="tplJoin">
@@ -107,21 +110,23 @@
     </div>
 </script>
 
-<script type="text/html" id="tplTurnPrepare">
+<script type="text/html" id="tplTurnStarted">
     <div data-role="content" class="wrapper">
-        <h1>
-            <img src="https://graph.facebook.com/<%=explain.id%>/picture?type=square" /> <%=explain.name%> explains
-        </h1>
+        <div class="explainer-container">
+            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> explains
+        </div>
 
-        <h2>
-            <% guess.forEach(function (guessItem, index) { %>
-                <img src="https://graph.facebook.com/<%=guessItem%>/picture?type=square" />
-            <% }) %>
+        <div class="user-list">
+            <% team.forEach(function (playerItem, index) {
+               if (playerItem.id != explainer.id) { %>
+                    <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
+            <% }
+            }) %>
             guess
-        </h2>
+        </div>
 
-        <% if (explain.id == me.id) %>
-            <a data-game-action="turn-start" class="btn-start">
+        <% if (explainer.id == me.id) %>
+            <a data-game-action="start-explanation" class="btn-start">
                 I'm ready!
             </a>
         <% } %>
@@ -132,23 +137,22 @@
     <div data-role="content" class="wrapper">
 
         <div class="time-container" data-time-container>
-            00:50:67
+            00:60:100
         </div>
 
         <div class="word-container" data-word-container>
-            00:50:67
         </div>
 
         <div class="controls-container">
             <div class="control">
                 <span data-skipped-count class="words-count">0</span>
-                <a href="" class="btn-word-skip">
+                <a href="" class="btn-word-skip ui-btn" data-skip-btn>
                     <i class="icon-left"></i>Skip
                 </a>
             </div>
             <div class="control">
                 <span data-answered-count class="words-count">0</span>
-                <a href="" class="btn-word-skip">
+                <a href="" class="btn-word-skip ui-btn" data-answer-btn>
                     Answered <i class="icon-right"></i>
                 </a>
             </div>
@@ -158,15 +162,21 @@
 
 <script type="text/html" id="tplTurnWait">
     <div data-role="content" class="wrapper">
+        <div class="explainer-container">
+            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> explains
+        </div>
+
         <div class="user-list">
-            Currently playing: <br>
-            <% team.users.forEach(function (index, teamItem) { %>
-                <img src="https://graph.facebook.com/<%=teamItem%>/picture?type=square" />
-            <% }) %>
+            <% team.forEach(function (playerItem, index) {
+                if (playerItem.id != explainer.id) { %>
+                    <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
+                <% }
+            }) %>
+            guess
         </div>
 
         <div class="time-container" data-time-container>
-            00:50:67
+            00:60:100
         </div>
     </div>
 </script>

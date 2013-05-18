@@ -37,17 +37,13 @@ BB.classes.JoinView = Class.extend({
             });
     },
 
-    render: function (data){
+    initView: function(data){
+        this.private_render(data);
+    },
+
+    private_render: function (data){
         this.root.html(tmpl('tplJoin', {data:data}));
         $.mobile.navigate('#join');
-    },
-
-    update: function (data){
-        this.root.html(tmpl('tplJoin', {data:data}));
-    },
-
-    getData: function (){
-        return this.params;
     }
 });
 
@@ -99,28 +95,13 @@ BB.classes.TeamsView = Class.extend({
             });
     },
 
-    render: function (data) {
-        this.data = data;
+    initView: function(data){
+        BB.roomData = data;
+        BB.subscribeOnChannel(data);
+        this.private_render(data);
+    },
 
-        if (!this.isChannelInited) {
-            console.log('Channel', this.data.channel, 'subscribed', this.data);
-
-            BB.realplexor.setCursor(this.data.channel, this.data.channel_time);
-            BB.realplexor.subscribe(this.data.channel, function(data, id) {
-                console.log('CHANNEL EVENT', data);
-                console.log('recieved channel data', data.eventName, data);
-
-                if (BB.channelHandlers[data.eventName]) {
-                    BB.channelHandlers[data.eventName](data.data);
-                }
-                else {
-                    console.log('NO channel handler!', data.eventName);
-                }
-            });
-
-            BB.realplexor.execute();
-        }
-
+    private_render: function (data){
         this.root.html(tmpl('tplTeams', {data: data, me: BB.user}));
         $.mobile.navigate('#teams');
     },
@@ -143,20 +124,12 @@ BB.classes.TeamsView = Class.extend({
             .attr('data-team-item', data.teamId)
             .addClass('team-item team-item-' + data.teamId)
             .appendTo(this.root.find('[data-team-container]'));
-    },
-
-    update: function (data){
-        this.root.html(tmpl('tplTeams', {data:data}));
-    },
-
-    getData: function (){
-        return this.params;
     }
 });
 
-BB.classes.TurnPrepareView = Class.extend({
+BB.classes.TurnStartedView = Class.extend({
     loc: {
-        imReadyBtn: '[data-game-action="turn-start"]'
+        imReadyBtn: '[data-game-action="start-explanation"]'
     },
 
     init: function (params){
@@ -168,8 +141,8 @@ BB.classes.TurnPrepareView = Class.extend({
 
     private_assignEvents: function (){
         this.root.on('click', this.loc.imReadyBtn, function(){
-            $.post('/api/room/' + BB.views.teams.data.id,{
-                action: 'turn-start',
+            $.post('/api/room/' + BB.roomData.id,{
+                action: 'start-explanation',
                 user: BB.user.id
             }, function(data){
                 console.log(data);
@@ -177,16 +150,120 @@ BB.classes.TurnPrepareView = Class.extend({
         })
     },
 
-    render: function (data){
-        this.root.html(tmpl('tplTurnPrepare', {explain: data.explain, me: BB.user, guess: data.guess}));
-        $.mobile.navigate('#turn-prepare');
+    initView: function(data){
+        this.private_render(data);
     },
 
-    update: function (data){
-        this.root.html(tmpl('tplTurnPrepare', {explain: data.explain, me: BB.user, guess: data.guess}));
+    private_render: function (data){
+        this.root.html(tmpl('tplTurnStarted', {explainer: data.explainer, me: BB.user, team: BB.teams[data.activeTeamId]}));
+        $.mobile.navigate('#turn-started');
+    }
+});
+
+BB.classes.ExplanationStartedView = Class.extend({
+    loc: {
+        time: '[data-time-container]',
+        word: '[data-word-container]',
+        skipBtn: '[data-skip-btn]',
+        answerBtn: '[data-answer-btn]',
+        skippedCount: '[data-skipped-count]',
+        answeredCount: '[data-answered-count]'
     },
 
-    getData: function (){
-        return this.params;
+    init: function (params){
+        this.params = params;
+        this.root = $(params.root);
+        this.private_assignEvents();
+    },
+
+
+    private_assignEvents: function (){
+        this.root.on('click', this.loc.imReadyBtn, function(){
+                $.post('/api/room/' + BB.views.teams.data.id,{
+                    action: 'start-turn',
+                    user: BB.user.id
+                }, function(data){
+                    console.log(data);
+                });
+            })
+            .on('click', this.loc.answerBtn, this.private_answer.bind(this, true))
+            .on('click', this.loc.skipBtn, this.private_answer.bind(this, false))
+    },
+
+    initView: function(data){
+        this.data = data;
+        this.currentWordIndex = 0;
+        this.answeredCount = 0;
+        this.skippedCount = 0;
+        this.wordAnswers = [];
+        this.private_render(data);
+        this.private_initTimer();
+        this.private_loadWord();
+    },
+
+    private_answer: function (isRight) {
+        this.wordAnswers.push(isRight ? 1 : 0);
+        this.currentWordIndex += 1;
+        if (isRight) {
+            this.answeredCount += 1;
+        } else {
+            this.skippedCount += 1;
+        }
+
+        this.private_updateAnswersCount();
+        this.private_loadWord();
+    },
+
+    private_updateAnswersCount: function () {
+        $(this.loc.answeredCount).html(this.answeredCount);
+        $(this.loc.skippedCount).html(this.skippedCount);
+    },
+
+    private_loadWord: function () {
+        $(this.loc.word).html(this.data.words[this.currentWordIndex]);
+    },
+
+    private_render: function (data){
+        if (data.explainer.id == BB.user.id){
+            this.root.html(tmpl('tplTurnExplain', {}));
+        } else {
+            this.root.html(tmpl('tplTurnWait', {explainer: data.explainer, me: BB.user, team: BB.teams[data.activeTeamId]}));
+        }
+        $.mobile.navigate('#explanation-started');
+    },
+
+    private_initTimer: function(){
+        var self = this,
+            $timer = $(this.loc.time),
+            startTime = new Date().getTime(),
+            maxDiff = 60000;
+
+        this.timerInterval = setInterval(function(){
+            var currentTime = new Date().getTime(),
+                deltaTime = currentTime - startTime,
+                seconds = deltaTime / 1000,
+                milliSeconds = deltaTime % 1000;
+
+            $timer.html('00:' + seconds + ':' + milliSeconds);
+
+            if (deltaTime > maxDiff) {
+                clearInterval(self.timerInterval);
+                self.private_onEndTimer();
+            }
+        }, 100)
+    },
+
+    private_onEndTimer: function (){
+        console.log('timer end');
+
+        if (this.data.explainer.id == BB.user.id){
+            $.post('/api/room/' + BB.gameData.id, {
+                action: 'finish-explanation',
+                words: this.wordAnswers
+            },
+            function (data){
+                console.log('answers save result', data);
+            })
+        }
     }
 });
