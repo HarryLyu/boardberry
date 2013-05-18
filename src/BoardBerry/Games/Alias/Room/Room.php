@@ -14,6 +14,8 @@ class Room
     protected $roomKey;
     protected $roomPlayersKey;
 
+    protected $simpleLoadFields = ['state', 'ownerId', 'teamCount', 'playerCount'];
+
     public $state;
 
     public $roomId;
@@ -41,9 +43,15 @@ class Room
         $this->redis->hset($this->roomKey, 'ownerId', $this->ownerId);
     }
 
+    public function setState($state)
+    {
+        $this->state = $state;
+        $this->redis->hset($this->roomKey, 'state', $state);
+    }
+
     public function addPlayer($playerId)
     {
-        $this->redis->hset($this->roomPlayersKey, 'player:' . $playerId, $this->roomId);
+        $this->redis->sadd($this->roomPlayersKey, $playerId);
         $this->playerCount = $this->redis->hincrby($this->roomKey, 'playerCount', 1);
         $this->players[] = new Player($playerId);
     }
@@ -54,9 +62,21 @@ class Room
         $this->teams[] = new Team($this->teamCount - 1);
     }
 
-    public function setState($state)
+    public function restore()
     {
-        $this->state = $state;
-        $this->redis->hset($this->roomKey, 'state', $state);
+        foreach ($this->simpleLoadFields as $fieldName) {
+            $this->$fieldName = $this->redis->hget($this->roomKey, $fieldName);
+        }
+
+        $this->players = [];
+        $playerIds = $this->redis->smembers($this->roomPlayersKey);
+        foreach ($playerIds as $playerId) {
+            $this->players[] = new Player($playerId);
+        }
+
+        $this->teams = [];
+        for ($i = 0; $i < $this->teamCount; $i++) {
+            $this->teams[] = new Team($i);
+        }
     }
 }
