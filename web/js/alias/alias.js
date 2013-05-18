@@ -18,7 +18,8 @@
         join: new BB.classes.JoinView({root: '[data-view-name=join]'}),
         teams: new BB.classes.TeamsView({root: '[data-view-name=teams]'}),
         turnStarted: new BB.classes.TurnStartedView({root: '[data-view-name=turn-started]'}),
-        explanationStarted: new BB.classes.ExplanationStartedView({root:'[data-view-name=explanation-started]'})
+        explanationStarted: new BB.classes.ExplanationStartedView({root:'[data-view-name=explanation-started]'}),
+        explanationFinished: new BB.classes.ExplanationFinishedView({root: '[data-view-name=explanation-finished]'})
     };
 
     $(document.body).on('click', '[data-game-action="create"]', function () {
