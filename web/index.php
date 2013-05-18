@@ -22,4 +22,10 @@ $app->mount('', $commonApiRouting);
 $apiRouting = new \BoardBerry\Games\Alias\Routing\ApiRouting('');
 $app->mount('', $apiRouting);
 
+
+$app->get('/alias', function () use ($app) {
+    return $app['twig']->render('alias/index.twig');
+});
+
+
 $app->run();
