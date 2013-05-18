@@ -27,7 +27,7 @@
                     user: userProfile
                 },
                 function (response) {
-                    if (response.userID) {
+                    if (response.user.userID) {
                         BB.user.id = response.user.userID
                     }
                     $.post(
@@ -37,7 +37,8 @@
                             owner: 'TODO ownerId'
                         },
                         function (roomData) {
-                            BB.views.teams.render(roomData);
+                            console.log('room created', roomData);
+                            BB.views.teams.render(roomData.data);
                         }
                     );
                 }
@@ -51,19 +52,10 @@
                     user: userProfile
                 },
                 function (response) {
-                    if (response.userID) {
+                    if (response.user.userID) {
                         BB.user.id = response.user.userID
                     }
-                    $.post(
-                        '/api/room',
-                        {
-                            action: 'join',
-                            owner: 'TODO ownerId'
-                        },
-                        function (roomData) {
-                            BB.views.join.render(roomData);
-                        }
-                    );
+                    BB.views.join.render();
                 }
             );
 
@@ -82,7 +74,7 @@
     ];
 
     BB.realplexor = new Dklab_Realplexor(
-        "http://comet.stas.boardberry.me/",
+        "http://" + location.host + "/",
         "BB"
     );
 })(BB);

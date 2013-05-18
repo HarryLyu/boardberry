@@ -14,8 +14,20 @@ BB.classes.JoinView = Class.extend({
     private_assignEvents: function (){
         var self = this;
         this.root.on('click', this.loc.joinBtn, function(){
+            var roomId = $(self.loc.input).val();
+
+            if (!roomId) {
+                alert('Please type game number!');
+                return;
+            }
+
+            if (!/\d{8}/.test(roomId)) {
+                alert('Game number must contain 8 numbers!');
+                return;
+            }
+
             $.post('/api/room',{
-                action: 'join-room',
+                action: 'join',
                 id: $(self.loc.input).val(),
                 user: BB.user.id
             }, function(data){
@@ -65,7 +77,7 @@ BB.classes.TeamsView = Class.extend({
     },
 
     render: function (data){
-        this.root.html(tmpl('tplTeams', {data:data}));
+        this.root.html(tmpl('tplTeams', {data: data, me: BB.user}));
         $.mobile.navigate('#teams');
     },
 
