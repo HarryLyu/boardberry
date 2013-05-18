@@ -1,15 +1,6 @@
 (function(BB){
     BB.templates = {};
+    BB.classes = {};
+    BB.user = {};
 
-    BB.showView  = function (viewName, innerHTML) {
-        var m = $.mobile,
-            name = '#'+viewName;
-
-        if (innerHTML){
-            $(name).html(innerHTML);
-        }
-
-        m.navigate(name);
-        return viewName;
-    };
 })(window.BB = {});
