@@ -1,14 +1,6 @@
 <?php
 use Silex\Application;
 
-/**
- * Created by JetBrains PhpStorm.
- * User: vitkovskii
- * Date: 5/18/13
- * Time: 3:54 PM
- * To change this template use File | Settings | File Templates.
- */
-
 class RedisServiceProvider implements \Silex\ServiceProviderInterface{
 
     /**
@@ -21,7 +13,11 @@ class RedisServiceProvider implements \Silex\ServiceProviderInterface{
      */
     public function register(Application $app)
     {
-        // TODO: Implement register() method.
+        $app['redis'] = Pimple::share(function(){
+               $redis = new Redis();
+               $redis->connect(REDIS_HOST,REDIS_PORT);
+            });
+
     }
 
     /**
