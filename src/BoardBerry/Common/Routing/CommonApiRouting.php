@@ -1,6 +1,7 @@
 <?php
 namespace BoardBerry\Common\Routing;
 
+use BoardBerry\Common\Comet;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
@@ -22,6 +23,7 @@ class CommonApiRouting implements ControllerProviderInterface
         $collection = $app['controllers_factory'];
 
         $collection->match('/user', function (Request $request) use ($app) {
+
                 $auth = $request->get('auth');
                 $user = $request->get('user');
 
@@ -29,8 +31,18 @@ class CommonApiRouting implements ControllerProviderInterface
                     throw new \Exception('error fb');
                 }
 
-                $app['user']->register($auth, $user);
-                return new JsonResponse(['error' => 'ok']);
+                $userData = $app['user']->register($auth, $user);
+                if($userData) {
+                    $result = [
+                        'result'=>'ok',
+                        'user'=>$userData
+                    ];
+                }   else    {
+                    $result = [
+                        'result'=>'user reg failed'
+                    ];
+                }
+                return new JsonResponse($result);
         });
 
 
@@ -40,7 +52,20 @@ class CommonApiRouting implements ControllerProviderInterface
                 if(!$userID) {
                     throw new \Exception('failed uid');
                 }
-                return new JsonResponse(['result' => $app['user']->get($userID)]);
+
+                $user = $app['user']->get($userID);
+
+                if($user) {
+                    $result = [
+                        'result'=>'ok',
+                        'user'=>$user
+                    ];
+                }   else {
+                    $result = [
+                        'result'=>'user didn\'t found'
+                    ];
+                }
+                return new JsonResponse($result);
         });
 
         return $collection;
