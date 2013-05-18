@@ -350,7 +350,12 @@ BB.classes.TurnFinishedView = Class.extend({
     },
 
     private_render: function (data){
-        this.root.html(tmpl('tplGameResults', {data: data, teams: BB.teams[data.activeTeamId]}));
+        this.root.html(tmpl('tplGameResults', {
+            data: data,
+            teams: BB.teams,
+            me: BB.user,
+            roomData: BB.roomData
+        }));
         $.mobile.navigate('#turn-finished');
     }
 });
