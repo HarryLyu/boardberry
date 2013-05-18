@@ -241,7 +241,7 @@ BB.classes.ExplanationStartedView = Class.extend({
         var self = this,
             $timer = $(this.loc.time),
             startTime = new Date().getTime(),
-            maxDiff = 60000;
+            maxDiff = 10 * 1000;
 
         this.timerInterval = setInterval(function(){
             var currentTime = new Date().getTime(),
@@ -256,7 +256,7 @@ BB.classes.ExplanationStartedView = Class.extend({
                 clearInterval(self.timerInterval);
                 self.private_onEndTimer();
             }
-        }, 100)
+        }, 100);
     },
 
     private_onEndTimer: function (){
