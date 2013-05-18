@@ -15,4 +15,8 @@ $app->get('/', function () use ($app) {
     return $app['twig']->render('layout.twig');
 });
 
+$app->get('/tests/comet', function () use ($app) {
+    return $app['twig']->render('comet.twig',['time'=>time()]);
+});
+
 $app->run();
