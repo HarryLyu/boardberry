@@ -81,9 +81,12 @@ class Room
     public function addTeam()
     {
         $this->teamCount = $this->redis->hincrby($this->roomKey, 'teamCount', 1);
-        $this->teams[] = new Team($this->teamCount - 1);
 
-        return $this->teamCount - 1;
+        $teamId = $this->teamCount - 1;
+        $this->redis->hset($this->roomTeamScoresKey, $teamId, 0);
+        $this->teams[] = new Team($teamId);
+
+        return $teamId;
     }
 
     public function joinPlayerToTeam($teamId, $playerId)
@@ -148,7 +151,12 @@ class Room
 
     public function addTeamScore($teamId, $score)
     {
-        return $this->redis->hincrby($this->roomTeamScoresKey, $teamId, $score);
+        $value = $this->redis->hincrby($this->roomTeamScoresKey, $teamId, $score);
+        if ($value < 0) {
+            $value = $this->redis->hset($this->roomTeamScoresKey, $teamId, 0);
+        }
+
+        return $value;
     }
 
     public function getTeamScore($teamId)
