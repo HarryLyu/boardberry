@@ -13,10 +13,16 @@ class RoomResponseFormatter
         $this->room = $room;
     }
 
+    public function getChannel()
+    {
+        return Room::CHANNEL_NAME . $this->room->roomId;
+    }
+
     public function format()
     {
         $response['result'] = 'ok';
         $response['state'] = $this->room->state;
+        $response['channel'] = $this->getChannel();
         $response['data']['id'] = $this->room->roomId;
         $response['data']['owner'] = $this->room->ownerId;
         switch ($this->room->state) {
