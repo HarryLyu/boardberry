@@ -1,0 +1,14 @@
+{
+    "name": "boardberry/mobile",
+    "description": "Boardberry board games",
+    "authors": [
+        {
+            "name": "Vitkovskii Vladimir",
+            "email": "vitkovskii@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "silex/silex": "1.0.*@dev"
+    }
+}
