@@ -58,7 +58,7 @@ class Room
         $result = $this->redis->sadd($this->roomPlayersKey, $playerId);
 
         if ($result) {
-            $this->redis->hadd($this->playerRoomKey, $playerId, $this->roomId);
+            $this->redis->hset($this->playerRoomKey, $playerId, $this->roomId);
 
             $this->playerCount = $this->redis->hincrby($this->roomKey, 'playerCount', 1);
             $this->players[] = new Player($playerId);
@@ -99,6 +99,11 @@ class Room
         $this->teams = [];
         for ($i = 0; $i < $this->teamCount; $i++) {
             $this->teams[] = new Team($i);
+        }
+
+        $players = $this->redis->hgetall($this->teamKey);
+        foreach($players as $playerId => $teamId) {
+            $this->teams[$teamId]->addPlayer($playerId);
         }
     }
 }

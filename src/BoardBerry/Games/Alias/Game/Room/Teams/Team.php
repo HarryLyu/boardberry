@@ -13,7 +13,7 @@ class Team
 
     public function addPlayer($playerId)
     {
-        $players[$playerId] = 1;
+        $this->players[$playerId] = 1;
     }
 
     public function removePlayer($playerId)
