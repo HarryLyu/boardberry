@@ -77,7 +77,6 @@ class GameLogic
             $words,
             $this->room->activeTeamId
         );
-        //$this->room->deleteWordsFromPool(sizeof($tempResults));
     }
 
     public function addScore()
@@ -93,8 +92,13 @@ class GameLogic
             }
         }
 
-        $this->room->addTeamScore($this->room->activeTeamId, $score);
-        $this->eventManager->turnFinished($this->room->getAllTeamScores());
+        $score = $this->room->addTeamScore($this->room->activeTeamId, $score);
+
+        if ($score < 50) {
+            $this->eventManager->turnFinished($this->room->getAllTeamScores());
+        } else {
+            $this->eventManager->gameFinished($this->room->getAllTeamScores());
+        }
     }
 
     public function editResult($wordId)
@@ -119,6 +123,16 @@ class GameLogic
     public function turnStart()
     {
         $name = $this->userManager->getName($this->room->explainerId);
+        $this->eventManager->turnStarted($this->room->explainerId, $name, $this->room->activeTeamId);
+    }
+
+    public function nextTurn()
+    {
+        $results = $this->room->getResults();
+        $this->room->deleteWordsFromPool(sizeof($results) + 1);
+
+        $name = $this->userManager->getName($this->room->explainerId);
+        $this->room->nextTurn();
         $this->eventManager->turnStarted($this->room->explainerId, $name, $this->room->activeTeamId);
     }
 }

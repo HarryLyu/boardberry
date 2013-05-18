@@ -129,4 +129,16 @@ class RoomEventManager
         }
         $this->sendEvent('turnFinished', $scores);
     }
+
+    public function gameFinished($teamScores)
+    {
+        $scores = [];
+        foreach ($teamScores as $teamId => $score) {
+            $scores[] = [
+                'id' => $teamId,
+                'position' => $score
+            ];
+        }
+        $this->sendEvent('gameFinished', $scores);
+    }
 }

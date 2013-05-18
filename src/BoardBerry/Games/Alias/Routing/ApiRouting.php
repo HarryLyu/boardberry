@@ -116,7 +116,6 @@ class ApiRouting implements ControllerProviderInterface
                     return new JsonResponse(['result' => 'ok']);
 
                 case 'start-explanation':
-
                     $room = $roomManager->getRoom($roomId);
                     $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->startExplanation();
@@ -125,7 +124,6 @@ class ApiRouting implements ControllerProviderInterface
 
 
                 case 'finish-explanation':
-
                     if (($tempResult = $request->get('words')) === null) {
                         throw new \Exception('No words passed');
                     };
@@ -137,7 +135,6 @@ class ApiRouting implements ControllerProviderInterface
                     return new JsonResponse(['result' => 'ok']);
 
                 case 'edit-result':
-
                     if (($wordId = $request->get('word_id')) === null) {
                         throw new \Exception('No words passed');
                     };
@@ -149,10 +146,16 @@ class ApiRouting implements ControllerProviderInterface
                     return new JsonResponse(['result' => 'ok']);
 
                 case 'save-results':
-
                     $room = $roomManager->getRoom($roomId);
                     $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->addScore();
+
+                    return new JsonResponse(['result' => 'ok']);
+
+                case 'next-turn':
+                    $room = $roomManager->getRoom($roomId);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
+                    $game->nextTurn();
 
                     return new JsonResponse(['result' => 'ok']);
             }
