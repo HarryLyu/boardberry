@@ -54,4 +54,31 @@ class RoomEventManager
             ['explainerId' => $explainerId, 'activeTeamId' => $activeTeamId, 'words' => $wordSet]
         );
     }
+
+    public function gameStarted($teams)
+    {
+        $teamsRaw = [];
+        foreach ($teams as $team) {
+            $playersRaw = [];
+            foreach ($team->players as $playerId) {
+                $playersRaw[] = ['id' => $playerId, 'name' => 'aga' . $playerId];
+            }
+            $teamsRaw[] = ['id' => $team->id, 'players' => $playersRaw];
+        }
+
+        $this->sendEvent('gameStared', ['teams' => $teamsRaw]);
+    }
+
+    public function turnStarted($explainerId, $activeTeamId)
+    {
+        $this->sendEvent('turnStared', ['explainerId' => $explainerId, $activeTeamId => $activeTeamId]);
+    }
+
+    public function explanationFinished($words, $activeTeamId)
+    {
+        $this->sendEvent(
+            'explanationFinished',
+            ['words' => $words, 'activeTeamId' => $activeTeamId]
+        );
+    }
 }

@@ -16,6 +16,8 @@ class Room
     protected $playerRoomKey;
     protected $teamKey;
     protected $roomWordSetKey;
+    protected $roomTeamTurnsKey;
+    protected $roomPlayerTurnsKey;
 
     protected $simpleLoadFields = ['state', 'ownerId', 'teamCount', 'playerCount'];
 
@@ -30,6 +32,9 @@ class Room
     public $teams;
     public $teamCount;
 
+    public $activeTeamId;
+    public $explainerId;
+
     public function __construct($redis, $roomIdGenerator, $roomId)
     {
         $this->roomId = $roomId;
@@ -40,7 +45,9 @@ class Room
         $this->roomPlayersKey = $this->roomKey . ':PLAYERS';
         $this->playerRoomKey = PROJECT_NAME . ':PLAYER-ROOM';
         $this->teamKey = $this->roomKey . ':TEAMS';
-        $this->roomWordSetKey = $this->roomKey . ':WORDSET';
+        $this->roomWordSetKey = $this->roomKey . ':WORDPOOL';
+        $this->roomTeamTurnsKey = $this->roomKey . ':TEAM-TURNS';
+        $this->roomPlayerTurnsKey = $this->roomKey . ':PLAYER-TURNS';
     }
 
     public function init($ownerId)
@@ -88,16 +95,46 @@ class Room
         $this->teams[$teamId]->addPlayer($playerId);
     }
 
-    public function saveWordSet($words)
+    public function saveWordPool($words)
     {
         $this->redis->rpush($this->roomWordSetKey, $words);
     }
 
-    public function getWordSetForTurn()
+    public function addTurnQueues()
     {
-        return $this->redis->lrange(0, 50);
+        $first = true;
+        foreach ($this->teams as $team) {
+            if (count($team->players) > 0) {
+                if ($first) {
+                    $first = false;
+                    $this->activeTeamId = $team->id;
+                    $this->explainerId = $team->players[0];
+                }
+
+                $this->redis->lpush($this->roomTeamTurnsKey, $team->id);
+
+                foreach ($team->players as $playerId) {
+                    $this->redis->lpush($this->roomPlayerTurnsKey . ":" . $team->id, $playerId);
+                }
+            }
+        }
     }
 
+    public function getWordsForTurn()
+    {
+        return $this->redis->lrange($this->roomWordSetKey, 0, 50);
+    }
+
+    public function deleteWordsFromPool($wordsCount)
+    {
+        return $this->redis->ltrim($this->roomWordSetKey, 0, $wordsCount);
+    }
+
+    public function nextTurn()
+    {
+        $this->activeTeamId = $this->redis->rpoplpush($this->roomTeamTurnsKey);
+        $this->explainerId = $this->redis->rpoplpush($this->roomPlayerTurnsKey . ":" . $this->activeTeamId);
+    }
 
     public function restore()
     {
@@ -117,8 +154,11 @@ class Room
         }
 
         $players = $this->redis->hgetall($this->teamKey);
-        foreach($players as $playerId => $teamId) {
+        foreach ($players as $playerId => $teamId) {
             $this->teams[$teamId]->addPlayer($playerId);
         }
+
+        $this->activeTeamId = $this->redis->lindex($this->roomTeamTurnsKey, -1);
+        $this->explainerId = $this->redis->lindex($this->roomPlayerTurnsKey . ":" . $this->activeTeamId, -1);
     }
 }
