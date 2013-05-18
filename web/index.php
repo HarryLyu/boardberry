@@ -14,14 +14,16 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $app->register(new \BoardBerry\Common\ServiceProviders\RedisServiceProvider());
 
+$app->register(new \BoardBerry\Games\Alias\ServiceProviders\RoomServiceProvider());
+
 $commonRouting = new \BoardBerry\Common\Routing\CommonRouting('');
 $app->mount('', $commonRouting);
 
 $commonApiRouting = new \BoardBerry\Common\Routing\CommonApiRouting('');
-$app->mount('', $commonApiRouting);
+$app->mount('api', $commonApiRouting);
 
 $apiRouting = new \BoardBerry\Games\Alias\Routing\ApiRouting('');
-$app->mount('', $apiRouting);
+$app->mount('api', $apiRouting);
 
 
 $app->get('/alias', function () use ($app) {

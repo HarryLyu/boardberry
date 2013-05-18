@@ -16,12 +16,12 @@ class ApiRouting implements ControllerProviderInterface {
     {
         $collection = $app['controllers_factory'];
 
-        $collection->get('room', function ()
+        $collection->match('room', function ()
         {
             return 'creating room!';
         });
 
-        $collection->get('room/{id}', function ($id)
+        $collection->match('room/{id}', function ($id)
         {
             return 'room id ' . $id;
         });
