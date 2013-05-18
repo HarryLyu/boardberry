@@ -3,6 +3,7 @@ namespace BoardBerry\Games\Alias\Routing;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApiRouting implements ControllerProviderInterface {
     /**
@@ -18,7 +19,8 @@ class ApiRouting implements ControllerProviderInterface {
 
         $collection->match('room', function ()
         {
-            return 'creating room!';
+
+            return new JsonResponse([]);
         });
 
         $collection->match('room/{id}', function ($id)
