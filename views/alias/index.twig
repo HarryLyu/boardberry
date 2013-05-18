@@ -38,12 +38,14 @@
             Join existing game
         </a>
 
+        <!--
         <div class="gold-promo">
             Want to change game time?<br>
             Or you wanna save results?<br>
             <b>Buy Gold status just for $0.99!</b>
             <a href="btn-buy-btn"></a>
         </div>
+        -->
     </div>
     <div data-role="footer">
 
@@ -73,32 +75,34 @@
 </script>
 
 <script type="text/html" id="tplTeams">
-    <div class="wrapper team-container" data-team-container data-role="content">
+    <div class="wrapper team-container" data-role="content">
         <div class="room-link-container">
             Your friends can join this game using this ID: <b><%=data.id%></b>
         </div>
 
         <div class="users-count">
-            <span data-users-count><%=(data.player_count || 0)%></span> total users
+            <span data-players-count><%=(data.player_count || 0)%></span> total users
         </div>
         <h1>Choose your team</h1>
 
-        <% data.teams.forEach(function (team, index) { %>
-        <div data-team-item="<%=team.id%>" class="team-item team-item-<%=team.id%>">
-            <% team.users.forEach(function (user, userIndex) { %>
-                <img src="https://graph.facebook.com/<%=user%>/picture?type=square" data-user-item="<%=user%>" />
+        <div data-team-container>
+            <% data.teams.forEach(function (team, index) { %>
+            <div data-team-item="<%=team.id%>" class="team-item team-item-<%=team.id%>">
+                <% team.users.forEach(function (user, userIndex) { %>
+                    <img src="https://graph.facebook.com/<%=user%>/picture?type=square" data-user-item="<%=user%>" />
+                <% }); %>
+            </div>
             <% }); %>
         </div>
-        <% }); %>
 
-        <a href="#" data-game-action="add-team" class="btn-add-team">
+        <a href="#" data-game-action="add-team" class="ui-btn btn-add-team">
             <i class="icon-plus-circled"></i> Add team
         </a>
 
         <% if (me.id == data.owner) { %>
-        <a href="#" data-game-action="game-start" class="btn-start">
-            Let's play!
-        </a>
+            <a href="#" data-game-action="start-game" class="ui-btn btn-start">
+                Let's play!
+            </a>
         <% } %>
     </div>
 </script>

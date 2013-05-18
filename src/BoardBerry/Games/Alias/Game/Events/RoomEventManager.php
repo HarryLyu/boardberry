@@ -42,8 +42,8 @@ class RoomEventManager
         $this->sendEvent('playerJoinedToTeam', ['teamId' => $teamId, 'playerId' => $playerId]);
     }
 
-    public function teamAdded()
+    public function teamAdded($teamId)
     {
-        $this->sendEvent('teamAdded', []);
+        $this->sendEvent('teamAdded', ['teamId' => $teamId]);
     }
 }
