@@ -49,6 +49,7 @@ class Room
         $this->roomTeamTurnsKey = $this->roomKey . ':TEAM-TURNS';
         $this->roomPlayerTurnsKey = $this->roomKey . ':PLAYER-TURNS';
         $this->roomTurnResultsKey = $this->roomKey . ':TURN-RESULTS';
+        $this->roomTeamScoresKey = $this->roomKey . ':SCORES';
     }
 
     public function init($ownerId)
@@ -140,6 +141,26 @@ class Room
         $this->redis->hmset($this->roomTurnResultsKey, $results);
     }
 
+    public function getResults()
+    {
+        return $this->redis->hGetAll($this->roomTurnResultsKey);
+    }
+
+    public function addTeamScore($teamId, $score)
+    {
+        return $this->redis->hincrby($this->roomTeamScoresKey, $teamId, $score);
+    }
+
+    public function getTeamScore($teamId)
+    {
+        return $this->redis->hget($this->roomTeamScoresKey, $teamId);
+    }
+
+    public function getAllTeamScores()
+    {
+        return $this->redis->hgetall($this->roomTeamScoresKey);
+    }
+
     public function editResult($wordId)
     {
         $value = $this->redis->hget($this->roomTurnResultsKey, $wordId);
@@ -152,7 +173,10 @@ class Room
     public function nextTurn()
     {
         $this->activeTeamId = $this->redis->rpoplpush($this->roomTeamTurnsKey, $this->roomTeamTurnsKey);
-        $this->explainerId = $this->redis->rpoplpush($this->roomPlayerTurnsKey . ":" . $this->activeTeamId, $this->roomPlayerTurnsKey . ":" . $this->activeTeamId);
+        $this->explainerId = $this->redis->rpoplpush(
+            $this->roomPlayerTurnsKey . ":" . $this->activeTeamId,
+            $this->roomPlayerTurnsKey . ":" . $this->activeTeamId
+        );
     }
 
     public function restore()

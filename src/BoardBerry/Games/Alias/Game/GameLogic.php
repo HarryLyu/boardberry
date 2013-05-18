@@ -60,20 +60,33 @@ class GameLogic
 
     public function finishExplanation($tempResults)
     {
-//        $score = 0;
-//        foreach($tempResults as $value) {
-//            if($value==0) {
-//                $score--;
-//            } else {
-//                $score++;
-//            }
-//        }
-
         $this->room->saveResults($tempResults);
 
         $words = $this->room->getWordsForTurn();
-        $this->eventManager->explanationFinished($this->room->explainerId, $tempResults, $words, $this->room->activeTeamId);
+        $this->eventManager->explanationFinished(
+            $this->room->explainerId,
+            $tempResults,
+            $words,
+            $this->room->activeTeamId
+        );
         //$this->room->deleteWordsFromPool(sizeof($tempResults));
+    }
+
+    public function addScore()
+    {
+        $wordsResult = $this->room->getResults();
+
+        $score = 0;
+        foreach ($wordsResult as $value) {
+            if ($value == 0) {
+                $score--;
+            } else {
+                $score++;
+            }
+        }
+
+        $this->room->addTeamScore($this->room->activeTeamId, $score);
+        $this->eventManager->turnFinished($this->room->getAllTeamScores());
     }
 
     public function editResult($wordId)

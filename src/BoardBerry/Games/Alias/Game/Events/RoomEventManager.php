@@ -58,7 +58,8 @@ class RoomEventManager
                     'name' => 'hui2'
                 ],
                 'activeTeamId' => $activeTeamId,
-                'words' => $wordSet]
+                'words' => $wordSet
+            ]
         );
     }
 
@@ -78,7 +79,10 @@ class RoomEventManager
 
     public function turnStarted($explainerId, $activeTeamId)
     {
-        $this->sendEvent('turnStarted', ['explainer' => ['id' => $explainerId, 'name' => 'hui'], 'activeTeamId' => $activeTeamId]);
+        $this->sendEvent(
+            'turnStarted',
+            ['explainer' => ['id' => $explainerId, 'name' => 'hui'], 'activeTeamId' => $activeTeamId]
+        );
     }
 
     public function explanationFinished($explainerId, $tempResults, $words, $activeTeamId)
@@ -105,5 +109,17 @@ class RoomEventManager
     public function resultUpdated($wordId, $value)
     {
         $this->sendEvent('resultUpdated', ['id' => $wordId, 'result' => $value]);
+    }
+
+    public function turnFinished($teamScores)
+    {
+        $scores = [];
+        foreach ($teamScores as $teamId => $score) {
+            $scores[] = [
+                'id' => $teamId,
+                'position' => $score
+            ];
+        }
+        $this->sendEvent('turnFinished', $teamScores);
     }
 }

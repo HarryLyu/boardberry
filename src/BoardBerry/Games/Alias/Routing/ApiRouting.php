@@ -140,6 +140,14 @@ class ApiRouting implements ControllerProviderInterface
                     $game->editResult($wordId);
 
                     return new JsonResponse(['result' => 'ok']);
+
+                case 'save-results':
+
+                    $room = $roomManager->getRoom($roomId);
+                    $game = new GameLogic($roomEventManager, $room);
+                    $game->addScore();
+
+                    return new JsonResponse(['result' => 'ok']);
             }
         });
 
