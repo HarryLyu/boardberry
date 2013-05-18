@@ -6,6 +6,8 @@ use BoardBerry\Games\Alias\Room\Teams\Team;
 
 class Room
 {
+
+    const CHANNEL_NAME = 'BCAST_ROOM_';
     public $redis;
 
     /** @var RoomIdGenerator */
