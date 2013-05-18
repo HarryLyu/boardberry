@@ -122,3 +122,40 @@ BB.classes.TeamsView = Class.extend({
         return this.params;
     }
 });
+
+BB.classes.TurnPrepareView = Class.extend({
+    loc: {
+        imReadyBtn: '[data-game-action="turn-start"]'
+    },
+
+    init: function (params){
+        this.params = params;
+        this.root = $(params.root);
+        this.private_assignEvents();
+    },
+
+
+    private_assignEvents: function (){
+        this.root.on('click', this.loc.imReadyBtn, function(){
+            $.post('/api/room/' + BB.views.teams.data.id,{
+                action: 'turn-start',
+                user: BB.user.id
+            }, function(data){
+                console.log(data);
+            });
+        })
+    },
+
+    render: function (data){
+        this.root.html(tmpl('tplTurnPrepare', {explain: data.explain, me: BB.user, guess: data.guess}));
+        $.mobile.navigate('#turn-prepare');
+    },
+
+    update: function (data){
+        this.root.html(tmpl('tplTurnPrepare', {explain: data.explain, me: BB.user, guess: data.guess}));
+    },
+
+    getData: function (){
+        return this.params;
+    }
+});

@@ -55,6 +55,9 @@
 <div data-role="page" id="teams" data-theme="b" data-view-name="teams">
 </div>
 
+<div data-role="page" id="turn-prepare" data-theme="b" data-view-name="turn-prepare">
+</div>
+
 <script type="text/html" id="tplJoin">
     <div data-role="content" class="wrapper">
         <h1>
@@ -100,14 +103,14 @@
     </div>
 </script>
 
-<script type="text/html" id="tplTurnBegin">
+<script type="text/html" id="tplTurnPrepare">
     <div data-role="content" class="wrapper">
         <h1>
             <img src="https://graph.facebook.com/<%=explain.id%>/picture?type=square" /> <%=explain.name%> explains
         </h1>
 
         <h2>
-            <% guess.forEach(function (index, guessItem) { %>
+            <% guess.forEach(function (guessItem, index) { %>
                 <img src="https://graph.facebook.com/<%=guessItem%>/picture?type=square" />
             <% }) %>
             guess
