@@ -19,7 +19,6 @@
         teams: new BB.classes.TeamsView({root: '[data-view-name=teams]'})
     };
 
-
     $(document.body).on('click', '[data-game-action="create"]', function () {
         FBApp.login(function (authData, userProfile) {
             $.post(
@@ -38,23 +37,37 @@
                             owner: 'TODO ownerId'
                         },
                         function (roomData) {
-                            console.log('room recieved', roomData);
+                            BB.views.teams.render(roomData);
                         }
                     );
                 }
             );
         });
     }).on('click', '[data-game-action="join"]', function () {
-            var mock = {
-                state : 'join',
-                moreInfo: 'dddddd'
-            };
+        FBApp.login(function (authData, userProfile) {
+            $.post(
+                '/api/user', {
+                    auth: authData,
+                    user: userProfile
+                },
+                function (response) {
+                    if (response.userID) {
+                        BB.user.id = response.user.userID
+                    }
+                    $.post(
+                        '/api/room',
+                        {
+                            action: 'join',
+                            owner: 'TODO ownerId'
+                        },
+                        function (roomData) {
+                            BB.views.join.render(roomData);
+                        }
+                    );
+                }
+            );
 
-            BB.changeState(mock);
-
-//        FBApp.login(function (authData, userProfile) {
-//            console.log()
-//        });
+        });
     });
 
     BB.teamColors = [
@@ -67,4 +80,9 @@
         '#006400',
         '#8B008B'
     ];
+
+    BB.realplexor = new Dklab_Realplexor(
+        "http://comet.stas.boardberry.me/",
+        "BB"
+    );
 })(BB);

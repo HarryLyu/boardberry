@@ -22,19 +22,18 @@
 <body>
 
 <div data-role="page" id="main_page" data-theme="b">
-    <div data-role="header" >
-        <div class="logo">
-            <- BoardBerry.me
-        </div>
-        <a href="#settings" data-icon="gear" class="ui-btn-right">Options</a>
+    <div data-role="header" class="wrapper">
+        <a href="/" class="logo small">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
     </div>
     <div data-role="content" >
-        <a data-game-action="create" href="">
+
+        <a data-game-action="create" href="" class="ui-btn">
             Create game
         </a>
 
-        <br><br>
-        <a href="" data-game-action="join">
+        <a href="" data-game-action="join" class="ui-btn">
             Join existing game
         </a>
 
@@ -42,7 +41,7 @@
             Want to change game time?<br>
             Or you wanna save results?<br>
             <b>Buy Gold status just for $0.99!</b>
-            <a href="btn-buy-btn">
+            <a href="btn-buy-btn"></a>
         </div>
     </div>
     <div data-role="footer">
@@ -59,6 +58,7 @@
 
 
 
+<script type="text/javascript" src="http://comet.stas.boardberry.me/?identifier=SCRIPT"></script>
 
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery-mobile.js"></script>
@@ -70,7 +70,15 @@
 <script src="js/facebook.js"></script>
 
 <script type="text/html" id="tplJoin">
-    ololol + <%=moreInfo%>
+    <h1>
+        Type your friends' room number
+    </h1>
+
+    <input type="text" data-room-id palceholder="Room ID" />
+
+    <a href="" data-game-action="join-room">
+        Join
+    </a>
 </script>
 
 <script type="text/html" id="tplTeams">

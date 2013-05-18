@@ -5,17 +5,38 @@ body {
     font-family: "Noto Sans", Helvetica, Arial;
 }
 
+h1 {
+    font-size: 24px;
+}
+
 .wrapper {
-    max-width: 800px;
+    max-width: 320px;
     width: auto;
-    margin: 20px auto;
+    margin: 0 auto;
+}
+
+.ui-header {
+    min-height: 40px;
 }
 
 .logo {
     font-family: Milonga, Helvetica, Arial;
     color: white;
-    font-size: 48px;
+    font-size: 40px;
+    text-decoration: none;
 }
+
+    .logo .icon-reply {
+        display: none;
+    }
+
+    .logo.small {
+        font-size: 12.5px;
+    }
+
+    .logo.small .icon-reply {
+        display: inline-block;
+    }
 
 .top-links {
     margin: 10px 0;
