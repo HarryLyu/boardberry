@@ -23,7 +23,8 @@
                     $.post(
                         '/api/room',
                         {
-                            action: 'create'
+                            action: 'create',
+                            owner: 'TODO ownerId'
                         },
                         function (roomData) {
                             console.log('room recieved', roomData);
