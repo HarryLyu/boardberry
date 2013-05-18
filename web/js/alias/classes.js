@@ -179,7 +179,7 @@ BB.classes.ExplanationStartedView = Class.extend({
 
     private_assignEvents: function (){
         this.root.on('click', this.loc.imReadyBtn, function(){
-                $.post('/api/room/' + BB.views.teams.data.id,{
+                $.post('/api/room/' + BB.roomData.id,{
                     action: 'start-turn',
                     user: BB.user.id
                 }, function(data){
@@ -191,11 +191,13 @@ BB.classes.ExplanationStartedView = Class.extend({
     },
 
     initView: function(data){
+        console.log('ExplanationStartedView initView', data);
         this.data = data;
         this.currentWordIndex = 0;
         this.answeredCount = 0;
         this.skippedCount = 0;
         this.wordAnswers = [];
+
         this.private_render(data);
         this.private_initTimer();
         this.private_loadWord();
@@ -225,14 +227,17 @@ BB.classes.ExplanationStartedView = Class.extend({
 
     private_render: function (data){
         if (data.explainer.id == BB.user.id){
+            console.log('render explanation for Explainer');
             this.root.html(tmpl('tplTurnExplain', {}));
         } else {
+            console.log('render explanation for Waiter');
             this.root.html(tmpl('tplTurnWait', {explainer: data.explainer, me: BB.user, team: BB.teams[data.activeTeamId]}));
         }
         $.mobile.navigate('#explanation-started');
     },
 
     private_initTimer: function(){
+        console.log('init timer');
         var self = this,
             $timer = $(this.loc.time),
             startTime = new Date().getTime(),
@@ -241,14 +246,16 @@ BB.classes.ExplanationStartedView = Class.extend({
         this.timerInterval = setInterval(function(){
             var currentTime = new Date().getTime(),
                 deltaTime = currentTime - startTime,
-                seconds = deltaTime / 1000,
-                milliSeconds = deltaTime % 1000;
-
-            $timer.html('00:' + seconds + ':' + milliSeconds);
+                timeToShow = maxDiff - deltaTime,
+                seconds = Math.round(timeToShow / 1000),
+                milliSeconds = timeToShow % 1000;
 
             if (deltaTime > maxDiff) {
                 clearInterval(self.timerInterval);
                 self.private_onEndTimer();
+            }
+            else {
+                $timer.html('00:' + seconds + ':' + milliSeconds);
             }
         }, 100)
     },
@@ -257,7 +264,7 @@ BB.classes.ExplanationStartedView = Class.extend({
         console.log('timer end');
 
         if (this.data.explainer.id == BB.user.id){
-            $.post('/api/room/' + BB.gameData.id, {
+            $.post('/api/room/' + BB.roomData.id, {
                 action: 'finish-explanation',
                 words: this.wordAnswers
             },
@@ -265,5 +272,52 @@ BB.classes.ExplanationStartedView = Class.extend({
                 console.log('answers save result', data);
             })
         }
+    }
+});
+
+BB.classes.ExplanationFinishedView = Class.extend({
+    loc: {
+        toggleResultBtn: '[data-word-id]',
+        saveResultBtn: '[data-save-result]'
+    },
+
+    init: function (params){
+        this.params = params;
+        this.root = $(params.root);
+        this.private_assignEvents();
+    },
+
+
+    private_assignEvents: function (){
+        this.root.on('click', this.loc.toggleResultBtn, function () {
+            $.post('/api/room/' + BB.roomData.id,{
+                action: 'edit-result',
+                word_id: $(this).data('word-id')
+            },
+            function (data) {
+                console.log ('edit result response ', data)
+            })
+        })
+            .on('click', this.loc.saveResultBtn, function () {
+                $.post('/api/room/' + BB.roomData.id,{
+                        action: 'save-results'
+                    },
+                    function (data) {
+                        console.log ('save result response ', data)
+                    })
+            });
+    },
+
+    initView: function(data){
+        this.private_render(data);
+    },
+
+    private_render: function (data){
+        this.root.html(tmpl('tplTurnResult', {words: data.words, me: BB.user, explainer: data.explainer, team: BB.teams[data.activeTeamId]}));
+        $.mobile.navigate('#explanation-finished');
+    },
+
+    updateResult: function (wordData) {
+        this.root.find('[data-word-id=' + wordData.id + ']').toggleClass('correct', wordData.result == 1);
     }
 });

@@ -63,6 +63,9 @@
 <div data-role="page" id="explanation-started" data-theme="b" data-view-name="explanation-started">
 </div>
 
+<div data-role="page" id="explanation-finished" data-theme="b" data-view-name="explanation-finished">
+</div>
+
 <script type="text/html" id="tplJoin">
     <div data-role="content" class="wrapper">
         <h1>
@@ -171,7 +174,7 @@
                 if (playerItem.id != explainer.id) { %>
                     <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
                 <% }
-            }) %>
+            }); %>
             guess
         </div>
 
@@ -185,23 +188,26 @@
 <script type="text/html" id="tplTurnResult">
     <div data-role="content" class="wrapper">
         <div class="user-list">
-            <% team.users.forEach(function (index, teamItem) { %>
-                <img src="https://graph.facebook.com/<%=teamItem%>/picture?type=square" />
+            <% team.users.forEach(function (playerItem, index) { %>
+                <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
             <% }); %>
         </div>
 
         <div class="turn-results">
-            <% results.foreach(function (index, resultItem) { %>
+            <% words.foreach(function (wordItem, index) { %>
                 <div class="result-item <%=resultItem.result%>" data-result-item="<%=resultItem.id%>">
-                    <span><%=resultItem.text%></span>
-                    <a href="" data-result-toggle="<%=resultItem.id%>"></a>
+                    <span><%=wordItem.text%></span>
+                    <a href="" data-word-id="<%=resultItem.id%>" class="<%= (wordItem.result) ? 'correct' %>"></a>
                 </div>
             <% }); %>
         </div>
 
-        <a data-game-action="turn-finish" class="btn-start">
+        <% if (explainer.id == me.id) { %>
+
+        <a data-save-result class="btn-start">
             All right, go next!
         </a>
+        <% } %>
     </div>
 </script>
 
