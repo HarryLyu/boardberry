@@ -11,7 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiRouting implements ControllerProviderInterface {
+class ApiRouting implements ControllerProviderInterface
+{
     /**
      * Returns routes to connect to the given application.
      *
@@ -23,18 +24,17 @@ class ApiRouting implements ControllerProviderInterface {
     {
         $collection = $app['controllers_factory'];
 
-        $collection->match('room', function (Request $request) use ($app)
-        {
+        $collection->match('room', function (Request $request) use ($app) {
             /** @var RoomManager $roomManager */
             $roomManager = $app['alias.room-manager'];
 
-            if (!$action = $request->get('action')){
+            if (!$action = $request->get('action')) {
                 throw new \Exception('No action passed');
             };
 
             switch ($action) {
                 case 'create':
-                    if (!$ownerId = $request->get('owner')){
+                    if (($ownerId = $request->get('owner')) === null) {
                         throw new \Exception('No owner passed');
                     };
 
@@ -45,24 +45,24 @@ class ApiRouting implements ControllerProviderInterface {
                     $game->init($ownerId);
 
                     $formatter = new RoomResponseFormatter($roomEventManager, $room);
+
                     return new JsonResponse($formatter->format());
             }
         });
 
-        $collection->match('room/{roomId}', function (Request $request, $roomId) use ($app)
-        {
+        $collection->match('room/{roomId}', function (Request $request, $roomId) use ($app) {
             /** @var RoomManager $roomManager */
             $roomManager = $app['alias.room-manager'];
 
             $roomEventManager = new RoomEventManager($app['comet'], $roomId);
 
-            if (!$action = $request->get('action')){
+            if (!$action = $request->get('action')) {
                 throw new \Exception('No action passed');
             };
 
             switch ($action) {
-                case 'join':
-                    if (!$playerId = $request->get('user')){
+                case 'join-room':
+                    if (($playerId = $request->get('user')) === null) {
                         throw new \Exception('No player passed');
                     };
 
@@ -71,7 +71,23 @@ class ApiRouting implements ControllerProviderInterface {
                     $game->addPlayer($playerId);
 
                     $formatter = new RoomResponseFormatter($roomEventManager, $room);
+
                     return new JsonResponse($formatter->format());
+
+                case 'join-team':
+                    if (($playerId = $request->get('user')) === null) {
+                        throw new \Exception('No player passed');
+                    };
+
+                    if (($teamId = $request->get('team')) === null) {
+                        throw new \Exception('No team passed');
+                    };
+
+                    $room = $roomManager->getRoom($roomId);
+                    $game = new GameLogic($roomEventManager, $room);
+                    $game->addPlayerToTeam($teamId, $playerId);
+
+                    return new JsonResponse(['result' => 'ok']);
             }
         });
 

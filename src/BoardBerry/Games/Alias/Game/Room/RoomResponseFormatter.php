@@ -38,7 +38,7 @@ class RoomResponseFormatter
     {
         $data = [];
         foreach ($this->room->teams as $team) {
-            $data[] = ['id' => $team->id, 'users' => $team->users];
+            $data[] = ['id' => $team->id, 'users' => array_keys($team->players)];
         }
 
         return $data;
