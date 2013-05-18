@@ -58,7 +58,7 @@ class JSTemplater
                 (count($templatesList) == 0 || in_array($templateName, $templatesList))
             ) {
                 $partialHtml = file_get_contents($templateDir . $templateName . '.jst');
-                $htmlPieces[] = "LEO.templates['" . (is_null($as) ?  $moduleName : $as) . "']['" . $templateName . "'] = " . self::parseJsHtml(
+                $htmlPieces[] = "BB.templates['" . (is_null($as) ?  $moduleName : $as) . "']['" . $templateName . "'] = " . self::parseJsHtml(
                         $partialHtml
                     );
             }
