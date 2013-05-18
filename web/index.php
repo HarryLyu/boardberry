@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../lib/Realplexor.php';
 
 $app = new Silex\Application();
 $app['debug'] = 1;
@@ -14,6 +15,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $app->register(new \BoardBerry\Common\ServiceProviders\RedisServiceProvider());
 $app->register(new \BoardBerry\Common\ServiceProviders\UserServiceProvider());
+$app->register(new \BoardBerry\Common\ServiceProviders\CometServiceProvider());
 
 $app->register(new \BoardBerry\Games\Alias\ServiceProviders\RoomServiceProvider());
 
