@@ -3,6 +3,7 @@ namespace BoardBerry\Games\Alias\Routing;
 
 use BoardBerry\Games\Alias\Game;
 use BoardBerry\Games\Alias\Room\RoomManager;
+use BoardBerry\Games\Alias\Room\RoomResponseFormatter;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +25,7 @@ class ApiRouting implements ControllerProviderInterface {
         $collection->match('room', function (Request $request) use ($app)
         {
             /** @var RoomManager $roomManager */
-            $roomManager = $app['room-manager'];
+            $roomManager = $app['alias.room-manager'];
 
             if (!$action = $request->get('action')){
                 throw new \Exception('No action');
@@ -32,13 +33,16 @@ class ApiRouting implements ControllerProviderInterface {
 
             switch ($action) {
                 case 'create':
-                    $ownerId = $request->get('owner');
+                    if (!$ownerId = $request->get('owner')){
+                        throw new \Exception('No owner');
+                    };
+
                     $room = $roomManager->createRoom($ownerId);
 
-                    $game = new Game($room);
+                    $game = new Game($room, new RoomResponseFormatter());
                     $game->init($ownerId);
 
-                    return new JsonResponse($game->getData());
+                    return new JsonResponse($game->getResponseFormatter()->format());
             }
         });
 

@@ -25,7 +25,7 @@ class RoomIdGenerator
     {
         do {
             $id = rand(10000000, 99999999);
-        } while ($this->redis->hexists($this->getRoomKey($id)));
+        } while ($this->redis->exists($this->getRoomKey($id)));
 
         return $id;
     }

@@ -15,6 +15,7 @@ class RoomResponseFormatter
 
     public function format()
     {
+        $response['result'] = 'ok';
         $response['state'] = $this->room->state;
         $response['data']['id'] = $this->room->roomId;
         $response['data']['owner'] = $this->room->ownerId;

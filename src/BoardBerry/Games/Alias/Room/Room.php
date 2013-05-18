@@ -25,7 +25,7 @@ class Room
     public $teams;
     public $teamCount;
 
-    public function __constructor($redis, $roomIdGenerator, $roomId)
+    public function __construct($redis, $roomIdGenerator, $roomId)
     {
         $this->roomId = $roomId;
         $this->roomIdGenerator = $roomIdGenerator;
@@ -38,7 +38,7 @@ class Room
     public function init($ownerId)
     {
         $this->ownerId = $ownerId;
-        $this->redis->hset($this->roomKey, 'ownerId', $this->$ownerId);
+        $this->redis->hset($this->roomKey, 'ownerId', $this->ownerId);
     }
 
     public function addPlayer($playerId)
