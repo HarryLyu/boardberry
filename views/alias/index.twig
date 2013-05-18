@@ -54,7 +54,7 @@
 <div data-role="page" id="join" data-theme="b" data-view-name="join">
 </div>
 
-<div data-role="page" id="teams" data-theme="b" data-view-name="teams">
+<div data-role="page" id="teams" data-theme="b" data-view-name="teams" data-transition="flip">
 </div>
 
 <div data-role="page" id="turn-started" data-theme="b" data-view-name="turn-started">
@@ -247,9 +247,9 @@
             </tbody>
         </table>
 
-        <% if (me.id == data.owner) { %>
-        <a href="#" data-game-action="start-game" class="ui-btn btn-start">
-            Поехали!
+        <% if (me.id == roomData.owner) { %>
+        <a href="#" data-game-action="next-turn" class="ui-btn btn-start">
+            Следующий ход
         </a>
         <% } %>
     </div>
