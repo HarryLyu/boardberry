@@ -7,18 +7,6 @@
     BB.teams = {};
     BB.roomData = {};
 
-    BB.channelHandlers = {
-        playerJoinedToTeam: BB.views.teams.playerJoinedToTeam_handler.bind(BB.views.teams),
-        teamAdded: BB.views.teams.teamAdded_handler.bind(BB.views.teams),
-        playerJoinedToRoom: BB.views.teams.playerJoinedToRoom_handler.bind(BB.views.teams),
-        turnStarted: BB.views.turnStarted.initView.bind(BB.views.turnStarted),
-        gameStarted: function(data){
-            data.teams.forEach(function(elem){
-               BB.teams[elem.id] = elem.players;
-            });
-        }
-    };
-
     BB.subscribeOnChannel = function(data){
         if (!BB.isChannelInited) {
             BB.isChannelInited = true;
