@@ -9,5 +9,6 @@ BB.channelHandlers = {
                 BB.teams[elem.id] = elem.players;
             }
         });
-    }
+    },
+    explanationStarted: BB.views.explanationStarted.initView.bind(BB.views.explanationStarted)
 };

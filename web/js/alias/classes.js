@@ -179,7 +179,7 @@ BB.classes.ExplanationStartedView = Class.extend({
 
     private_assignEvents: function (){
         this.root.on('click', this.loc.imReadyBtn, function(){
-                $.post('/api/room/' + BB.views.teams.data.id,{
+                $.post('/api/room/' + BB.roomData.id,{
                     action: 'start-turn',
                     user: BB.user.id
                 }, function(data){
@@ -191,11 +191,13 @@ BB.classes.ExplanationStartedView = Class.extend({
     },
 
     initView: function(data){
+        console.log('ExplanationStartedView initView', data);
         this.data = data;
         this.currentWordIndex = 0;
         this.answeredCount = 0;
         this.skippedCount = 0;
         this.wordAnswers = [];
+
         this.private_render(data);
         this.private_initTimer();
         this.private_loadWord();
@@ -225,14 +227,17 @@ BB.classes.ExplanationStartedView = Class.extend({
 
     private_render: function (data){
         if (data.explainer.id == BB.user.id){
+            console.log('render explanation for Explainer');
             this.root.html(tmpl('tplTurnExplain', {}));
         } else {
+            console.log('render explanation for Waiter');
             this.root.html(tmpl('tplTurnWait', {explainer: data.explainer, me: BB.user, team: BB.teams[data.activeTeamId]}));
         }
         $.mobile.navigate('#explanation-started');
     },
 
     private_initTimer: function(){
+        console.log('init timer');
         var self = this,
             $timer = $(this.loc.time),
             startTime = new Date().getTime(),
@@ -241,8 +246,9 @@ BB.classes.ExplanationStartedView = Class.extend({
         this.timerInterval = setInterval(function(){
             var currentTime = new Date().getTime(),
                 deltaTime = currentTime - startTime,
-                seconds = deltaTime / 1000,
-                milliSeconds = deltaTime % 1000;
+                timeToShow = maxDiff - deltaTime,
+                seconds = Math.round(timeToShow / 1000),
+                milliSeconds = timeToShow % 1000;
 
             $timer.html('00:' + seconds + ':' + milliSeconds);
 
@@ -257,7 +263,7 @@ BB.classes.ExplanationStartedView = Class.extend({
         console.log('timer end');
 
         if (this.data.explainer.id == BB.user.id){
-            $.post('/api/room/' + BB.gameData.id, {
+            $.post('/api/room/' + BB.roomData.id, {
                 action: 'finish-explanation',
                 words: this.wordAnswers
             },
