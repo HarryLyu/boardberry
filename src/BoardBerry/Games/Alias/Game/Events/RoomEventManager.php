@@ -73,7 +73,7 @@ class RoomEventManager
             $teamsRaw[] = ['id' => $team->id, 'players' => $playersRaw];
         }
 
-        $this->sendEvent('gameStared', ['teams' => $teamsRaw]);
+        $this->sendEvent('gameStarted', ['teams' => $teamsRaw]);
     }
 
     public function turnStarted($explainerId, $activeTeamId)
