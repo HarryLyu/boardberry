@@ -31,11 +31,11 @@
     <div data-role="content" class="wrapper">
 
         <a data-game-action="create" href="" class="ui-btn">
-            Create game
+            Создать игру
         </a>
 
         <a href="" data-game-action="join" class="ui-btn">
-            Join existing game
+            Присоединиться к игре
         </a>
 
         <!--
@@ -74,13 +74,13 @@
 <script type="text/html" id="tplJoin">
     <div data-role="content" class="wrapper">
         <h1>
-            Type your friends' room number
+            Введите номер игры
         </h1>
 
         <input type="text" data-room-id palceholder="Room ID" />
 
         <a href="" data-game-action="join-room">
-            Join
+            Присоединиться
         </a>
     </div>
 </script>
@@ -88,13 +88,13 @@
 <script type="text/html" id="tplTeams">
     <div class="wrapper team-container" data-role="content">
         <div class="room-link-container">
-            Your friends can join this game using this ID: <b><%=data.id%></b>
+            Ваши друзья могут подключитсья к игре, используя этот номер: <b><%=data.id%></b>
         </div>
 
         <div class="users-count">
-            <span data-players-count><%=(data.player_count || 1)%></span> total users
+            <span data-players-count><%=(data.player_count || 1)%></span> игроков в игре
         </div>
-        <h1>Choose your team</h1>
+        <h1>Выберите цвет своей команды</h1>
 
         <div data-team-container>
             <% data.teams.forEach(function (team, index) { %>
@@ -107,12 +107,12 @@
         </div>
 
         <a href="#" data-game-action="add-team" class="ui-btn btn-add-team">
-            <i class="icon-plus-circled"></i> Add team
+            <i class="icon-plus-circled"></i> Добавить команду
         </a>
 
         <% if (me.id == data.owner) { %>
             <a href="#" data-game-action="start-game" class="ui-btn btn-start">
-                Let's play!
+                Поехали!
             </a>
         <% } %>
     </div>
@@ -121,7 +121,7 @@
 <script type="text/html" id="tplTurnStarted">
     <div data-role="content" class="wrapper">
         <div class="explainer-container">
-            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> explains
+            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> объясняет
         </div>
 
         <div class="user-list">
@@ -130,12 +130,12 @@
                     <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
                 <% }
             }); %>
-            guess
+            угадыает
         </div>
 
         <% if (explainer.id == me.id) { %>
             <a data-game-action="start-explanation" class="btn-start">
-                I'm ready!
+                Я готов!
             </a>
         <% } %>
     </div>
@@ -145,7 +145,7 @@
     <div data-role="content" class="wrapper">
 
         <div class="time-container" data-time-container>
-            00:60:100
+            00:60:99
         </div>
 
         <div class="word-container" data-word-container>
@@ -155,13 +155,13 @@
             <div class="control">
                 <span data-skipped-count class="words-count">0</span>
                 <a href="" class="btn-word-skip ui-btn" data-skip-btn>
-                    <i class="icon-left"></i>Skip
+                    <i class="icon-left"></i>Пропустить
                 </a>
             </div>
             <div class="control">
                 <span data-answered-count class="words-count">0</span>
                 <a href="" class="btn-word-skip ui-btn" data-answer-btn>
-                    Answered <i class="icon-right"></i>
+                    Отгадал <i class="icon-right"></i>
                 </a>
             </div>
         </div>
@@ -171,7 +171,7 @@
 <script type="text/html" id="tplTurnWait">
     <div data-role="content" class="wrapper">
         <div class="explainer-container">
-            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> explains
+            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> объясняет
         </div>
 
         <div class="user-list">
@@ -184,7 +184,7 @@
         </div>
 
         <div class="time-container" data-time-container>
-            00:60:100
+            00:60:99
         </div>
     </div>
 </script>
@@ -199,7 +199,7 @@
         </div>
 
         <div class="results-description">
-            Edit your results by clicking on it
+            Нажмите на слово, чтобы изменить результат
         </div>
 
         <div class="turn-results">
@@ -214,7 +214,7 @@
 
         <% if (explainer.id == me.id) { %>
         <a data-game-action="save-results" class="ui-btn btn-start">
-            All right, go next!
+            Все правильно, идем дальше!
         </a>
         <% } %>
     </div>

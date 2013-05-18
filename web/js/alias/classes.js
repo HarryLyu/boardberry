@@ -18,12 +18,12 @@ BB.classes.JoinView = Class.extend({
                 var roomId = $(self.loc.input).val();
 
                 if (!roomId) {
-                    alert('Please type game number!');
+                    alert('Введите номер игры!');
                     return;
                 }
 
                 if (!/\d{8}/.test(roomId)) {
-                    alert('Game number must contain 8 numbers!');
+                    alert('Номер игры должен состоять из восьми цифр!');
                     return;
                 }
 
