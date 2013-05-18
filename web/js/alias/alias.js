@@ -37,23 +37,37 @@
                             owner: 'TODO ownerId'
                         },
                         function (roomData) {
-                            alert('room recieved', roomData);
+                            BB.views.teams.render(roomData);
                         }
                     );
                 }
             );
         });
     }).on('click', '[data-game-action="join"]', function () {
-            var mock = {
-                state : 'join',
-                moreInfo: 'dddddd'
-            };
+        FBApp.login(function (authData, userProfile) {
+            $.post(
+                '/api/user', {
+                    auth: authData,
+                    user: userProfile
+                },
+                function (response) {
+                    if (response.userID) {
+                        BB.user.id = response.user.userID
+                    }
+                    $.post(
+                        '/api/room',
+                        {
+                            action: 'join',
+                            owner: 'TODO ownerId'
+                        },
+                        function (roomData) {
+                            BB.views.join.render(roomData);
+                        }
+                    );
+                }
+            );
 
-            BB.changeState(mock);
-
-//        FBApp.login(function (authData, userProfile) {
-//            console.log()
-//        });
+        });
     });
 
     BB.teamColors = [
