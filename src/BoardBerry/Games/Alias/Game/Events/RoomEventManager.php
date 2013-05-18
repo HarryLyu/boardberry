@@ -54,4 +54,12 @@ class RoomEventManager
             ['explainerId' => $explainerId, 'activeTeamId' => $activeTeamId, 'words' => $wordSet]
         );
     }
+
+    public function explanationFinished($words, $activeTeamId)
+    {
+        $this->sendEvent(
+            'explanationFinished',
+            ['words' => $words, 'activeTeamId' => $activeTeamId]
+        );
+    }
 }

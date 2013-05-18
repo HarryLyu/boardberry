@@ -88,14 +88,18 @@ class Room
         $this->teams[$teamId]->addPlayer($playerId);
     }
 
-    public function saveWordSet($words)
+    public function saveWordPool($words)
     {
         $this->redis->rpush($this->roomWordSetKey, $words);
     }
 
-    public function getWordSetForTurn()
+    public function getWordsForTurn()
     {
-        return $this->redis->lrange(0, 50);
+        return $this->redis->lrange($this->roomWordSetKey, 0, 50);
+    }
+
+    public function deleteWordsFromPool($wordsCount){
+        return $this->redis->ltrim($this->roomWordSetKey, 0, $wordsCount);
     }
 
 
