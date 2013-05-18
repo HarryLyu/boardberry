@@ -21,12 +21,13 @@
 </head>
 <body>
 
+<div class="wrapper" data-role="header">
+    <a href="/" class="logo small">
+        <i class="icon-reply"></i> BoardBerry.me
+    </a>
+</div>
+
 <div data-role="page" id="main_page" data-theme="b">
-    <div data-role="header" class="wrapper">
-        <a href="/" class="logo small">
-            <i class="icon-reply"></i> BoardBerry.me
-        </a>
-    </div>
     <div data-role="content" >
 
         <a data-game-action="create" href="" class="ui-btn">
@@ -82,19 +83,20 @@
 </script>
 
 <script type="text/html" id="tplTeams">
-    <div class="users-count">
-        <span data-users-count><%=total_users%></span> total users
-    </div>
-    <h1>Choose your team</h1>
-
-    <div class="team-container" data-team-container>
-        <% data.teams.forEach(function (index, team) { ?>
-        <div data-team-item="<%=team.id%>" class="team-item-<%=team.id%>" style="background-color: <%=BB.teamColors[team.id]%>">
-            <% team.users.forEach(function (userIndex, user) { %>
-            <img src="https://graph.facebook.com/<%=user%>/picture?type=square" />
-            <% }) %>
+    <div data-role="content">
+        <div class="users-count" >
+            <span data-users-count><%=data.total_users%></span> total users
         </div>
-        <% }) %>
+        <h1>Choose your team</h1>
+    </div>
+    <div class="team-container" data-team-container data-role="content">
+        <% data.teams.forEach(function (team, index) { %>
+        <div data-team-item="<%=team.id%>" class="team-item-<%=team.id%>" style="background-color: <%=BB.teamColors[team.id]%>">
+            <% team.users.forEach(function (user, userIndex) { %>
+                <img src="https://graph.facebook.com/<%=user%>/picture?type=square" />
+            <% }); %>
+        </div>
+        <% }); %>
     </div>
 
     <a href="#" data-game-action="add-team" class="btn-add-team">
