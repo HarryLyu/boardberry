@@ -18,9 +18,17 @@
     <!-- <link href='http://fonts.googleapis.com/css?family=Milonga' rel='stylesheet' type='text/css'> -->
 </head>
 <body>
-    <div class="wrapper">
-        <div class="logo">
-            BoardBerry.me
+    <div data-role="page" id="main_page" data-theme="b">
+        <div data-role="header" >
+            <h1 id="twi_acc">Home page</h1>
+            <a href="#settings" data-icon="gear" class="ui-btn-right">Options</a>
+        </div>
+        <div data-role="content" >
+            <ul data-role="listview" data-inset="true" data-theme="a">
+                <li><a href="#second_page">second_page</a></li>
+            </ul>
+        </div>
+        <div data-role="footer">
         </div>
 
         <div class="content" data-content>
@@ -52,7 +60,19 @@
         </div>
     </div>
 
-    <script src="js/lib/jquery.js"></script>
+    <div data-role="page" id="second_page" data-theme="c">
+        <div data-role="header" >
+            <h1 id="twi_acc">Home page</h1>
+            <a href="#settings" data-icon="gear" class="ui-btn-right">Options</a>
+        </div>
+        <div data-role="content" >
+            <label for="slider">Value this site:</label>
+            <input type="range" name="slider" id="slider" value="0" min="-50" max="50" />
+        </div>
+        <div data-role="footer">
+        </div>
+    </div>
+<script src="js/lib/jquery.js"></script>
     <script src="js/lib/jquery-mobile.js"></script>
 
     <!-- <script src="jsTemplates.php?module=main"></script> -->
