@@ -38,7 +38,7 @@ class Room
         $this->roomKey = $this->roomIdGenerator->getRoomKey($this->roomId);
         $this->roomPlayersKey = $this->roomKey . ':PLAYERS';
         $this->playerRoomKey = PROJECT_NAME . ':PLAYER-ROOM';
-        $this->teamKey = $this->playerRoomKey . ':TEAMS';
+        $this->teamKey = $this->roomKey . ':TEAMS';
     }
 
     public function init($ownerId)
