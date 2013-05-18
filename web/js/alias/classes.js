@@ -178,9 +178,13 @@ BB.classes.ExplanationStartedView = Class.extend({
 
 
     private_assignEvents: function (){
+        var right = this.private_answer.bind(this, true),
+            fail = this.private_answer.bind(this, false);
         this.root
-                .on('click', this.loc.answerBtn, this.private_answer.bind(this, true))
-                .on('click', this.loc.skipBtn, this.private_answer.bind(this, false))
+                .on('click', this.loc.answerBtn, right)
+                .on('click', this.loc.skipBtn, fail)
+                .on('swipeleft', right)
+                .on('swiperight', fail)
     },
 
     initView: function(data){
