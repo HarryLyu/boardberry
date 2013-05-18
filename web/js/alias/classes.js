@@ -243,7 +243,7 @@ BB.classes.ExplanationStartedView = Class.extend({
             startTime = new Date().getTime(),
             maxDiff = 10 * 1000;
 
-        this.timerInterval = setInterval(function(){
+        this.timerInterval = setInterval(function () {
             var currentTime = new Date().getTime(),
                 deltaTime = currentTime - startTime,
                 timeToShow = maxDiff - deltaTime,
@@ -257,7 +257,7 @@ BB.classes.ExplanationStartedView = Class.extend({
                 self.private_onEndTimer();
             }
             else {
-                $timer.html('00:' + seconds + ':' + milliSeconds);
+                $timer.html('00:' + Math.max(seconds, 0) + ':' + Math.max(milliSeconds, 0));
             }
         }, 100)
     },
