@@ -67,8 +67,7 @@ class GameLogic {
         }
         $this->room->deleteWordsFromPool(sizeof($words));
 
-        $activeTeamId = 0;
-        $this->eventManager->explanationFinished($words, $activeTeamId);
+        $this->eventManager->explanationFinished($words, $this->room->activeTeamId);
     }
 
     /**

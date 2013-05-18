@@ -6,7 +6,7 @@ class WordManager
 
     public function loadWords()
     {
-        return range(0, 1000);
+        return range(0, 10);
     }
 
     public function generateWordSet()

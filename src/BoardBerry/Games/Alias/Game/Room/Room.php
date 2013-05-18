@@ -124,7 +124,7 @@ class Room
 
     public function getWordsForTurn()
     {
-        return $this->redis->lrange($this->roomWordSetKey, 0, 50);
+        return $this->redis->lrange($this->roomWordSetKey, 0, 5);
     }
 
     public function deleteWordsFromPool($wordsCount)
