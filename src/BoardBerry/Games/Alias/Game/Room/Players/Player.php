@@ -1,9 +1,8 @@
 <?php
-namespace BoardBerry\Games\Alias\Room\Teams;
+namespace BoardBerry\Games\Alias\Game\Room\Players;
 
 
-class Team {
-    public $users = [];
+class Player {
     public $id;
 
     public function __construct($id)

@@ -1,33 +1,34 @@
 <?php
-namespace BoardBerry\Games\Alias\Room;
+namespace BoardBerry\Games\Alias\Game\Room;
 
-use BoardBerry\Games\Alias\Game;
+use BoardBerry\Games\Alias\Game\Events\RoomEventManager;
+use BoardBerry\Games\Alias\Game\GameLogic;
 
 class RoomResponseFormatter
 {
+    /** @var  RoomEventManager */
+    protected $roomEventManager;
+
     /** @var  Room */
     protected $room;
 
-    public function setRoom($room)
+    public function __construct($roomEventManager, $room)
     {
+        $this->roomEventManager = $roomEventManager;
         $this->room = $room;
-    }
-
-    public function getChannel()
-    {
-        return Room::CHANNEL_NAME . $this->room->roomId;
     }
 
     public function format()
     {
         $response['result'] = 'ok';
         $response['state'] = $this->room->state;
-        $response['channel'] = $this->getChannel();
+        $response['channel'] = $this->roomEventManager->getRoomChannelName();
         $response['data']['id'] = $this->room->roomId;
         $response['data']['owner'] = $this->room->ownerId;
         switch ($this->room->state) {
-            case Game::STATE_TEAM_SELECT:
+            case GameLogic::STATE_TEAM_SELECT:
                 $response['data']['teams'] = $this->formatTeams();
+
                 return $response;
         }
     }

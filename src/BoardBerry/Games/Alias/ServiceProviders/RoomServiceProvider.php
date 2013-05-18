@@ -1,8 +1,8 @@
 <?php
 namespace BoardBerry\Games\Alias\ServiceProviders;
 
-use BoardBerry\Games\Alias\Room\RoomIdGenerator;
-use BoardBerry\Games\Alias\Room\RoomManager;
+use BoardBerry\Games\Alias\Game\Room\RoomIdGenerator;
+use BoardBerry\Games\Alias\Game\Room\RoomManager;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 

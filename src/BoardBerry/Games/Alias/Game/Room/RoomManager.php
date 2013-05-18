@@ -1,7 +1,8 @@
 <?php
-namespace BoardBerry\Games\Alias\Room;
+namespace BoardBerry\Games\Alias\Game\Room;
 
-class RoomManager {
+class RoomManager
+{
     public $redis;
     /** @var RoomIdGenerator */
     public $roomIdGenerator;
@@ -18,6 +19,14 @@ class RoomManager {
 
         $room = new Room($this->redis, $this->roomIdGenerator, $roomId);
         $room->init($ownerId);
+
+        return $room;
+    }
+
+    public function getRoom($roomId)
+    {
+        $room = new Room($this->redis, $this->roomIdGenerator, $roomId);
+        $room->restore();
 
         return $room;
     }

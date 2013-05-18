@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace BoardBerry\Games\Alias\Room;
+namespace BoardBerry\Games\Alias\Game\Room;
 
 class RoomIdGenerator
 {

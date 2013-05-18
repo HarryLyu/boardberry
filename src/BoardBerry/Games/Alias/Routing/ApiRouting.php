@@ -1,9 +1,10 @@
 <?php
 namespace BoardBerry\Games\Alias\Routing;
 
-use BoardBerry\Games\Alias\Game;
-use BoardBerry\Games\Alias\Room\RoomManager;
-use BoardBerry\Games\Alias\Room\RoomResponseFormatter;
+use BoardBerry\Games\Alias\Game\Events\RoomEventManager;
+use BoardBerry\Games\Alias\Game\GameLogic;
+use BoardBerry\Games\Alias\Game\Room\RoomManager;
+use BoardBerry\Games\Alias\Game\Room\RoomResponseFormatter;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,27 +29,50 @@ class ApiRouting implements ControllerProviderInterface {
             $roomManager = $app['alias.room-manager'];
 
             if (!$action = $request->get('action')){
-                throw new \Exception('No action');
+                throw new \Exception('No action passed');
             };
 
             switch ($action) {
                 case 'create':
                     if (!$ownerId = $request->get('owner')){
-                        throw new \Exception('No owner');
+                        throw new \Exception('No owner passed');
                     };
 
                     $room = $roomManager->createRoom($ownerId);
 
-                    $game = new Game($room, new RoomResponseFormatter());
+                    $roomEventManager = new RoomEventManager($app['comet'], $room->roomId);
+                    $game = new GameLogic($roomEventManager, $room);
                     $game->init($ownerId);
 
-                    return new JsonResponse($game->getResponseFormatter()->format());
+                    $formatter = new RoomResponseFormatter($roomEventManager, $room);
+                    return new JsonResponse($formatter->format());
             }
         });
 
-        $collection->match('room/{id}', function ($id)
+        $collection->match('room/{roomId}', function (Request $request, $roomId) use ($app)
         {
-            return 'room id ' . $id;
+            /** @var RoomManager $roomManager */
+            $roomManager = $app['alias.room-manager'];
+
+            $roomEventManager = new RoomEventManager($app['comet'], $roomId);
+
+            if (!$action = $request->get('action')){
+                throw new \Exception('No action passed');
+            };
+
+            switch ($action) {
+                case 'join':
+                    if (!$playerId = $request->get('user')){
+                        throw new \Exception('No player passed');
+                    };
+
+                    $room = $roomManager->getRoom($roomId);
+                    $game = new GameLogic($roomEventManager, $room);
+                    $game->addPlayer($playerId);
+
+                    $formatter = new RoomResponseFormatter($roomEventManager, $room);
+                    return new JsonResponse($formatter->format());
+            }
         });
 
         return $collection;

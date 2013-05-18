@@ -2,11 +2,8 @@
 
 namespace BoardBerry\Common\ServiceProviders;
 
-
-use BoardBerry\Common\Comet;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-
 
 class CometServiceProvider implements ServiceProviderInterface
 {
@@ -22,10 +19,10 @@ class CometServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['comet'] = \Pimple::share(
-            function () {
+        $app['comet'] = \Pimple::share(function () {
                 $comet = new \Dklab_Realplexor(COMET_HOST, COMET_PORT, COMET_NAMESPACE);
-                return new Comet($comet);
+
+                return $comet;
             }
         );
     }

@@ -1,13 +1,11 @@
 <?php
-namespace BoardBerry\Games\Alias\Room;
+namespace BoardBerry\Games\Alias\Game\Room;
 
-use BoardBerry\Games\Alias\Room\Players\Player;
-use BoardBerry\Games\Alias\Room\Teams\Team;
+use BoardBerry\Games\Alias\Game\Room\Players\Player;
+use BoardBerry\Games\Alias\Game\Room\Teams\Team;
 
 class Room
 {
-
-    const CHANNEL_NAME = 'BCAST_ROOM_';
     public $redis;
 
     /** @var RoomIdGenerator */
@@ -53,9 +51,14 @@ class Room
 
     public function addPlayer($playerId)
     {
-        $this->redis->sadd($this->roomPlayersKey, $playerId);
-        $this->playerCount = $this->redis->hincrby($this->roomKey, 'playerCount', 1);
-        $this->players[] = new Player($playerId);
+        $result = $this->redis->sadd($this->roomPlayersKey, $playerId);
+
+        if ($result) {
+            $this->playerCount = $this->redis->hincrby($this->roomKey, 'playerCount', 1);
+            $this->players[] = new Player($playerId);
+        }
+
+        return $result;
     }
 
     public function addTeam()
