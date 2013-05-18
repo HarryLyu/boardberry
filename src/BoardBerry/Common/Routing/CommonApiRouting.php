@@ -4,8 +4,10 @@ namespace BoardBerry\Common\Routing;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-class CommonApiRouting implements ControllerProviderInterface {
+class CommonApiRouting implements ControllerProviderInterface
+{
     /**
      * Returns routes to connect to the given application.
      *
@@ -19,7 +21,7 @@ class CommonApiRouting implements ControllerProviderInterface {
         $collection = $app['controllers_factory'];
 
         $collection->match('/user', function () use ($app) {
-            return 'user registered!';
+            return new JsonResponse(['error' => 'ok']);
         });
 
         return $collection;
