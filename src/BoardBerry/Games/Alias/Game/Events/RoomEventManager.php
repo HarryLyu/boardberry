@@ -47,7 +47,7 @@ class RoomEventManager
         $this->sendEvent('teamAdded', ['teamId' => $teamId]);
     }
 
-    public function explanationStarted($explainerId, $activeTeamId, $wordSet)
+    public function explanationStarted($explainerId, $explainerName, $activeTeamId, $wordSet)
     {
         $this->sendEvent(
             'explanationStarted',
@@ -55,7 +55,7 @@ class RoomEventManager
                 'explainer' =>
                 [
                     'id' => $explainerId,
-                    'name' => 'hui2'
+                    'name' => $explainerName
                 ],
                 'activeTeamId' => $activeTeamId,
                 'words' => $wordSet
@@ -77,15 +77,15 @@ class RoomEventManager
         $this->sendEvent('gameStarted', ['teams' => $teamsRaw]);
     }
 
-    public function turnStarted($explainerId, $activeTeamId)
+    public function turnStarted($explainerId, $explainerName, $activeTeamId)
     {
         $this->sendEvent(
             'turnStarted',
-            ['explainer' => ['id' => $explainerId, 'name' => 'hui'], 'activeTeamId' => $activeTeamId]
+            ['explainer' => ['id' => $explainerId, 'name' => $explainerName], 'activeTeamId' => $activeTeamId]
         );
     }
 
-    public function explanationFinished($explainerId, $tempResults, $words, $activeTeamId)
+    public function explanationFinished($explainerId, $explainerName, $tempResults, $words, $activeTeamId)
     {
         $wordsRaw = [];
         foreach ($tempResults as $wordId => $wordResult) {
@@ -100,7 +100,7 @@ class RoomEventManager
                 'explainer' =>
                 [
                     'id' => $explainerId,
-                    'name' => 'hui'
+                    'name' => $explainerName
                 ]
             ]
         );
