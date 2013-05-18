@@ -97,7 +97,9 @@ class Room
 
     public function saveWordPool($words)
     {
-        $this->redis->rpush($this->roomWordSetKey, $words);
+        foreach ($words as $word) {
+            $this->redis->rpush($this->roomWordSetKey, $word);
+        }
     }
 
     public function addTurnQueues()
