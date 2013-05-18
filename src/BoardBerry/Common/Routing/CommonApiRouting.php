@@ -2,6 +2,7 @@
 namespace BoardBerry\Common\Routing;
 
 use Silex\Application;
+use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
 
 class CommonApiRouting implements ControllerProviderInterface {
@@ -14,9 +15,10 @@ class CommonApiRouting implements ControllerProviderInterface {
      */
     public function connect(Application $app)
     {
+        /** @var ControllerCollection $collection */
         $collection = $app['controllers_factory'];
 
-        $collection->get('/user', function () use ($app) {
+        $collection->match('/user', function () use ($app) {
             return 'user registered!';
         });
 

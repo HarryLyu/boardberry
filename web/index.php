@@ -11,6 +11,8 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../views',
 ));
 
+$app->register(new \BoardBerry\Common\ServiceProviders\RedisServiceProvider());
+
 $commonRouting = new \BoardBerry\Common\Routing\CommonRouting('');
 $app->mount('', $commonRouting);
 

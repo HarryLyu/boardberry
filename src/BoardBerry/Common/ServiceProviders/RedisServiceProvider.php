@@ -1,7 +1,10 @@
 <?php
-use Silex\Application;
+namespace BoardBerry\Common\ServiceProviders;
 
-class RedisServiceProvider implements \Silex\ServiceProviderInterface{
+use Silex\Application;
+use Silex\ServiceProviderInterface;
+
+class RedisServiceProvider implements ServiceProviderInterface{
 
     /**
      * Registers services on the given app.
