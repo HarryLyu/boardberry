@@ -9,4 +9,9 @@ class RoomManager {
     {
         $this->redis = $redis;
     }
+
+    public function createRoom()
+    {
+
+    }
 }
