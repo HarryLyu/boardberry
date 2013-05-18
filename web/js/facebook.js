@@ -2,12 +2,11 @@
 
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : '163743487134776',                        // App ID from the app dashboard
-            channelUrl : 'http://igor.boardberry.me/channel.html', // Channel file for x-domain comms
-            status     : true,                                 // Check Facebook Login status
-            xfbml      : true                                  // Look for social plugins on the page
+            appId      : '163743487134776',
+            channelUrl : 'http://igor.boardberry.me/channel.html',
+            status     : true,
+            xfbml      : true
         });
-
     };
 
     // Load the SDK asynchronously
@@ -19,11 +18,8 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-
     window.FBApp = {
         login: function (callback) {
-
-
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
                     console.log('already auth', response);
