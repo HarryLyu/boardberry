@@ -9,69 +9,66 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/font.css">
-    <link rel="stylesheet" href="css/jqueryMobile.css" />
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/jqueryMobile.css" />
 
+    <link rel="stylesheet" href="/css/icons/icons.css">
+    <link rel="stylesheet" href="/css/icons/animation.css"><!--[if IE 7]>
 
     <!-- <link href='http://fonts.googleapis.com/css?family=Milonga' rel='stylesheet' type='text/css'> -->
 </head>
 <body>
-<div data-role="page" id="main_page" data-theme="b">
-    <div data-role="header" >
-        <h1 id="twi_acc">Home page</h1>
-        <a href="#settings" data-icon="gear" class="ui-btn-right">Options</a>
-    </div>
-    <div data-role="content" >
-        <ul data-role="listview" data-inset="true" data-theme="a">
-            <li><a href="#second_page">second_page</a></li>
-        </ul>
-    </div>
-    <div data-role="footer">
-    </div>
+<div data-role="page" id="main_page">
+    <div class="content wrapper" data-content>
 
-    <div class="content" data-content>
+        <div class="top-links">
+            <a href="#">
+                What is it?
+            </a>
+
+            <a href="mailto: dev@lingualeo.com">
+                Contact us
+            </a>
+
+            <a href="#">
+                Request a game
+            </a>
+        </div>
+
+        <div class="logo">
+            BoardBerry.me
+        </div>
+
         <h1>Please choose a game</h1>
 
 
-        <a href="#" data-game="alias">
-            <img src="img/logos/alias.png" alt="Alias">
-        </a>
+        <div class="game-item">
+            <a href="/alias" data-game="alias">
+                <img src="img/logos/alias.png" alt="Alias">
+            </a>
+        </div>
 
-
-        <a href="#" class="disabled">
+        <div class="game-item disabled">
             <img src="img/logos/monopoly.png" alt="Alias">
-        </a>
+        </div>
 
-
-        <a href="#" class="disabled">
+        <div class="game-item disabled">
             <img src="img/logos/dixit.png" alt="Alias">
-        </a>
+        </div>
 
-        <a href="#" class="pseudo">
+        <a href="#" class="request-link">
             Request your favorite game!
         </a>
     </div>
 
     <div class="footer">
-        &copy; 2013 BoardBerry.me<br/>
-        <a href="mailto:dev@lingualeo.com">Write to us</a>
+        &copy; 2013 BoardBerry.me
     </div>
+
 </div>
 
-<div data-role="page" id="second_page" data-theme="c">
-    <div data-role="header" >
-        <h1 id="twi_acc">Home page</h1>
-        <a href="#settings" data-icon="gear" class="ui-btn-right">Options</a>
-    </div>
-    <div data-role="content" >
-        <label for="slider">Value this site:</label>
-        <input type="range" name="slider" id="slider" value="0" min="-50" max="50" />
-    </div>
-    <div data-role="footer">
-    </div>
-</div>
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery-mobile.js"></script>
 

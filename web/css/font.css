@@ -4,3 +4,10 @@
     font-weight: 400;
     src: local('Milonga'), local('Milonga-Regular'), url(../fonts/milonga.woff) format('woff');
 }
+
+@font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Noto Sans'), local('NotoSans'), url(../fonts/NotoSans.woff) format('woff');
+}

@@ -1,0 +1,21 @@
+
+.icon-hourglass:before { content: '\e813'; } /* '' */
+.icon-heart:before { content: '\e802'; } /* '' */
+.icon-mail:before { content: '\e801'; } /* '' */
+.icon-right:before { content: '\e809'; } /* '' */
+.icon-left:before { content: '\e808'; } /* '' */
+.icon-help-circled:before { content: '\e804'; } /* '' */
+.icon-reply:before { content: '\e807'; } /* '' */
+.icon-basket:before { content: '\e80d'; } /* '' */
+.icon-down-open:before { content: '\e810'; } /* '' */
+.icon-up-open:before { content: '\e811'; } /* '' */
+.icon-spin5:before { content: '\e800'; } /* '' */
+.icon-facebook-squared:before { content: '\e80a'; } /* '' */
+.icon-tumblr:before { content: '\e80c'; } /* '' */
+.icon-paypal:before { content: '\e80e'; } /* '' */
+.icon-vkontakte:before { content: '\e80f'; } /* '' */
+.icon-thumbs-up:before { content: '\e805'; } /* '' */
+.icon-thumbs-down:before { content: '\e806'; } /* '' */
+.icon-user:before { content: '\e803'; } /* '' */
+.icon-chart-bar:before { content: '\e80b'; } /* '' */
+.icon-clock:before { content: '\e812'; } /* '' */

@@ -1,6 +1,8 @@
 body {
     background: url(../img/background.jpg);
     text-align: center;
+    color: white;
+    font-family: "Noto Sans", Helvetica, Arial;
 }
 
 .wrapper {
@@ -12,5 +14,49 @@ body {
 .logo {
     font-family: Milonga, Helvetica, Arial;
     color: white;
-    font-size: 24px;
+    font-size: 48px;
+}
+
+.top-links {
+    margin: 10px 0;
+}
+
+.top-links a {
+    display: inline-block;
+    margin: 0 10px;
+    color: white;
+    font-size: 14px;
+}
+
+
+.game-item {
+    min-height: 110px;
+    width: 250px;
+    margin: 0 auto 20px auto;
+    position: relative;
+}
+
+.game-item.disabled img {
+    opacity: 0.5;
+}
+
+.game-item.disabled:after {
+    content: 'Coming soon!';
+    display: inline-block;
+    position: absolute;
+    /* Safari */
+    -webkit-transform: rotate(45deg);
+    right: -25px;
+    top: 15px;
+    background: orange;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+
+.request-link {
+    font-size: 18px;
+    color: white;
+    margin: 10px 0;
 }

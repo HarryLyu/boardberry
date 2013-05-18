@@ -15,4 +15,10 @@ $app->get('/', function () use ($app) {
     return $app['twig']->render('layout.twig');
 });
 
+
+$app->get('/alias', function () use ($app) {
+    return $app['twig']->render('alias/index.twig');
+});
+
+
 $app->run();
