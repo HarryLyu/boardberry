@@ -13,27 +13,28 @@ BB.classes.JoinView = Class.extend({
 
     private_assignEvents: function (){
         var self = this;
-        this.root.on('click', this.loc.joinBtn, function(){
-            var roomId = $(self.loc.input).val();
+        this.root
+            .on('click', this.loc.joinBtn, function(){
+                var roomId = $(self.loc.input).val();
 
-            if (!roomId) {
-                alert('Please type game number!');
-                return;
-            }
+                if (!roomId) {
+                    alert('Please type game number!');
+                    return;
+                }
 
-            if (!/\d{8}/.test(roomId)) {
-                alert('Game number must contain 8 numbers!');
-                return;
-            }
+                if (!/\d{8}/.test(roomId)) {
+                    alert('Game number must contain 8 numbers!');
+                    return;
+                }
 
-            $.post('/api/room/' + roomId,{
-                action: 'join-room',
-                user: BB.user.id
-            }, function(data){
-                BB.views.teams.render(data.data);
+                $.post('/api/room/' + roomId,{
+                    action: 'join-room',
+                    user: BB.user.id
+                }, function (data) {
+                    BB.views.teams.render(data.data);
+                });
+
             });
-
-        })
     },
 
     render: function (data){
@@ -65,17 +66,37 @@ BB.classes.TeamsView = Class.extend({
     private_assignEvents: function () {
         var self = this;
 
-        this.root.on('click', this.loc.teamItem, function(){
-            console.log('click on join team');
+        this.root
+            .on('click', this.loc.teamItem, function(){
+                console.log('click on join team');
 
-            $.post('/api/room/' + self.data.id,{
-                action: 'join-team',
-                team: $(this).data('team-item'),
-                user: BB.user.id
-            }, function(data){
-                console.log('join team result', data);
+                $.post('/api/room/' + self.data.id,{
+                    action: 'join-team',
+                    team: $(this).data('team-item'),
+                    user: BB.user.id
+                }, function(data){
+                    console.log('join team response', data);
+                });
+            })
+            .on('click', '[data-game-action="add-team"]', function () {
+                console.log('add team click');
+
+                $.post('/api/room/' + self.data.id,{
+                    action: 'add-team',
+                    user: BB.user.id
+                }, function (data) {
+                    console.log('add team response', data);
+                });
+            })
+            .on('click', '[data-game-action="start-game"]', function () {
+                console.log('start game click');
+
+                $.post('/api/room/' + self.data.id,{
+                    action: 'start-game'
+                }, function (data) {
+                    console.log('start game response', data);
+                });
             });
-        })
     },
 
     render: function (data) {
@@ -111,6 +132,17 @@ BB.classes.TeamsView = Class.extend({
             .attr('src', 'https://graph.facebook.com/' + data.playerId + '/picture?type=square')
             .attr('data-user-item', data.playerId)
             .appendTo(this.root.find('[data-team-item="' + data.teamId + '"]'));
+    },
+
+    playerJoinedToRoom_handler: function (data) {
+        this.root.find('[data-players-count]').html(data.playerCount);
+    },
+
+    teamAdded_handler: function (data) {
+        $('<div/>')
+            .attr('data-team-item', data.teamId)
+            .addClass('team-item team-item-' + data.teamId)
+            .appendTo(this.root.find('[data-team-container]'));
     },
 
     update: function (data){
