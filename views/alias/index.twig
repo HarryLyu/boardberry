@@ -29,7 +29,7 @@
         <a href="#settings" data-icon="gear" class="ui-btn-right">Options</a>
     </div>
     <div data-role="content" >
-        <a data-game-action="create">
+        <a data-game-action="create" href="">
             Create game
         </a>
 
@@ -37,6 +37,13 @@
         <a href="" data-game-action="join">
             Join existing game
         </a>
+
+        <div class="gold-promo">
+            Want to change game time?<br>
+            Or you wanna save results?<br>
+            <b>Buy Gold status just for $0.99!</b>
+            <a href="btn-buy-btn">
+        </div>
     </div>
     <div data-role="footer">
 
@@ -54,7 +61,37 @@
 <script src="js/common.js"></script>
 <script src="js/alias/alias.js"></script>
 <script src="js/facebook.js"></script>
-<script src="/jsTemplates.php?moduleName=alias"></script>
+
+<script type="text/html" id="alias/join">
+    ololol + <%=moreInfo%>
+</script>
+
+<script type="text/html" id="alias/teams">
+    <div class="users-count">
+        <span data-users-count><%=total_users%></span> total users
+    </div>
+    <h1>Choose your team</h1>
+
+    <div class="team-container" data-team-container>
+        <% data.teams.forEach(function (index, team) { ?>
+        <div data-team-item="<%=team.id%>" class="team-item-<%=team.id%>" style="background-color: <%=BB.teamColors[team.id]%>">
+            <% team.users.forEach(function (userIndex, user) { %>
+            <img src="https://graph.facebook.com/<%=user%>/picture?type=square" />
+            <% }) %>
+        </div>
+        <% }) %>
+    </div>
+
+    <a href="#" data-game-action="add-team" class="btn-add-team">
+        <i class="icon-plus-circled"></i> Add team
+    </a>
+
+    <% if (user.id == data.owner) { %>
+    <a href="#" data-start-game>
+        Let's play!
+    </a>
+    <% } %>
+</script>
 
 </body>
 </html>
