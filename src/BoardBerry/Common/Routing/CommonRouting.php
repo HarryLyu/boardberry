@@ -20,6 +20,10 @@ class CommonRouting implements ControllerProviderInterface {
             return $app['twig']->render('layout.twig');
         });
 
+        $app->get('/tests/comet', function () use ($app) {
+            return $app['twig']->render('comet.twig',['time'=>time()]);
+        });
+
         return $collection;
     }
 }
