@@ -13,6 +13,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 $app->register(new \BoardBerry\Common\ServiceProviders\RedisServiceProvider());
+$app->register(new \BoardBerry\Common\ServiceProviders\UserServiceProvider());
 
 $app->register(new \BoardBerry\Games\Alias\ServiceProviders\RoomServiceProvider());
 
