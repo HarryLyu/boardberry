@@ -27,10 +27,10 @@ BB.classes.JoinView = Class.extend({
             }
 
             $.post('/api/room/' + roomId,{
-                action: 'join-team',
+                action: 'join-room',
                 user: BB.user.id
             }, function(data){
-                BB.views.teams.render(data);
+                BB.views.teams.render(data.data);
             });
 
         })
@@ -86,8 +86,7 @@ BB.classes.TeamsView = Class.extend({
 
             BB.realplexor.setCursor(this.data.channel, this.data.channel_time);
             BB.realplexor.subscribe(this.data.channel, function(data, id) {
-                data = JSON.parse(data);
-
+                console.log('CHANNEL EVENT', data);
                 console.log('recieved channel data', data.eventName, data);
 
                 if (BB.channelHandlers[data.eventName]) {
@@ -106,7 +105,12 @@ BB.classes.TeamsView = Class.extend({
     },
 
     playerJoinedToTeam_handler: function (data) {
+        this.root.find('[data-user-item="' + data.playerId + '"]').remove();
 
+        $('<img/>')
+            .attr('src', 'https://graph.facebook.com/' + data.playerId + '/picture?type=square')
+            .attr('data-user-item', data.playerId)
+            .appendTo(this.root.find('[data-team-item="' + data.teamId + '"]'));
     },
 
     update: function (data){
