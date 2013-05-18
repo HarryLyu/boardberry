@@ -1,0 +1,16 @@
+body {
+    background: url(../img/background.jpg);
+    text-align: center;
+}
+
+.wrapper {
+    max-width: 800px;
+    width: auto;
+    margin: 20px auto;
+}
+
+.logo {
+    font-family: Milonga, Helvetica, Arial;
+    color: white;
+    font-size: 24px;
+}
