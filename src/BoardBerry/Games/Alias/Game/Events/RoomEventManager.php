@@ -81,11 +81,23 @@ class RoomEventManager
         $this->sendEvent('turnStarted', ['explainer' => ['id' => $explainerId, 'name' => 'hui'], 'activeTeamId' => $activeTeamId]);
     }
 
-    public function explanationFinished($words, $activeTeamId)
+    public function explanationFinished($explainerId, $tempResult, $words, $activeTeamId)
     {
+        foreach ($tempResult as $wordId => $wordResult) {
+            $wordsRaw[] = ['id' => $wordId, 'text' => $words[$wordId], 'result' => $wordResult];
+        }
+
         $this->sendEvent(
             'explanationFinished',
-            ['words' => $words, 'activeTeamId' => $activeTeamId]
+            [
+                'words' => $wordsRaw,
+                'activeTeamId' => $activeTeamId,
+                'explainer' =>
+                [
+                    'id' => $explainerId,
+                    'name' => 'hui'
+                ]
+            ]
         );
     }
 }

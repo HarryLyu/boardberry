@@ -119,13 +119,13 @@ class ApiRouting implements ControllerProviderInterface
 
                 case 'finish-explanation':
 
-                    if (($words = $request->get('words')) === null) {
+                    if (($tempResult = $request->get('words')) === null) {
                         throw new \Exception('No words passed');
                     };
 
                     $room = $roomManager->getRoom($roomId);
                     $game = new GameLogic($roomEventManager, $room);
-                    $game->finishExplanation($words);
+                    $game->finishExplanation($tempResult);
 
                     return new JsonResponse(['result' => 'ok']);
             }
