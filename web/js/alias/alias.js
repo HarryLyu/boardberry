@@ -34,7 +34,7 @@
                         '/api/room',
                         {
                             action: 'create',
-                            owner: 'TODO ownerId'
+                            owner: BB.user.id
                         },
                         function (roomData) {
                             console.log('room created', roomData);
@@ -62,19 +62,13 @@
         });
     });
 
-    BB.teamColors = [
-        '#0000FF',
-        '#8A2BE2',
-        '#7FFF00',
-        '#FF7F50',
-        '#6495ED',
-        '#DC143C',
-        '#006400',
-        '#8B008B'
-    ];
+    BB.channelHandler = function (data, id) {
+        data =  JSON.parse(data);
+
+    };
 
     BB.realplexor = new Dklab_Realplexor(
-        "http://" + location.host + "/",
+        "http://comet." + location.host + "/",
         "BB"
     );
 })(BB);
