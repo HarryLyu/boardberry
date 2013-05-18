@@ -197,7 +197,7 @@
             <% words.foreach(function (wordItem, index) { %>
                 <div class="result-item <%=resultItem.result%>" data-result-item="<%=resultItem.id%>">
                     <span><%=wordItem.text%></span>
-                    <a href="" data-word-id="<%=resultItem.id%>" class="<%= (wordItem.result) ? 'correct' : 'incorrect' %>"></a>
+                    <a href="" data-word-id="<%=resultItem.id%>" class="<%= (wordItem.result) ? 'correct' %>"></a>
                 </div>
             <% }); %>
         </div>

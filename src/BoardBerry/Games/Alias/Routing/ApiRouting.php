@@ -128,6 +128,18 @@ class ApiRouting implements ControllerProviderInterface
                     $game->finishExplanation($tempResult);
 
                     return new JsonResponse(['result' => 'ok']);
+
+                case 'edit-result':
+
+                    if (($wordId = $request->get('wordId')) === null) {
+                        throw new \Exception('No words passed');
+                    };
+
+                    $room = $roomManager->getRoom($roomId);
+                    $game = new GameLogic($roomEventManager, $room);
+                    $game->editResult($wordId);
+
+                    return new JsonResponse(['result' => 'ok']);
             }
         });
 

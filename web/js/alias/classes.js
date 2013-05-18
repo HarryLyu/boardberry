@@ -317,5 +317,9 @@ BB.classes.ExplanationFinishedView = Class.extend({
     private_render: function (data){
         this.root.html(tmpl('tplTurnResult', {words: data.words, me: BB.user, explainer: data.explainer, team: BB.teams[data.activeTeamId]}));
         $.mobile.navigate('#explanation-finished');
+    },
+
+    updateResult: function (wordData) {
+        this.root.find('[data-word-id=' + wordData.id + ']').toggleClass('correct', wordData.result == 1);
     }
 });
