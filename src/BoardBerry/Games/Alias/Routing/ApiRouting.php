@@ -5,6 +5,7 @@ use BoardBerry\Games\Alias\Game\Events\RoomEventManager;
 use BoardBerry\Games\Alias\Game\GameLogic;
 use BoardBerry\Games\Alias\Game\Room\RoomManager;
 use BoardBerry\Games\Alias\Game\Room\RoomResponseFormatter;
+use BoardBerry\Games\Alias\Game\Room\Words\WordManager;
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -99,6 +100,7 @@ class ApiRouting implements ControllerProviderInterface
                     $game->addTeam($playerId);
 
                     return new JsonResponse(['result' => 'ok']);
+
                 case 'start-turn':
                     if (($playerId = $request->get('user')) === null) {
                         throw new \Exception('No player passed');
@@ -108,6 +110,12 @@ class ApiRouting implements ControllerProviderInterface
                     $game = new GameLogic($roomEventManager, $room);
                     $game->startTurn($playerId);
 
+                case 'start-game':
+                    $room = $roomManager->getRoom($roomId);
+                    $game = new GameLogic($roomEventManager, $room);
+                    $game->startGame(new WordManager());
+
+                    return new JsonResponse(['result' => 'ok']);
             }
         });
 
