@@ -47,9 +47,14 @@ class GameLogic {
         $this->addPlayerToTeam($teamId, $playerId);
     }
 
-    public function startTurn($playerId)
+
+    public function startExplain()
     {
-        
+        $explainerId = 0;//
+        $activeTeam = 0;//
+        $wordSet = $this->room->getWordSetForTurn();
+
+        $this->eventManager->explanationStarted($explainerId, $activeTeam, $wordSet);
     }
 
     /**

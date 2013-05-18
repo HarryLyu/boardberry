@@ -46,4 +46,12 @@ class RoomEventManager
     {
         $this->sendEvent('teamAdded', []);
     }
+
+    public function explanationStarted($explainerId, $activeTeamId, $wordSet)
+    {
+        $this->sendEvent(
+            'explanationStarted',
+            ['explainerId' => $explainerId, 'activeTeamId' => $activeTeamId, 'words' => $wordSet]
+        );
+    }
 }

@@ -93,6 +93,12 @@ class Room
         $this->redis->rpush($this->roomWordSetKey, $words);
     }
 
+    public function getWordSetForTurn()
+    {
+        return $this->redis->lrange(0, 50);
+    }
+
+
     public function restore()
     {
         foreach ($this->simpleLoadFields as $fieldName) {
