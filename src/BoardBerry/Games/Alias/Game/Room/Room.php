@@ -110,7 +110,7 @@ class Room
                 if ($first) {
                     $first = false;
                     $this->activeTeamId = $team->id;
-                    $this->explainerId = $team->players[0];
+                    $this->explainerId = array_keys($team->players)[0];
                 }
 
                 $this->redis->lpush($this->roomTeamTurnsKey, $team->id);
