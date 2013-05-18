@@ -28,7 +28,7 @@
 </div>
 
 <div data-role="page" id="main_page" data-theme="b">
-    <div data-role="content" >
+    <div data-role="content" class="wrapper">
 
         <a data-game-action="create" href="" class="ui-btn">
             Create game
@@ -71,25 +71,27 @@
 <script src="js/facebook.js"></script>
 
 <script type="text/html" id="tplJoin">
-    <h1>
-        Type your friends' room number
-    </h1>
+    <div data-role="content" class="wrapper">
+        <h1>
+            Type your friends' room number
+        </h1>
 
-    <input type="text" data-room-id palceholder="Room ID" />
+        <input type="text" data-room-id palceholder="Room ID" />
 
-    <a href="" data-game-action="join-room">
-        Join
-    </a>
+        <a href="" data-game-action="join-room">
+            Join
+        </a>
+    </div>
 </script>
 
 <script type="text/html" id="tplTeams">
-    <div data-role="content">
+    <div data-role="content" class="wrapper">
         <div class="users-count" >
             <span data-users-count><%=data.total_users%></span> total users
         </div>
         <h1>Choose your team</h1>
     </div>
-    <div class="team-container" data-team-container data-role="content">
+    <div class="team-container wrapper" data-team-container data-role="content">
         <% data.teams.forEach(function (team, index) { %>
         <div data-team-item="<%=team.id%>" class="team-item-<%=team.id%>" style="background-color: <%=BB.teamColors[team.id]%>">
             <% team.users.forEach(function (user, userIndex) { %>
@@ -97,96 +99,105 @@
             <% }); %>
         </div>
         <% }); %>
+        <a href="#" data-game-action="add-team" class="btn-add-team">
+            <i class="icon-plus-circled"></i> Add team
+        </a>
+
+        <% if (me.id == data.owner) { %>
+        <a href="#" data-game-action="game-start" class="btn-start">
+            Let's play!
+        </a>
+        <% } %>
     </div>
 
-    <a href="#" data-game-action="add-team" class="btn-add-team">
-        <i class="icon-plus-circled"></i> Add team
-    </a>
-
-    <% if (me.id == data.owner) { %>
-    <a href="#" data-game-action="game-start" class="btn-start">
-        Let's play!
-    </a>
-    <% } %>
 </script>
 
 <script type="text/html" id="tplTurnBegin">
-    <h1>
-        <img src="https://graph.facebook.com/<%=explain.id%>/picture?type=square" /> <%=explain.name%> explains
-    </h1>
+    <div data-role="content" class="wrapper">
+        <h1>
+            <img src="https://graph.facebook.com/<%=explain.id%>/picture?type=square" /> <%=explain.name%> explains
+        </h1>
 
-    <h2>
-        <% guess.forEach(function (index, guessItem) { %>
-            <img src="https://graph.facebook.com/<%=guessItem%>/picture?type=square" />
-        <% }) %>
-        guess
-    </h2>
+        <h2>
+            <% guess.forEach(function (index, guessItem) { %>
+                <img src="https://graph.facebook.com/<%=guessItem%>/picture?type=square" />
+            <% }) %>
+            guess
+        </h2>
 
-    <% if (explain.id == me.id) %>
-        <a data-game-action="turn-start" class="btn-start">
-            I'm ready!
-        </a>
-    <% } %>
+        <% if (explain.id == me.id) %>
+            <a data-game-action="turn-start" class="btn-start">
+                I'm ready!
+            </a>
+        <% } %>
+    </div>
 </script>
 
 <script type="text/html" id="tplTurnExplain">
-    <div class="time-container" data-time-container>
-        00:50:67
-    </div>
+    <div data-role="content" class="wrapper">
 
-    <div class="word-container" data-word-container>
-        00:50:67
-    </div>
-
-    <div class="controls-container">
-        <div class="control">
-            <span data-skipped-count class="words-count">0</span>
-            <a href="" class="btn-word-skip">
-                <i class="icon-left"></i>Skip
-            </a>
+        <div class="time-container" data-time-container>
+            00:50:67
         </div>
-        <div class="control">
-            <span data-answered-count class="words-count">0</span>
-            <a href="" class="btn-word-skip">
-                Answered <i class="icon-right"></i>
-            </a>
+
+        <div class="word-container" data-word-container>
+            00:50:67
+        </div>
+
+        <div class="controls-container">
+            <div class="control">
+                <span data-skipped-count class="words-count">0</span>
+                <a href="" class="btn-word-skip">
+                    <i class="icon-left"></i>Skip
+                </a>
+            </div>
+            <div class="control">
+                <span data-answered-count class="words-count">0</span>
+                <a href="" class="btn-word-skip">
+                    Answered <i class="icon-right"></i>
+                </a>
+            </div>
         </div>
     </div>
 </script>
 
 <script type="text/html" id="tplTurnWait">
-    <div class="user-list">
-        Currently playing: <br>
-        <% team.users.forEach(function (index, teamItem) { %>
-            <img src="https://graph.facebook.com/<%=teamItem%>/picture?type=square" />
-        <% }) %>
-    </div>
+    <div data-role="content" class="wrapper">
+        <div class="user-list">
+            Currently playing: <br>
+            <% team.users.forEach(function (index, teamItem) { %>
+                <img src="https://graph.facebook.com/<%=teamItem%>/picture?type=square" />
+            <% }) %>
+        </div>
 
-    <div class="time-container" data-time-container>
-        00:50:67
+        <div class="time-container" data-time-container>
+            00:50:67
+        </div>
     </div>
 </script>
 
 
 <script type="text/html" id="tplTurnResult">
-    <div class="user-list">
-        <% team.users.forEach(function (index, teamItem) { %>
-            <img src="https://graph.facebook.com/<%=teamItem%>/picture?type=square" />
-        <% }); %>
-    </div>
+    <div data-role="content" class="wrapper">
+        <div class="user-list">
+            <% team.users.forEach(function (index, teamItem) { %>
+                <img src="https://graph.facebook.com/<%=teamItem%>/picture?type=square" />
+            <% }); %>
+        </div>
 
-    <div class="turn-results">
-        <% results.foreach(function (index, resultItem) { %>
-            <div class="result-item <%=resultItem.result%>" data-result-item="<%=resultItem.id%>">
-                <span><%=resultItem.text%></span>
-                <a href="" data-result-toggle="<%=resultItem.id%>"></a>
-            </div>
-        <% }); %>
-    </div>
+        <div class="turn-results">
+            <% results.foreach(function (index, resultItem) { %>
+                <div class="result-item <%=resultItem.result%>" data-result-item="<%=resultItem.id%>">
+                    <span><%=resultItem.text%></span>
+                    <a href="" data-result-toggle="<%=resultItem.id%>"></a>
+                </div>
+            <% }); %>
+        </div>
 
-    <a data-game-action="turn-finish" class="btn-start">
-        All right, go next!
-    </a>
+        <a data-game-action="turn-finish" class="btn-start">
+            All right, go next!
+        </a>
+    </div>
 </script>
 
 <script type="text/html" id="tplGameResults">
