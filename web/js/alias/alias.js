@@ -17,7 +17,8 @@
     BB.views = {
         join: new BB.classes.JoinView({root: '[data-view-name=join]'}),
         teams: new BB.classes.TeamsView({root: '[data-view-name=teams]'}),
-        turnPrepare: new BB.classes.TurnPrepareView({root: '[data-view-name=turn-prepare]'})
+        turnStarted: new BB.classes.TurnStartedView({root: '[data-view-name=turn-started]'}),
+        explanationStarted: new BB.classes.ExplanationStartedView({root:'[data-view-name=explanation-started]'})
     };
 
     $(document.body).on('click', '[data-game-action="create"]', function () {
@@ -65,7 +66,6 @@
 
     BB.channelHandler = function (data, id) {
         data =  JSON.parse(data);
-
     };
 
     BB.realplexor = new Dklab_Realplexor(
