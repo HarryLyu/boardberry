@@ -120,6 +120,6 @@ class RoomEventManager
                 'position' => $score
             ];
         }
-        $this->sendEvent('turnFinished', $teamScores);
+        $this->sendEvent('turnFinished', $scores);
     }
 }
