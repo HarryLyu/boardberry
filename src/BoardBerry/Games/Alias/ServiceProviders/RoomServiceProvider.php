@@ -1,6 +1,7 @@
 <?php
 namespace BoardBerry\Games\Alias\ServiceProviders;
 
+use BoardBerry\Games\Alias\Room\RoomIdGenerator;
 use BoardBerry\Games\Alias\Room\RoomManager;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
@@ -18,9 +19,14 @@ class RoomServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['alias.room'] = \Pimple::share(function () use ($app) {
-                return new RoomManager($app['redis']);
-            });
+        $app['alias.room-id-generator'] = \Pimple::share(function () use ($app) {
+            return new RoomIdGenerator($app['redis']);
+        });
+
+        $app['alias.room-manager'] = \Pimple::share(function () use ($app) {
+            return new RoomManager($app['redis'], $app['alias.room-id-generator']);
+        });
+
     }
 
     /**
