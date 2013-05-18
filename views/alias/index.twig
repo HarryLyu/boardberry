@@ -188,23 +188,27 @@
 <script type="text/html" id="tplTurnResult">
     <div data-role="content" class="wrapper">
         <div class="user-list">
-            <% team.users.forEach(function (playerItem, index) { %>
+            <% team.forEach(function (playerItem, index) { %>
                 <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
             <% }); %>
         </div>
 
+        <div class="results-description">
+            Edit your results by clicking on it
+        </div>
+
         <div class="turn-results">
-            <% words.foreach(function (wordItem, index) { %>
-                <div class="result-item <%=resultItem.result%>" data-result-item="<%=resultItem.id%>">
+            <% words.forEach(function (wordItem, index) { %>
+                <div class="result-item <%= (wordItem.result == '1' ? 'correct' : '') %>" data-word-id="<%=wordItem.id%>">
                     <span><%=wordItem.text%></span>
-                    <a href="" data-word-id="<%=resultItem.id%>" class="<%= (wordItem.result) ? 'correct' %>"></a>
+                    <span class="icon-thumbs-up"></span>
+                    <span class="icon-thumbs-down"></span>
                 </div>
             <% }); %>
         </div>
 
         <% if (explainer.id == me.id) { %>
-
-        <a data-save-result class="btn-start">
+        <a data-game-action="save-results" class="ui-btn btn-start">
             All right, go next!
         </a>
         <% } %>

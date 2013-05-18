@@ -178,16 +178,9 @@ BB.classes.ExplanationStartedView = Class.extend({
 
 
     private_assignEvents: function (){
-        this.root.on('click', this.loc.imReadyBtn, function(){
-                $.post('/api/room/' + BB.roomData.id,{
-                    action: 'start-turn',
-                    user: BB.user.id
-                }, function(data){
-                    console.log(data);
-                });
-            })
-            .on('click', this.loc.answerBtn, this.private_answer.bind(this, true))
-            .on('click', this.loc.skipBtn, this.private_answer.bind(this, false))
+        this.root
+                .on('click', this.loc.answerBtn, this.private_answer.bind(this, true))
+                .on('click', this.loc.skipBtn, this.private_answer.bind(this, false))
     },
 
     initView: function(data){
@@ -279,8 +272,7 @@ BB.classes.ExplanationStartedView = Class.extend({
 
 BB.classes.ExplanationFinishedView = Class.extend({
     loc: {
-        toggleResultBtn: '[data-word-id]',
-        saveResultBtn: '[data-save-result]'
+        toggleResultBtn: '[data-word-id]'
     },
 
     init: function (params){
@@ -291,22 +283,25 @@ BB.classes.ExplanationFinishedView = Class.extend({
 
 
     private_assignEvents: function (){
-        this.root.on('click', this.loc.toggleResultBtn, function () {
-            $.post('/api/room/' + BB.roomData.id,{
-                action: 'edit-result',
-                word_id: $(this).data('word-id')
-            },
-            function (data) {
-                console.log ('edit result response ', data)
-            })
-        })
-            .on('click', this.loc.saveResultBtn, function () {
+        this.root
+            .on('click', '[data-word-id]', function () {
                 $.post('/api/room/' + BB.roomData.id,{
-                        action: 'save-results'
-                    },
-                    function (data) {
-                        console.log ('save result response ', data)
-                    })
+                    action: 'edit-result',
+                    word_id: $(this).data('word-id')
+                },
+                function (data) {
+                    console.log ('edit result response ', data)
+                });
+
+                return false;
+            })
+            .on('click', '[data-game-action="save-results"]', function () {
+                $.post('/api/room/' + BB.roomData.id,{
+                    action: 'save-results'
+                },
+                function (data) {
+                    console.log ('save result response ', data)
+                })
             });
     },
 
