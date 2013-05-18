@@ -26,9 +26,8 @@ BB.classes.JoinView = Class.extend({
                 return;
             }
 
-            $.post('/api/room',{
-                action: 'join',
-                id: $(self.loc.input).val(),
+            $.post('/api/room/' + roomId,{
+                action: 'join-team',
                 user: BB.user.id
             }, function(data){
                 BB.views.teams.render(data);
@@ -63,22 +62,52 @@ BB.classes.TeamsView = Class.extend({
     },
 
 
-    private_assignEvents: function (){
+    private_assignEvents: function () {
+        var self = this;
+
         this.root.on('click', this.loc.teamItem, function(){
-            $.post('/api/room',{
+            console.log('click on join team');
+
+            $.post('/api/room/' + self.data.id,{
                 action: 'join-team',
-                id: $(this).data('team-item'),
+                team: $(this).data('team-item'),
                 user: BB.user.id
             }, function(data){
-                console.log(data);
+                console.log('join team result', data);
             });
-
         })
     },
 
-    render: function (data){
+    render: function (data) {
+        this.data = data;
+
+        if (!this.isChannelInited) {
+            console.log('Channel', this.data.channel, 'subscribed', this.data);
+
+
+            BB.realplexor.setCursor(this.data.channel, this.data.channel_time);
+            BB.realplexor.subscribe(this.data.channel, function(data, id) {
+                data = JSON.parse(data);
+
+                console.log('recieved channel data', data.eventName, data);
+
+                if (BB.channelHandlers[data.eventName]) {
+                    BB.channelHandlers[data.eventName](data.data);
+                }
+                else {
+                    console.log('NO channel handler!', data.eventName);
+                }
+            });
+
+            BB.realplexor.execute();
+        }
+
         this.root.html(tmpl('tplTeams', {data: data, me: BB.user}));
         $.mobile.navigate('#teams');
+    },
+
+    playerJoinedToTeam_handler: function (data) {
+
     },
 
     update: function (data){

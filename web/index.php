@@ -30,7 +30,9 @@ $app->mount('api', $apiRouting);
 
 
 $app->get('/alias', function () use ($app) {
-    return $app['twig']->render('alias/index.twig');
+    return $app['twig']->render('alias/index.twig', array(
+        'host' => $_SERVER['HTTP_HOST']
+    ));
 });
 
 

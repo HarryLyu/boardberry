@@ -90,3 +90,55 @@ h1 {
 a {
     color: white;
 }
+
+
+
+
+
+
+
+
+
+/**
+
+**/
+
+.team-item {
+    display: block;
+    min-height: 50px;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+    .team-item-0 {
+        background-image: linear-gradient(to bottom,#08c,#04c);
+    }
+    .team-item-1 {
+        background-image: linear-gradient(to bottom,#5bc0de,#2f96b4);
+    }
+    .team-item-2 {
+        background-image: linear-gradient(to bottom,#62c462,#51a351);
+    }
+    .team-item-3 {
+        background-image: linear-gradient(to bottom,#fbb450,#f89406);
+    }
+    .team-item-4 {
+        background-image: linear-gradient(to bottom,#ee5f5b,#bd362f);
+    }
+    .team-item-5 {
+        background-image: linear-gradient(to bottom,#08c,#04c);
+    }
+    .team-item-6 {
+        background-image: linear-gradient(to bottom,#5bc0de,#2f96b4);
+    }
+    .team-item-7 {
+        background-image: linear-gradient(to bottom,#62c462,#51a351);
+    }
+    .team-item-8 {
+        background-image: linear-gradient(to bottom,#fbb450,#f89406);
+    }
+    .team-item-9 {
+        background-image: linear-gradient(to bottom,#ee5f5b,#bd362f);
+    }
