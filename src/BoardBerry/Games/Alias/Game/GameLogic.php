@@ -36,7 +36,15 @@ class GameLogic {
 
     public function addPlayerToTeam($teamId, $playerId) {
         $this->room->joinPlayerToTeam($teamId, $playerId);
-
         $this->eventManager->playerJoinedToTeam($teamId, $playerId);
     }
+
+    public function addTeam($playerId)
+    {
+        $teamId = $this->room->addTeam();
+        $this->eventManager->teamAdded();
+
+        $this->addPlayerToTeam($teamId, $playerId);
+    }
+
 }

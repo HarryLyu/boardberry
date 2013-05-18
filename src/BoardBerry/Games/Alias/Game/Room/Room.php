@@ -71,6 +71,8 @@ class Room
     {
         $this->teamCount = $this->redis->hincrby($this->roomKey, 'teamCount', 1);
         $this->teams[] = new Team($this->teamCount - 1);
+
+        return $this->teamCount - 1;
     }
 
     public function joinPlayerToTeam($teamId, $playerId)
