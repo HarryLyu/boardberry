@@ -61,7 +61,7 @@ class ApiRouting implements ControllerProviderInterface {
             };
 
             switch ($action) {
-                case 'join':
+                case 'join-room':
                     if (!$playerId = $request->get('user')){
                         throw new \Exception('No player passed');
                     };
@@ -72,6 +72,21 @@ class ApiRouting implements ControllerProviderInterface {
 
                     $formatter = new RoomResponseFormatter($roomEventManager, $room);
                     return new JsonResponse($formatter->format());
+
+                case 'join-team':
+                    if (!$playerId = $request->get('user')){
+                        throw new \Exception('No player passed');
+                    };
+
+                    if (!$teamId = $request->get('team')){
+                        throw new \Exception('No team passed');
+                    };
+
+                    $room = $roomManager->getRoom($roomId);
+                    $game = new GameLogic($roomEventManager, $room);
+                    $game->addPlayerToTeam($teamId, $playerId);
+
+                    return new JsonResponse(['result'=>'ok']);
             }
         });
 

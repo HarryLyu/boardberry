@@ -22,7 +22,7 @@ class GameLogic {
 
     public function init($ownerId)
     {
-        $this->room->addPlayer($ownerId);
+        $this->room->joinPlayerToRoom($ownerId);
         $this->room->addTeam();
         $this->room->addTeam();
         $this->room->setState(self::STATE_TEAM_SELECT);
@@ -30,7 +30,13 @@ class GameLogic {
 
     public function addPlayer($playerId)
     {
-        $this->room->addPlayer($playerId);
-        $this->eventManager->playerAdded($playerId, $this->room->playerCount);
+        $this->room->joinPlayerToRoom($playerId);
+        $this->eventManager->playerJoinedToRoom($playerId, $this->room->playerCount);
+    }
+
+    public function addPlayerToTeam($teamId, $playerId) {
+        $this->room->joinPlayerToTeam($teamId, $playerId);
+
+        $this->eventManager->playerJoinedToTeam($teamId, $playerId);
     }
 }

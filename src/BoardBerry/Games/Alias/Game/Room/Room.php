@@ -13,6 +13,8 @@ class Room
 
     protected $roomKey;
     protected $roomPlayersKey;
+    protected $playerRoomKey;
+    protected $teamKey;
 
     protected $simpleLoadFields = ['state', 'ownerId', 'teamCount', 'playerCount'];
 
@@ -35,6 +37,8 @@ class Room
 
         $this->roomKey = $this->roomIdGenerator->getRoomKey($this->roomId);
         $this->roomPlayersKey = $this->roomKey . ':PLAYERS';
+        $this->playerRoomKey = PROJECT_NAME . ':PLAYER-ROOM';
+        $this->teamKey = $this->playerRoomKey . ':TEAMS';
     }
 
     public function init($ownerId)
@@ -49,11 +53,13 @@ class Room
         $this->redis->hset($this->roomKey, 'state', $state);
     }
 
-    public function addPlayer($playerId)
+    public function joinPlayerToRoom($playerId)
     {
         $result = $this->redis->sadd($this->roomPlayersKey, $playerId);
 
         if ($result) {
+            $this->redis->hadd($this->playerRoomKey, $playerId, $this->roomId);
+
             $this->playerCount = $this->redis->hincrby($this->roomKey, 'playerCount', 1);
             $this->players[] = new Player($playerId);
         }
@@ -65,6 +71,17 @@ class Room
     {
         $this->teamCount = $this->redis->hincrby($this->roomKey, 'teamCount', 1);
         $this->teams[] = new Team($this->teamCount - 1);
+    }
+
+    public function joinPlayerToTeam($teamId, $playerId)
+    {
+        $prevTeam = $this->redis->hget($this->teamKey, $playerId);
+        if ($prevTeam !== false) {
+            $this->teams[$prevTeam]->removePlayer($playerId);
+        }
+
+        $this->redis->hset($this->teamKey, $playerId, $teamId);
+        $this->teams[$teamId]->addPlayer($playerId);
     }
 
     public function restore()
