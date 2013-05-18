@@ -27,10 +27,10 @@ BB.classes.JoinView = Class.extend({
             }
 
             $.post('/api/room/' + roomId,{
-                action: 'join-team',
+                action: 'join-room',
                 user: BB.user.id
             }, function(data){
-                BB.views.teams.render(data);
+                BB.views.teams.render(data.data);
             });
 
         })
@@ -86,8 +86,7 @@ BB.classes.TeamsView = Class.extend({
 
             BB.realplexor.setCursor(this.data.channel, this.data.channel_time);
             BB.realplexor.subscribe(this.data.channel, function(data, id) {
-                data = JSON.parse(data);
-
+                console.log('CHANNEL EVENT', data);
                 console.log('recieved channel data', data.eventName, data);
 
                 if (BB.channelHandlers[data.eventName]) {
