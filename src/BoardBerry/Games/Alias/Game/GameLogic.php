@@ -64,7 +64,15 @@ class GameLogic {
     {
         $wordSet = $wordManager->generateWordSet();
         $this->room->saveWordSet($wordSet);
-        $this->eventManager->turnPrepare();
+        $this->eventManager->gameStared($this->room->teams);
+
+        $this->nextTurn();
+    }
+
+    public function nextTurn()
+    {
+        $this->room->nextTurn();
+        $this->eventManager->turnStarted($this->room->explainerId, $this->room->activeTeamId);
     }
 
 }

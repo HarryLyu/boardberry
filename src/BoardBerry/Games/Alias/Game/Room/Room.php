@@ -17,7 +17,7 @@ class Room
     protected $teamKey;
     protected $roomWordSetKey;
 
-    protected $simpleLoadFields = ['state', 'ownerId', 'teamCount', 'playerCount'];
+    protected $simpleLoadFields = ['state', 'ownerId', 'teamCount', 'playerCount', 'teamTurnCounter'];
 
     public $state;
 
@@ -29,6 +29,8 @@ class Room
 
     public $teams;
     public $teamCount;
+
+    public $teamTurnCounter;
 
     public function __construct($redis, $roomIdGenerator, $roomId)
     {
@@ -98,6 +100,10 @@ class Room
         return $this->redis->lrange(0, 50);
     }
 
+    public function nextTurn()
+    {
+
+    }
 
     public function restore()
     {
