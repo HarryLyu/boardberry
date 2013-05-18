@@ -241,21 +241,23 @@ BB.classes.ExplanationStartedView = Class.extend({
         var self = this,
             $timer = $(this.loc.time),
             startTime = new Date().getTime(),
-            maxDiff = 60000;
+            maxDiff = 10 * 1000;
 
-        this.timerInterval = setInterval(function(){
+        this.timerInterval = setInterval(function () {
             var currentTime = new Date().getTime(),
                 deltaTime = currentTime - startTime,
                 timeToShow = maxDiff - deltaTime,
                 seconds = Math.round(timeToShow / 1000),
                 milliSeconds = timeToShow % 1000;
 
+            $timer.html('00:' + seconds + ':' + milliSeconds);
+
             if (deltaTime > maxDiff) {
                 clearInterval(self.timerInterval);
                 self.private_onEndTimer();
             }
             else {
-                $timer.html('00:' + seconds + ':' + milliSeconds);
+                $timer.html('00:' + Math.max(seconds, 0) + ':' + Math.max(milliSeconds, 0));
             }
         }, 100)
     },
