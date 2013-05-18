@@ -131,7 +131,7 @@ class ApiRouting implements ControllerProviderInterface
 
                 case 'edit-result':
 
-                    if (($wordId = $request->get('wordId')) === null) {
+                    if (($wordId = $request->get('word_id')) === null) {
                         throw new \Exception('No words passed');
                     };
 
