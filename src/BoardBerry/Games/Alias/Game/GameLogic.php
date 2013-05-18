@@ -48,13 +48,11 @@ class GameLogic {
     }
 
 
-    public function startExplain()
+    public function startExplanation()
     {
-        $explainerId = 0;//
-        $activeTeam = 0;//
         $wordSet = $this->room->getWordsForTurn();
 
-        $this->eventManager->explanationStarted($explainerId, $activeTeam, $wordSet);
+        $this->eventManager->explanationStarted($this->room->explainerId, $this->room->activeTeamId, $wordSet);
     }
 
 

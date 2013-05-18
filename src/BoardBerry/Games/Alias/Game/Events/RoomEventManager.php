@@ -51,7 +51,14 @@ class RoomEventManager
     {
         $this->sendEvent(
             'explanationStarted',
-            ['explainerId' => $explainerId, 'activeTeamId' => $activeTeamId, 'words' => $wordSet]
+            [
+                'explainer' =>
+                [
+                    'id' => $explainerId,
+                    'name' => 'hui2'
+                ],
+                'activeTeamId' => $activeTeamId,
+                'words' => $wordSet]
         );
     }
 

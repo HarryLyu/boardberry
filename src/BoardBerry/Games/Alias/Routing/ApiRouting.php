@@ -72,7 +72,7 @@ class ApiRouting implements ControllerProviderInterface
                     $game->addPlayer($playerId);
 
                     $formatter = new RoomResponseFormatter($roomEventManager, $room);
-                    
+
                     return new JsonResponse($formatter->format());
 
                 case 'join-team':
@@ -112,7 +112,7 @@ class ApiRouting implements ControllerProviderInterface
 
                     $room = $roomManager->getRoom($roomId);
                     $game = new GameLogic($roomEventManager, $room);
-                    $game->startExplain();
+                    $game->startExplanation();
 
                     return new JsonResponse(['result' => 'ok']);
 
