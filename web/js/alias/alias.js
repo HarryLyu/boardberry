@@ -40,7 +40,7 @@
                         },
                         function (roomData) {
                             console.log('room created', roomData);
-                            BB.views.teams.render(roomData.data);
+                            BB.views.teams.initView(roomData.data);
                         }
                     );
                 }
@@ -57,16 +57,12 @@
                     if (response.user.userID) {
                         BB.user.id = response.user.userID
                     }
-                    BB.views.join.render();
+                    BB.views.join.initView();
                 }
             );
 
         });
     });
-
-    BB.channelHandler = function (data, id) {
-        data =  JSON.parse(data);
-    };
 
     BB.realplexor = new Dklab_Realplexor(
         "http://comet." + location.host + "/",

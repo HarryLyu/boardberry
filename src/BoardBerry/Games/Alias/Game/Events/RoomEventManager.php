@@ -71,7 +71,7 @@ class RoomEventManager
 
     public function turnStarted($explainerId, $activeTeamId)
     {
-        $this->sendEvent('turnStared', ['explainerId' => $explainerId, $activeTeamId => $activeTeamId]);
+        $this->sendEvent('turnStarted', ['explainerId' => $explainerId, $activeTeamId => $activeTeamId]);
     }
 
     public function explanationFinished($words, $activeTeamId)

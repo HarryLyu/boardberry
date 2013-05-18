@@ -31,7 +31,7 @@ BB.classes.JoinView = Class.extend({
                     action: 'join-room',
                     user: BB.user.id
                 }, function (data) {
-                    BB.views.teams.render(data.data);
+                    BB.views.teams.initView(data.data);
                 });
 
             });
@@ -66,7 +66,7 @@ BB.classes.TeamsView = Class.extend({
             .on('click', this.loc.teamItem, function(){
                 console.log('click on join team');
 
-                $.post('/api/room/' + self.data.id,{
+                $.post('/api/room/' + BB.roomData.id,{
                     action: 'join-team',
                     team: $(this).data('team-item'),
                     user: BB.user.id
@@ -77,7 +77,7 @@ BB.classes.TeamsView = Class.extend({
             .on('click', '[data-game-action="add-team"]', function () {
                 console.log('add team click');
 
-                $.post('/api/room/' + self.data.id,{
+                $.post('/api/room/' + BB.roomData.id,{
                     action: 'add-team',
                     user: BB.user.id
                 }, function (data) {
@@ -87,7 +87,7 @@ BB.classes.TeamsView = Class.extend({
             .on('click', '[data-game-action="start-game"]', function () {
                 console.log('start game click');
 
-                $.post('/api/room/' + self.data.id,{
+                $.post('/api/room/' + BB.roomData.id,{
                     action: 'start-game'
                 }, function (data) {
                     console.log('start game response', data);
