@@ -3,7 +3,7 @@ namespace BoardBerry\Games\Alias\Game;
 
 use BoardBerry\Games\Alias\Game\Events\RoomEventManager;
 use BoardBerry\Games\Alias\Game\Room\Room;
-use BoardBerry\Games\Alias\Game\Room\RoomResponseFormatter;
+use BoardBerry\Games\Alias\Game\Room\Words\WordManager;
 
 class GameLogic {
     const STATE_TEAM_SELECT = 'teams';
@@ -45,6 +45,21 @@ class GameLogic {
         $this->eventManager->teamAdded($teamId);
 
         $this->addPlayerToTeam($teamId, $playerId);
+    }
+
+    public function startTurn($playerId)
+    {
+        
+    }
+
+    /**
+     * @param WordManager $wordManager
+     */
+    public function startGame($wordManager)
+    {
+        $wordSet = $wordManager->generateWordSet();
+        $this->room->saveWordSet($wordSet);
+        $this->eventManager->turnPrepare();
     }
 
 }
