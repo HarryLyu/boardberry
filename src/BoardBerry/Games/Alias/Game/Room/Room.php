@@ -115,7 +115,7 @@ class Room
 
                 $this->redis->lpush($this->roomTeamTurnsKey, $team->id);
 
-                foreach ($team->players as $playerId) {
+                foreach ($team->players as $playerId => $_) {
                     $this->redis->lpush($this->roomPlayerTurnsKey . ":" . $team->id, $playerId);
                 }
             }
@@ -134,8 +134,8 @@ class Room
 
     public function nextTurn()
     {
-        $this->activeTeamId = $this->redis->rpoplpush($this->roomTeamTurnsKey);
-        $this->explainerId = $this->redis->rpoplpush($this->roomPlayerTurnsKey . ":" . $this->activeTeamId);
+        $this->activeTeamId = $this->redis->rpoplpush($this->roomTeamTurnsKey, $this->roomTeamTurnsKey);
+        $this->explainerId = $this->redis->rpoplpush($this->roomPlayerTurnsKey . ":" . $this->activeTeamId, $this->roomPlayerTurnsKey . ":" . $this->activeTeamId);
     }
 
     public function restore()

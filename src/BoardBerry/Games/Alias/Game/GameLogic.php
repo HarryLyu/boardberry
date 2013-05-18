@@ -79,8 +79,8 @@ class GameLogic {
     public function startGame($wordManager)
     {
         $wordSet = $wordManager->generateWordSet();
-        $this->room->saveWordPool($wordSet);
-        $this->room->addTurnQueues();
+        //$this->room->saveWordPool($wordSet);
+        //$this->room->addTurnQueues();
         $this->eventManager->gameStarted($this->room->teams);
 
         $this->nextTurn();
