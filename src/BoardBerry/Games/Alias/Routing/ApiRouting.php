@@ -1,6 +1,7 @@
 <?php
 namespace BoardBerry\Games\Alias\Routing;
 
+use BoardBerry\Common\User\UserManager;
 use BoardBerry\Games\Alias\Game\Events\RoomEventManager;
 use BoardBerry\Games\Alias\Game\GameLogic;
 use BoardBerry\Games\Alias\Game\Room\RoomManager;
@@ -29,6 +30,9 @@ class ApiRouting implements ControllerProviderInterface
             /** @var RoomManager $roomManager */
             $roomManager = $app['alias.room-manager'];
 
+            /** @var UserManager $userManager */
+            $userManager = $app['user'];
+
             if (!$action = $request->get('action')) {
                 throw new \Exception('No action passed');
             };
@@ -42,7 +46,7 @@ class ApiRouting implements ControllerProviderInterface
                     $room = $roomManager->createRoom($ownerId);
 
                     $roomEventManager = new RoomEventManager($app['comet'], $room->roomId);
-                    $game = new GameLogic($roomEventManager, $room);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->init($ownerId);
 
                     $formatter = new RoomResponseFormatter($roomEventManager, $room);
@@ -54,6 +58,9 @@ class ApiRouting implements ControllerProviderInterface
         $collection->match('room/{roomId}', function (Request $request, $roomId) use ($app) {
             /** @var RoomManager $roomManager */
             $roomManager = $app['alias.room-manager'];
+
+            /** @var UserManager $userManager */
+            $userManager = $app['user'];
 
             $roomEventManager = new RoomEventManager($app['comet'], $roomId);
 
@@ -68,7 +75,7 @@ class ApiRouting implements ControllerProviderInterface
                     };
 
                     $room = $roomManager->getRoom($roomId);
-                    $game = new GameLogic($roomEventManager, $room);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->addPlayer($playerId);
 
                     $formatter = new RoomResponseFormatter($roomEventManager, $room);
@@ -85,7 +92,7 @@ class ApiRouting implements ControllerProviderInterface
                     };
 
                     $room = $roomManager->getRoom($roomId);
-                    $game = new GameLogic($roomEventManager, $room);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->addPlayerToTeam($teamId, $playerId);
 
                     return new JsonResponse(['result' => 'ok']);
@@ -96,14 +103,14 @@ class ApiRouting implements ControllerProviderInterface
                     };
 
                     $room = $roomManager->getRoom($roomId);
-                    $game = new GameLogic($roomEventManager, $room);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->addTeam($playerId);
 
                     return new JsonResponse(['result' => 'ok']);
 
                 case 'start-game':
                     $room = $roomManager->getRoom($roomId);
-                    $game = new GameLogic($roomEventManager, $room);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->startGame(new WordManager());
 
                     return new JsonResponse(['result' => 'ok']);
@@ -111,7 +118,7 @@ class ApiRouting implements ControllerProviderInterface
                 case 'start-explanation':
 
                     $room = $roomManager->getRoom($roomId);
-                    $game = new GameLogic($roomEventManager, $room);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->startExplanation();
 
                     return new JsonResponse(['result' => 'ok']);
@@ -124,7 +131,7 @@ class ApiRouting implements ControllerProviderInterface
                     };
 
                     $room = $roomManager->getRoom($roomId);
-                    $game = new GameLogic($roomEventManager, $room);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->finishExplanation($tempResult);
 
                     return new JsonResponse(['result' => 'ok']);
@@ -136,7 +143,7 @@ class ApiRouting implements ControllerProviderInterface
                     };
 
                     $room = $roomManager->getRoom($roomId);
-                    $game = new GameLogic($roomEventManager, $room);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->editResult($wordId);
 
                     return new JsonResponse(['result' => 'ok']);
@@ -144,7 +151,7 @@ class ApiRouting implements ControllerProviderInterface
                 case 'save-results':
 
                     $room = $roomManager->getRoom($roomId);
-                    $game = new GameLogic($roomEventManager, $room);
+                    $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->addScore();
 
                     return new JsonResponse(['result' => 'ok']);

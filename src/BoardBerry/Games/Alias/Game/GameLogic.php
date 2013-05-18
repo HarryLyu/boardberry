@@ -111,7 +111,7 @@ class GameLogic
         $wordSet = $wordManager->generateWordSet();
         $this->room->saveWordPool($wordSet);
         $this->room->addTurnQueues();
-        $this->eventManager->gameStarted($this->room->teams);
+        $this->eventManager->gameStarted($this->room->teams, $this->userManager);
 
         $this->turnStart();
     }

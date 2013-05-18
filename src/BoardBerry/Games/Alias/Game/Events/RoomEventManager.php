@@ -2,6 +2,8 @@
 
 namespace BoardBerry\Games\Alias\Game\Events;
 
+use BoardBerry\Common\User\UserManager;
+
 class RoomEventManager
 {
 
@@ -63,13 +65,18 @@ class RoomEventManager
         );
     }
 
-    public function gameStarted($teams)
+
+    /**
+     * @param $teams
+     * @param UserManager $userManager
+     */
+    public function gameStarted($teams, $userManager)
     {
         $teamsRaw = [];
         foreach ($teams as $team) {
             $playersRaw = [];
             foreach ($team->players as $playerId => $_) {
-                $playersRaw[] = ['id' => $playerId, 'name' => 'aga' . $playerId];
+                $playersRaw[] = ['id' => $playerId, 'name' => $userManager->getName($playerId)];
             }
             $teamsRaw[] = ['id' => $team->id, 'players' => $playersRaw];
         }
