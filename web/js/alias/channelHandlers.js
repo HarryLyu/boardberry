@@ -10,5 +10,6 @@ BB.channelHandlers = {
             }
         });
     },
-    explanationStarted: BB.views.explanationStarted.initView.bind(BB.views.explanationStarted)
+    explanationStarted: BB.views.explanationStarted.initView.bind(BB.views.explanationStarted),
+    explanationFinished: BB.views.explanationFinished.initView.bind(BB.views.explanationFinished)
 };
