@@ -28,12 +28,12 @@
         </a>
     </div>
     <div data-role="content" >
-        <a data-game-action="create" href="">
+
+        <a data-game-action="create" href="" class="ui-btn">
             Create game
         </a>
 
-        <br><br>
-        <a href="" data-game-action="join">
+        <a href="" data-game-action="join" class="ui-btn">
             Join existing game
         </a>
 
@@ -58,6 +58,7 @@
 
 
 
+<script type="text/javascript" src="http://comet.stas.boardberry.me/?identifier=SCRIPT"></script>
 
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery-mobile.js"></script>
@@ -69,7 +70,15 @@
 <script src="js/facebook.js"></script>
 
 <script type="text/html" id="tplJoin">
-    ololol + <%=moreInfo%>
+    <h1>
+        Type your friends' room number
+    </h1>
+
+    <input type="text" data-room-id palceholder="Room ID" />
+
+    <a href="" data-game-action="join-room">
+        Join
+    </a>
 </script>
 
 <script type="text/html" id="tplTeams">

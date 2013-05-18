@@ -19,7 +19,6 @@
         teams: new BB.classes.TeamsView({root: '[data-view-name=teams]'})
     };
 
-
     $(document.body).on('click', '[data-game-action="create"]', function () {
         FBApp.login(function (authData, userProfile) {
             $.post(
@@ -38,7 +37,7 @@
                             owner: 'TODO ownerId'
                         },
                         function (roomData) {
-                            console.log('room recieved', roomData);
+                            alert('room recieved', roomData);
                         }
                     );
                 }
@@ -67,4 +66,9 @@
         '#006400',
         '#8B008B'
     ];
+
+    BB.realplexor = new Dklab_Realplexor(
+        "http://comet.stas.boardberry.me/",
+        "BB"
+    );
 })(BB);
