@@ -20,4 +20,8 @@ $app->mount('', $commonApiRouting);
 $apiRouting = new \BoardBerry\Games\Alias\Routing\ApiRouting('');
 $app->mount('', $apiRouting);
 
+$app->get('/tests/comet', function () use ($app) {
+    return $app['twig']->render('comet.twig',['time'=>time()]);
+});
+
 $app->run();
