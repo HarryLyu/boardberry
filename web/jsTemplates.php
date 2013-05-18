@@ -48,7 +48,7 @@ class JSTemplater
 
         $templateDir = "./templates/" . $moduleName . "/";
 
-        $html = "(function (LEO) { LEO.templates['" . (is_null($as) ?  $moduleName : $as) . "'] = LEO.templates['" . (is_null($as) ?  $moduleName : $as) . "'] || {};" . PHP_EOL;
+        $html = "(function (BB) { BB.templates['" . (is_null($as) ?  $moduleName : $as) . "'] = BB.templates['" . (is_null($as) ?  $moduleName : $as) . "'] || {};" . PHP_EOL;
         $htmlPieces = array();
 
         foreach (scandir($templateDir) as $file) {
@@ -65,7 +65,7 @@ class JSTemplater
         }
 
         $html .= implode(',' . PHP_EOL, $htmlPieces);
-        $html .= "})(LEO);" . PHP_EOL;
+        $html .= "})(BB);" . PHP_EOL;
 
         return $html;
     }
