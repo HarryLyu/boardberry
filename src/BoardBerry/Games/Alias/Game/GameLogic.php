@@ -47,4 +47,8 @@ class GameLogic {
         $this->addPlayerToTeam($teamId, $playerId);
     }
 
+    public function startTurn($playerId)
+    {
+        
+    }
 }

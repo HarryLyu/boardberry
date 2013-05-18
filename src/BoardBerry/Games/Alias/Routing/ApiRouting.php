@@ -99,6 +99,15 @@ class ApiRouting implements ControllerProviderInterface
                     $game->addTeam($playerId);
 
                     return new JsonResponse(['result' => 'ok']);
+                case 'start-turn':
+                    if (($playerId = $request->get('user')) === null) {
+                        throw new \Exception('No player passed');
+                    };
+
+                    $room = $roomManager->getRoom($roomId);
+                    $game = new GameLogic($roomEventManager, $room);
+                    $game->startTurn($playerId);
+
             }
         });
 
