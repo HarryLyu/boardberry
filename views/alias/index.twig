@@ -117,15 +117,15 @@
         </div>
 
         <div class="user-list">
-            <% team.forEach(function (playerItem, index) {
-               if (playerItem.id != explainer.id) { %>
+            <% team.forEach(function (playerItem) {
+                if (playerItem.id != explainer.id) { %>
                     <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
-            <% }
-            }) %>
+                <% }
+            }); %>
             guess
         </div>
 
-        <% if (explainer.id == me.id) %>
+        <% if (explainer.id == me.id) { %>
             <a data-game-action="start-explanation" class="btn-start">
                 I'm ready!
             </a>
