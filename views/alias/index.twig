@@ -54,7 +54,7 @@
 <div data-role="page" id="join" data-theme="b" data-view-name="join">
 </div>
 
-<div data-role="page" id="teams" data-theme="b" data-view-name="teams">
+<div data-role="page" id="teams" data-theme="b" data-view-name="teams" data-transition="flip">
 </div>
 
 <div data-role="page" id="turn-started" data-theme="b" data-view-name="turn-started">
@@ -221,30 +221,38 @@
 </script>
 
 <script type="text/html" id="tplGameResults">
-    <table>
-        <tbody>
-    <% for (var i = 0; i < 50; i++) { %>
-        <tr>
-            <td>
-                <span class="result-position">
-                    <%=(i+1)%>
-                </span>
-            </td>
-            <td>
-                <% data.forEach(function (dataItem) {
-                    if (dataItem.position == i + 1) { %>
-                        <div class="team-item team-item-<%=dataItem.id%>">
-                            <% teams[dataItem.id].forEach(function (playerItem, index) { %>
-                                <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
-                            <% }); %>
-                        </div>
-                    <% } %>
-                <% }); %>
-            </td>
-        </tr>
-    <% } %>
-        </tbody>
-    </table>
+    <div data-role="content" class="wrapper">
+        <table>
+            <tbody>
+        <% for (var i = 0; i < 50; i++) { %>
+            <tr>
+                <td>
+                    <span class="result-position">
+                        <%=(i+1)%>
+                    </span>
+                </td>
+                <td>
+                    <% data.forEach(function (dataItem) {
+                        if (dataItem.position == i) { %>
+                            <div class="team-item team-item-<%=dataItem.id%>">
+                                <% teams[dataItem.id].forEach(function (playerItem, index) { %>
+                                    <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
+                                <% }); %>
+                            </div>
+                        <% } %>
+                    <% }); %>
+                </td>
+            </tr>
+        <% } %>
+            </tbody>
+        </table>
+
+        <% if (me.id == roomData.owner) { %>
+        <a href="#" data-game-action="next-turn" class="ui-btn btn-start">
+            Следующий ход
+        </a>
+        <% } %>
+    </div>
 </script>
 
 

@@ -23,7 +23,7 @@ class GameLogic
     {
         $this->room = $room;
         $this->eventManager = $eventManager;
-        $this->userManager;
+        $this->userManager = $userManager;
     }
 
     public function init($ownerId)
