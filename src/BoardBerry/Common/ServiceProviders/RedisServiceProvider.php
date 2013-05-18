@@ -17,8 +17,9 @@ class RedisServiceProvider implements ServiceProviderInterface{
     public function register(Application $app)
     {
         $app['redis'] = \Pimple::share(function(){
-               $redis = new Redis();
+               $redis = new \Redis();
                $redis->connect(REDIS_HOST,REDIS_PORT);
+               return $redis;
             });
 
     }
