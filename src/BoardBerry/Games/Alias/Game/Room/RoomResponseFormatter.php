@@ -22,7 +22,7 @@ class RoomResponseFormatter
     {
         $response['result'] = 'ok';
         $response['state'] = $this->room->state;
-        $response['channel'] = $this->roomEventManager->getRoomChannelName();
+        $response['data']['channel'] = $this->roomEventManager->getRoomChannelName();
         $response['data']['id'] = $this->room->roomId;
         $response['data']['owner'] = $this->room->ownerId;
         switch ($this->room->state) {

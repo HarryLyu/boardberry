@@ -31,6 +31,6 @@ class GameLogic {
     public function addPlayer($playerId)
     {
         $this->room->addPlayer($playerId);
-        $this->eventManager->playerAdded($playerId);
+        $this->eventManager->playerAdded($playerId, $this->room->playerCount);
     }
 }

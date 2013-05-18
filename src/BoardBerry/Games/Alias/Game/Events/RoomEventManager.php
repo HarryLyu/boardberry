@@ -32,8 +32,8 @@ class RoomEventManager
     }
 
 
-    public function playerAdded($playerId)
+    public function playerAdded($playerId, $playerCount)
     {
-        $this->sendEvent('playerAdded', ['playerId' => $playerId]);
+        $this->sendEvent('playerAdded', ['playerId' => $playerId, 'playerAdded' => $playerCount]);
     }
 }
