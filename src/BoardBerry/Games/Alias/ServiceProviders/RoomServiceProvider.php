@@ -1,10 +1,12 @@
 <?php
-namespace BoardBerry\Common\ServiceProviders;
+namespace BoardBerry\Games\Alias\ServiceProviders;
 
+use BoardBerry\Games\Alias\Room\RoomManager;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
-class RedisServiceProvider implements ServiceProviderInterface{
+class RoomServiceProvider implements ServiceProviderInterface
+{
 
     /**
      * Registers services on the given app.
@@ -16,12 +18,9 @@ class RedisServiceProvider implements ServiceProviderInterface{
      */
     public function register(Application $app)
     {
-        $app['redis'] = \Pimple::share(function(){
-               $redis = new \Redis();
-               $redis->connect(REDIS_HOST,REDIS_PORT);
-               return $redis;
+        $app['alias.room'] = \Pimple::share(function () use ($app) {
+                return new RoomManager($app['redis']);
             });
-
     }
 
     /**
