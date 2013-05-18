@@ -1,14 +1,22 @@
 (function(BB){
 
-    BB.stateToViewConfig = {
-        1 : 'join'
-    };
+    BB.activeState = "";
 
     BB.changeState = function (data){
-        var view = BB.stateToViewConfig[data.stateId],
-            innerHTML = BB.templates.alias[view](data);
+        var state = data.state;
 
-        BB.showView(view, innerHTML);
+        if (BB.activeState === state){
+            BB.views[state].update();
+        } else {
+            BB.activeState = state;
+            BB.views[state].render();
+        }
+    };
+
+
+    BB.views = {
+        join: new BB.classes.JoinView({root: '[data-view-name=join]'}),
+        teams: new BB.classes.TeamsView({root: '[data-view-name=teams]'})
     };
 
 
@@ -20,6 +28,9 @@
                     user: userProfile
                 },
                 function (response) {
+                    if (response.userID) {
+                        BB.user.id = response.user.userID
+                    }
                     $.post(
                         '/api/room',
                         {
@@ -35,7 +46,7 @@
         });
     }).on('click', '[data-game-action="join"]', function () {
             var mock = {
-                stateId : 1,
+                state : 'join',
                 moreInfo: 'dddddd'
             };
 
