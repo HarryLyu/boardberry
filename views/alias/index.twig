@@ -66,6 +66,11 @@
 <div data-role="page" id="explanation-finished" data-theme="b" data-view-name="explanation-finished">
 </div>
 
+<div data-role="page" id="turn-finished" data-theme="b" data-view-name="turn-finished">
+</div>
+
+
+
 <script type="text/html" id="tplJoin">
     <div data-role="content" class="wrapper">
         <h1>
@@ -226,7 +231,15 @@
                 </span>
             </td>
             <td>
-
+                <% data.forEach(function (dataItem) {
+                    if (dataItem.position == i + 1) { %>
+                        <div class="team-item team-item-<%=dataItem.id%>">
+                            <% teams[dataItem.id].forEach(function (playerItem, index) { %>
+                                <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
+                            <% }); %>
+                        </div>
+                    <% } %>
+                <% }); %>
             </td>
         </tr>
     <% } %>

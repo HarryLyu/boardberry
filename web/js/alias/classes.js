@@ -318,3 +318,39 @@ BB.classes.ExplanationFinishedView = Class.extend({
         this.root.find('[data-word-id=' + wordData.id + ']').toggleClass('correct', wordData.result == 1);
     }
 });
+
+
+BB.classes.TurnFinishedView = Class.extend({
+    loc: {
+        nextTurnBtn: '[data-game-action="next-turn"]'
+    },
+
+    init: function (params){
+        this.params = params;
+        this.root = $(params.root);
+        this.private_assignEvents();
+    },
+
+    private_assignEvents: function (){
+        this.root
+            .on('click', this.loc.nextTurnBtn, function () {
+                $.post('/api/room/' + BB.roomData.id,{
+                        action: 'next-turn'
+                    },
+                    function (data) {
+                        console.log ('next turn response ', data)
+                    });
+
+                return false;
+            })
+    },
+
+    initView: function(data){
+        this.private_render(data);
+    },
+
+    private_render: function (data){
+        this.root.html(tmpl('tplGameResults', {data: data, teams: BB.teams[data.activeTeamId]}));
+        $.mobile.navigate('#turn-finished');
+    }
+});
