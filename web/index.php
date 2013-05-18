@@ -11,13 +11,13 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../views',
 ));
 
-$commonRouting = new \BoardBerry\Common\CommonRouting('');
+$commonRouting = new \BoardBerry\Common\Routing\CommonRouting('');
 $app->mount('', $commonRouting);
 
-$commonApiRouting = new \BoardBerry\Common\CommonApiRouting('');
+$commonApiRouting = new \BoardBerry\Common\Routing\CommonApiRouting('');
 $app->mount('', $commonApiRouting);
 
-$apiRouting = new \BoardBerry\Games\Alias\ApiRouting('');
+$apiRouting = new \BoardBerry\Games\Alias\Routing\ApiRouting('');
 $app->mount('', $apiRouting);
 
 $app->run();

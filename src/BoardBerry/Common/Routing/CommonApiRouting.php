@@ -1,10 +1,10 @@
 <?php
-namespace BoardBerry\Common;
+namespace BoardBerry\Common\Routing;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 
-class CommonRouting implements ControllerProviderInterface {
+class CommonApiRouting implements ControllerProviderInterface {
     /**
      * Returns routes to connect to the given application.
      *
@@ -16,8 +16,8 @@ class CommonRouting implements ControllerProviderInterface {
     {
         $collection = $app['controllers_factory'];
 
-        $collection->get('/', function () use ($app) {
-            return $app['twig']->render('layout.twig');
+        $collection->get('/user', function () use ($app) {
+            return 'user registered!';
         });
 
         return $collection;

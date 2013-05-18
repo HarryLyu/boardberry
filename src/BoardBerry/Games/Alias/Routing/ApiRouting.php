@@ -1,10 +1,10 @@
 <?php
-namespace BoardBerry\Common;
+namespace BoardBerry\Games\Alias\Routing;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
 
-class CommonApiRouting implements ControllerProviderInterface {
+class ApiRouting implements ControllerProviderInterface {
     /**
      * Returns routes to connect to the given application.
      *
@@ -16,8 +16,14 @@ class CommonApiRouting implements ControllerProviderInterface {
     {
         $collection = $app['controllers_factory'];
 
-        $collection->get('/user', function () use ($app) {
-            return 'user registered!';
+        $collection->get('room', function ()
+        {
+            return 'creating room!';
+        });
+
+        $collection->get('room/{id}', function ($id)
+        {
+            return 'room id ' . $id;
         });
 
         return $collection;
