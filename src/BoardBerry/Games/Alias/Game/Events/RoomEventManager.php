@@ -81,9 +81,10 @@ class RoomEventManager
         $this->sendEvent('turnStarted', ['explainer' => ['id' => $explainerId, 'name' => 'hui'], 'activeTeamId' => $activeTeamId]);
     }
 
-    public function explanationFinished($explainerId, $tempResult, $words, $activeTeamId)
+    public function explanationFinished($explainerId, $tempResults, $words, $activeTeamId)
     {
-        foreach ($tempResult as $wordId => $wordResult) {
+        $wordsRaw = [];
+        foreach ($tempResults as $wordId => $wordResult) {
             $wordsRaw[] = ['id' => $wordId, 'text' => $words[$wordId], 'result' => $wordResult];
         }
 
@@ -99,5 +100,10 @@ class RoomEventManager
                 ]
             ]
         );
+    }
+
+    public function resultUpdated($wordId, $value)
+    {
+        $this->sendEvent('resultUpdated', ['id' => $wordId, 'result' => $value]);
     }
 }

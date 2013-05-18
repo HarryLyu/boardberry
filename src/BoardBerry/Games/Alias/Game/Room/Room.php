@@ -48,6 +48,7 @@ class Room
         $this->roomWordSetKey = $this->roomKey . ':WORDPOOL';
         $this->roomTeamTurnsKey = $this->roomKey . ':TEAM-TURNS';
         $this->roomPlayerTurnsKey = $this->roomKey . ':PLAYER-TURNS';
+        $this->roomTurnResultsKey = $this->roomKey . ':TURN-RESULTS';
     }
 
     public function init($ownerId)
@@ -132,6 +133,20 @@ class Room
     public function deleteWordsFromPool($wordsCount)
     {
         return $this->redis->ltrim($this->roomWordSetKey, 0, $wordsCount);
+    }
+
+    public function saveResults($results)
+    {
+        $this->redis->hmset($this->roomTurnResultsKey, $results);
+    }
+
+    public function editResult($wordId)
+    {
+        $value = $this->redis->hget($this->roomTurnResultsKey, $wordId);
+        $value = $value ? 0 : 1;
+        $this->redis->hset($this->roomTurnResultsKey, $wordId, $value);
+
+        return $value;
     }
 
     public function nextTurn()
