@@ -67,7 +67,7 @@ class RoomEventManager
         $teamsRaw = [];
         foreach ($teams as $team) {
             $playersRaw = [];
-            foreach ($team->players as $playerId) {
+            foreach ($team->players as $playerId => $_) {
                 $playersRaw[] = ['id' => $playerId, 'name' => 'aga' . $playerId];
             }
             $teamsRaw[] = ['id' => $team->id, 'players' => $playersRaw];
