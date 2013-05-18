@@ -30,7 +30,6 @@ class UserManager
             'link',
             'username'
         ];
-
     }
 
     /**
@@ -45,8 +44,6 @@ class UserManager
 
     public function register($fbAuth, $fbUser)
     {
-
-
         if (!isset($fbAuth['authResponse']['userID'])) {
             throw new \Exception('userID failed');
         } else {
@@ -67,23 +64,17 @@ class UserManager
         }
 
         $ok = $this->redis->hMset(self::generateKey($userID), $toSave);
-        if($ok) {
+        if ($ok) {
             return $toSave;
-        }   else {
+        } else {
             throw new \Exception('redis save failed');
         }
     }
 
 
-    public function get($fbId)
+    public function getName($fbId)
     {
-
-        return $this->redis->hGetAll(self::generateKey($fbId));
-    }
-
-    public function set($fbId, $data)
-    {
-        return true;
+        return $this->redis->hget(self::generateKey($fbId), 'name');
     }
 
 }

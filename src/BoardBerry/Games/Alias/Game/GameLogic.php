@@ -1,6 +1,7 @@
 <?php
 namespace BoardBerry\Games\Alias\Game;
 
+use BoardBerry\Common\User\UserManager;
 use BoardBerry\Games\Alias\Game\Events\RoomEventManager;
 use BoardBerry\Games\Alias\Game\Room\Room;
 use BoardBerry\Games\Alias\Game\Room\Words\WordManager;
@@ -12,13 +13,17 @@ class GameLogic
     /** @var RoomEventManager */
     protected $eventManager;
 
+    /** @var UserManager */
+    protected $userManager;
+
     /** @var Room */
     protected $room;
 
-    public function __construct($eventManager, $room)
+    public function __construct($eventManager, $room, $userManager)
     {
         $this->room = $room;
         $this->eventManager = $eventManager;
+        $this->userManager;
     }
 
     public function init($ownerId)
@@ -54,7 +59,8 @@ class GameLogic
     {
         $wordSet = $this->room->getWordsForTurn();
 
-        $this->eventManager->explanationStarted($this->room->explainerId, $this->room->activeTeamId, $wordSet);
+        $name = $this->userManager->getName($this->room->explainerId);
+        $this->eventManager->explanationStarted($this->room->explainerId, $name, $this->room->activeTeamId, $wordSet);
     }
 
 
@@ -63,8 +69,10 @@ class GameLogic
         $this->room->saveResults($tempResults);
 
         $words = $this->room->getWordsForTurn();
+        $name = $this->userManager->getName($this->room->explainerId);
         $this->eventManager->explanationFinished(
             $this->room->explainerId,
+            $name,
             $tempResults,
             $words,
             $this->room->activeTeamId
@@ -103,13 +111,14 @@ class GameLogic
         $wordSet = $wordManager->generateWordSet();
         $this->room->saveWordPool($wordSet);
         $this->room->addTurnQueues();
-        $this->eventManager->gameStarted($this->room->teams);
+        $this->eventManager->gameStarted($this->room->teams, $this->userManager);
 
         $this->turnStart();
     }
 
     public function turnStart()
     {
-        $this->eventManager->turnStarted($this->room->explainerId, $this->room->activeTeamId);
+        $name = $this->userManager->getName($this->room->explainerId);
+        $this->eventManager->turnStarted($this->room->explainerId, $name, $this->room->activeTeamId);
     }
 }

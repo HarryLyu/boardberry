@@ -26,13 +26,12 @@
 
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
-                    var uid = response.authResponse.userID;
-                    var accessToken = response.authResponse.accessToken;
-
                     console.log('already auth', response);
 
-                    callback && callback(response, null);
-
+                    FB.api('/me', function(userData) {
+                        console.log('Good to see you, ' + userData.name + '.', userData);
+                        callback && callback(response, userData);
+                    });
                 } else {
                     FB.login(function(authData) {
                         console.log('receive first response');

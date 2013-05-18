@@ -12,5 +12,6 @@ BB.channelHandlers = {
     },
     explanationStarted: BB.views.explanationStarted.initView.bind(BB.views.explanationStarted),
     explanationFinished: BB.views.explanationFinished.initView.bind(BB.views.explanationFinished),
-    resultUpdated: BB.views.explanationFinished.updateResult.bind(BB.views.explanationFinished)
+    resultUpdated: BB.views.explanationFinished.updateResult.bind(BB.views.explanationFinished),
+    turnFinished: BB.views.turnFinished.initView.bind(BB.views.turnFinished)
 };

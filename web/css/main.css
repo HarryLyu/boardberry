@@ -147,3 +147,26 @@ a {
     .team-item-9 {
         background-image: linear-gradient(to bottom,#ee5f5b,#bd362f);
     }
+
+.result-item {
+    text-align: left;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+    .result-item .icon-thumbs-up {
+        color: green;
+        display: none;
+        float: right;
+    }
+    .result-item .icon-thumbs-down {
+        color: red;
+        float: right;
+    }
+
+    .result-item.correct .icon-thumbs-down {
+        display: none;
+    }
+    .result-item.correct .icon-thumbs-up {
+        display: inline-block;
+    }
