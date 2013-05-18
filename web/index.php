@@ -11,9 +11,16 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../views',
 ));
 
-$app->get('/', function () use ($app) {
-    return $app['twig']->render('layout.twig');
-});
+$app->register(new \BoardBerry\Common\ServiceProviders\RedisServiceProvider());
+
+$commonRouting = new \BoardBerry\Common\Routing\CommonRouting('');
+$app->mount('', $commonRouting);
+
+$commonApiRouting = new \BoardBerry\Common\Routing\CommonApiRouting('');
+$app->mount('', $commonApiRouting);
+
+$apiRouting = new \BoardBerry\Games\Alias\Routing\ApiRouting('');
+$app->mount('', $apiRouting);
 
 
 $app->get('/alias', function () use ($app) {
