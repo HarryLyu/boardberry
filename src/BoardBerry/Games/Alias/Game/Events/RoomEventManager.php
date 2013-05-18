@@ -55,7 +55,7 @@ class RoomEventManager
         );
     }
 
-    public function gameStared($teams)
+    public function gameStarted($teams)
     {
         $teamsRaw = [];
         foreach ($teams as $team) {
@@ -72,5 +72,13 @@ class RoomEventManager
     public function turnStarted($explainerId, $activeTeamId)
     {
         $this->sendEvent('turnStared', ['explainerId' => $explainerId, $activeTeamId => $activeTeamId]);
+    }
+
+    public function explanationFinished($words, $activeTeamId)
+    {
+        $this->sendEvent(
+            'explanationFinished',
+            ['words' => $words, 'activeTeamId' => $activeTeamId]
+        );
     }
 }

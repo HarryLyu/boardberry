@@ -52,9 +52,25 @@ class GameLogic {
     {
         $explainerId = 0;//
         $activeTeam = 0;//
-        $wordSet = $this->room->getWordSetForTurn();
+        $wordSet = $this->room->getWordsForTurn();
 
         $this->eventManager->explanationStarted($explainerId, $activeTeam, $wordSet);
+    }
+
+
+    public function finishExplanation($words) {
+        $score = 0;
+        foreach($words as $value) {
+            if($value==0) {
+                $score--;
+            } else {
+                $score++;
+            }
+        }
+        $this->room->deleteWordsFromPool(sizeof($words));
+
+        $activeTeamId = 0;
+        $this->eventManager->explanationFinished($words, $activeTeamId);
     }
 
     /**
@@ -63,16 +79,17 @@ class GameLogic {
     public function startGame($wordManager)
     {
         $wordSet = $wordManager->generateWordSet();
-        $this->room->saveWordSet($wordSet);
-        $this->eventManager->gameStared($this->room->teams);
+        $this->room->saveWordPool($wordSet);
+        $this->room->addTurnQueues();
+        $this->eventManager->gameStarted($this->room->teams);
 
         $this->nextTurn();
     }
 
     public function nextTurn()
     {
-        $this->room->nextTurn();
         $this->eventManager->turnStarted($this->room->explainerId, $this->room->activeTeamId);
+        $this->room->nextTurn();
     }
 
 }
