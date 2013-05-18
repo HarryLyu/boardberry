@@ -318,6 +318,6 @@ BB.classes.ExplanationFinishedView = Class.extend({
     },
 
     updateResult: function (wordData) {
-        this.root.find('[data-word-id=' + wordData.word_id + ']').toggleClass('correct', wordData.result == 1);
+        this.root.find('[data-word-id=' + wordData.id + ']').toggleClass('correct', wordData.result == 1);
     }
 });
