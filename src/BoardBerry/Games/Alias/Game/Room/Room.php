@@ -108,14 +108,16 @@ class Room
         foreach ($this->teams as $team) {
             if (count($team->players) > 0) {
                 if ($first) {
-                    $first = false;
                     $this->activeTeamId = $team->id;
-                    $this->explainerId = array_keys($team->players)[0];
                 }
 
                 $this->redis->lpush($this->roomTeamTurnsKey, $team->id);
 
                 foreach ($team->players as $playerId => $_) {
+                    if ($first) {
+                        $first = false;
+                        $this->explainerId = $playerId;
+                    }
                     $this->redis->lpush($this->roomPlayerTurnsKey . ":" . $team->id, $playerId);
                 }
             }
