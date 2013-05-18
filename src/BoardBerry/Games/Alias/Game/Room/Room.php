@@ -15,6 +15,7 @@ class Room
     protected $roomPlayersKey;
     protected $playerRoomKey;
     protected $teamKey;
+    protected $roomWordSetKey;
 
     protected $simpleLoadFields = ['state', 'ownerId', 'teamCount', 'playerCount'];
 
@@ -39,6 +40,7 @@ class Room
         $this->roomPlayersKey = $this->roomKey . ':PLAYERS';
         $this->playerRoomKey = PROJECT_NAME . ':PLAYER-ROOM';
         $this->teamKey = $this->roomKey . ':TEAMS';
+        $this->roomWordSetKey = $this->roomKey . ':WORDSET';
     }
 
     public function init($ownerId)
@@ -84,6 +86,11 @@ class Room
 
         $this->redis->hset($this->teamKey, $playerId, $teamId);
         $this->teams[$teamId]->addPlayer($playerId);
+    }
+
+    public function saveWordSet($words)
+    {
+        $this->redis->rpush($this->roomWordSetKey, $words);
     }
 
     public function restore()
