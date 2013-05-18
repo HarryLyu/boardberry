@@ -84,7 +84,6 @@ BB.classes.TeamsView = Class.extend({
         if (!this.isChannelInited) {
             console.log('Channel', this.data.channel, 'subscribed', this.data);
 
-
             BB.realplexor.setCursor(this.data.channel, this.data.channel_time);
             BB.realplexor.subscribe(this.data.channel, function(data, id) {
                 data = JSON.parse(data);
@@ -107,7 +106,12 @@ BB.classes.TeamsView = Class.extend({
     },
 
     playerJoinedToTeam_handler: function (data) {
+        this.root.find('[data-user-item="' + data.playerId + '"]').remove();
 
+        $('<img/>')
+            .attr('src', 'https://graph.facebook.com/' + data.playerId + '/picture?type=square')
+            .attr('data-user-item', data.playerId)
+            .appendTo(this.root.find('[data-team-item="' + data.teamId + '"]'));
     },
 
     update: function (data){

@@ -71,16 +71,19 @@
 
 <script type="text/html" id="tplTeams">
     <div class="wrapper team-container" data-team-container data-role="content">
-        <input type="text" value="http://<%location.host%>/alias/#/room/<%id%>" />
+        <div class="room-link-container">
+            Your friends can join this game using this ID: <b><%=data.id%></b>
+        </div>
+
         <div class="users-count">
-            <span data-users-count><%=data.total_users%></span> total users
+            <span data-users-count><%=(data.player_count || 0)%></span> total users
         </div>
         <h1>Choose your team</h1>
 
         <% data.teams.forEach(function (team, index) { %>
         <div data-team-item="<%=team.id%>" class="team-item team-item-<%=team.id%>">
             <% team.users.forEach(function (user, userIndex) { %>
-            <img src="https://graph.facebook.com/<%=user%>/picture?type=square" />
+                <img src="https://graph.facebook.com/<%=user%>/picture?type=square" data-user-item="<%=user%>" />
             <% }); %>
         </div>
         <% }); %>
