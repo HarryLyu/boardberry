@@ -341,7 +341,8 @@ a {
 .control .btn {
     display: inline-block !important;
     padding: 5px 8px !important;
-    width: 110px;
+    width: 107px;
+    font-size: 15px;
 }
 
 .control .words-count {
