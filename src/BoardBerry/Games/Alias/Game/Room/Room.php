@@ -151,7 +151,7 @@ class Room
 
     public function clearResults()
     {
-        return $this->redis->hdel($this->roomTurnResultsKey);
+        return $this->redis->del($this->roomTurnResultsKey);
     }
 
     public function addTeamScore($teamId, $score)

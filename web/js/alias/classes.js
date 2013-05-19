@@ -371,14 +371,9 @@ BB.classes.TurnFinishedView = Class.extend({
             })
         });
 
-        var charts = document.getElementByClassName("resultsChart");
+        BB.chartData = chartData;
 
-        charts.forEach(function (element) {
-            new Chart(element.getContext("2d")).Bar({
-                labels : [""],
-                datasets : chartData
-            }, ChartOptions);
-        });
+        drawCharts(BB.chartData);
 
         $(document.body).addClass('show-charts');
     }

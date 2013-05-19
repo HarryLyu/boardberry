@@ -30,13 +30,4 @@
         }
     };
 
-    $(document.body).on('swipeleft', function(event){
-        console.log(event);
-//        var data = event.originalEvent.touches ?
-//            event.originalEvent.touches[ 0 ] : event;
-//        $('[data-game-action=create]').css({
-//            position: 'absolute',
-//            left: event.pageX
-//        })
-    })
 })(window.BB = {});
