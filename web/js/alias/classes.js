@@ -203,16 +203,20 @@ BB.classes.ExplanationStartedView = Class.extend({
                 deltaTime = currentTime - startTime,
                 timeToShow = maxDiff - deltaTime,
                 seconds = Math.round(timeToShow / 1000),
-                milliSeconds = timeToShow % 1000;
+                milliSeconds = (timeToShow % 1000) / 1000,
+                resString = "";
 
-            $timer.html('00:' + seconds + ':' + milliSeconds);
 
             if (deltaTime > maxDiff) {
                 clearInterval(self.timerInterval);
                 self.private_onEndTimer();
             }
             else {
-                $timer.html('00:' + Math.max(seconds, 0) + ':' + Math.max(milliSeconds, 0));
+                seconds = (seconds<10) ? '0' + seconds : seconds;
+                milliSeconds = milliSeconds.toFixed(2).toString().slice(2,4);
+                resString = '00:' + seconds + ':' + milliSeconds;
+                resString.slice(resString.length-1);
+                $timer.html(resString);
             }
         }, 100)
     },
