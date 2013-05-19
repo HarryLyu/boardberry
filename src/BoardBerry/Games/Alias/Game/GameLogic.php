@@ -45,7 +45,7 @@ class GameLogic
         $c = 0;
         foreach ($this->room->teams as $team) {
             $playerCount = count($team->players);
-            if ($playerCount < 2) {
+            if ($playerCount == 1) {
                 return false;
             }
             $c += $playerCount;
