@@ -244,11 +244,40 @@ a {
 }
 
     .choose-mode li {
-        padding-bottom: 15px;
+        padding-bottom: 55px;
     }
     .choose-mode a {
         width: 140px;
     }
+
+    .choose-mode div.ui-input-text {
+        margin: 0 !important;
+        float: left;
+        padding: 0 !important;
+    }
+
+    .input-number {
+        background: #FFFFFF !important;
+        border-radius: 4px 4px 4px 4px;
+        color: #000 !important;
+        margin: 0 0 8px !important;
+        width: 117px !important;
+        display: inline-block !important;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3) inset;
+        font-size: 12px !important;
+        padding: 9px 3px !important;
+    }
+
+.input-number::-moz-placeholder { color: #333 !important; }
+.input-number::-webkit-placeholder { color: #333 !important; }
+
+
+.mode-description {
+    font-style: italic;
+    font-size: 12px;
+    opacity: .7;
+    padding-bottom: 5px;
+}
 
 
 .room-link-container {
@@ -267,3 +296,4 @@ a {
 .user-list {
     padding: 70px 0 40px;
 }
+

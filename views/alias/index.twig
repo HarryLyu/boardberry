@@ -37,13 +37,20 @@
 
         <ul class="choose-mode">
             <li>
+                <div class="mode-description">
+                    Создайте новую игру, <br/>полученный номер дайте друзьям.
+                </div>
                 <a data-game-action="create" href="" class="btn btn-blue">
-                    Новая игра
+                    Создать игру
                 </a>
             </li>
 
             <li>
-                <input type="text" data-room-id palceholder="Room ID" />
+                <div class="mode-description">
+                    Чтобы присоедениться, нужен номер игры.
+                </div>
+
+                <input type="text" data-room-id placeholder="Введите номер игры" autofocus="autofocus" class="input-number" />
 
                 <a href="" data-game-action="join" class="btn btn-blue">
                     Присоединиться
@@ -121,7 +128,7 @@
 <script type="text/html" id="tplTurnStarted">
     <div data-role="content" class="wrapper">
         <div class="user-list">
-            <h3>Угадыают</h3>
+            <h3>Угадывают</h3>
             <% team.forEach(function (playerItem) {
                 if (playerItem.id != explainer.id) { %>
                     <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
