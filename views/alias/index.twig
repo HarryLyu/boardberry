@@ -72,7 +72,6 @@
 
     </div>
 </div>
-
 <div data-role="page" id="teams" data-theme="b" data-view-name="teams" data-transition="flip">
 </div>
 
@@ -170,27 +169,23 @@
 
     <div data-role="content" class="wrapper">
 
-        <div class="time-container" data-time-container>
-            00:60:99
-        </div>
+        <div class="time-container" data-time-container>00:60:99</div>
+
         <div class="time-progress" data-time-progress>
             <div data-time-progress-bar class="time-progress-bar"></div>
         </div>
+
         <div class="word-container" data-word-container>
+            <div data-word-text class="inner-word"></div>
         </div>
 
         <div class="controls-container">
             <div class="control">
-                <span data-skipped-count class="words-count">0</span>
-                <a href="" class="btn-word-skip ui-btn" data-skip-btn>
-                    <i class="icon-left"></i>Пропустить
-                </a>
-            </div>
-            <div class="control">
-                <span data-answered-count class="words-count">0</span>
-                <a href="" class="btn-word-skip ui-btn" data-answer-btn>
-                    Отгадал <i class="icon-right"></i>
-                </a>
+                <a href="" class="btn-word-skip ui-btn btn" data-skip-btn><i class="icon-left"></i>Пропустить</a>
+                <a href="" class="btn-word-skip ui-btn btn btn-blue" data-answer-btn>Отгадал <i class="icon-right"></i></a>
+
+                <span data-skipped-count class="words-count fleft red"></span>
+                <span data-answered-count class="words-count fright green"></span>
             </div>
         </div>
     </div>
@@ -204,21 +199,24 @@
     </div>
 
     <div data-role="content" class="wrapper">
-        <div class="explainer-container">
-            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> объясняет
+        <div class="time-container" data-time-container>00:59:99</div>
+
+        <div class="time-progress" data-time-progress>
+            <div data-time-progress-bar class="time-progress-bar"></div>
         </div>
 
         <div class="user-list">
-            <% team.forEach(function (playerItem, index) {
-                if (playerItem.id != explainer.id) { %>
+            <h3>Угадывают</h3>
+            <% team.forEach(function (playerItem) {
+               if (playerItem.id != explainer.id) { %>
                     <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
-                <% }
+               <% }
             }); %>
-            guess
         </div>
 
-        <div class="time-container" data-time-container>
-            00:60:99
+        <div class="explainer-container">
+            <h3>Объясняет<br/><%=explainer.name%></h3>
+            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" />
         </div>
     </div>
 </script>
@@ -274,7 +272,7 @@
         </a>
         <% } %>
 
-        <canvas id="resultsChart" width="300" height="400"></canvas>
+        <canvas class="resultsChart" width="320" height="320"></canvas>
     </div>
 </script>
 
