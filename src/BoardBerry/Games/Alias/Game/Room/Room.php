@@ -166,7 +166,15 @@ class Room
 
     public function getAllTeamScores()
     {
-        return $this->redis->hgetall($this->roomTeamScoresKey);
+        $scores = $this->redis->hgetall($this->roomTeamScoresKey);
+        $scoresRaw = [];
+        foreach ($scores as $teamId => $score) {
+            if (count($this->teams[$teamId]->players) > 0) {
+                $scoresRaw[$teamId] = $score;
+            }
+        }
+
+        return $scoresRaw;
     }
 
     public function editResult($wordId)
