@@ -76,7 +76,6 @@
 
     </div>
 </div>
-
 <div data-role="page" id="teams" data-theme="b" data-view-name="teams" data-transition="flip">
 </div>
 
@@ -101,6 +100,11 @@
             BoardBerry.me
         </a>
     </div>
+
+    <div data-role="panel" id="customPanel" data-custom-panel data-display="push" data-position="right">
+        <canvas class="resultsChart"></canvas>
+    </div>
+
 
     <div class="wrapper team-container" data-role="content">
         <div class="room-link-container">
@@ -142,6 +146,11 @@
         </a>
     </div>
 
+    <div data-role="panel" id="customPanel" data-custom-panel data-display="push" data-position="right">
+        <canvas class="resultsChart"></canvas>
+    </div>
+
+
     <div data-role="content" class="wrapper">
         <div class="user-list">
             <h3>Угадывают</h3>
@@ -171,6 +180,11 @@
             BoardBerry.me
         </a>
     </div>
+
+    <div data-role="panel" id="customPanel" data-custom-panel data-display="push" data-position="right">
+        <canvas class="resultsChart"></canvas>
+    </div>
+
 
     <div data-role="content" class="wrapper">
 
@@ -207,6 +221,11 @@
         </a>
     </div>
 
+    <div data-role="panel" id="customPanel" data-custom-panel data-display="push" data-position="right">
+        <canvas class="resultsChart"></canvas>
+    </div>
+
+
     <div data-role="content" class="wrapper">
         <div class="explainer-container">
             <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> объясняет
@@ -233,6 +252,10 @@
         <a href="/" class="logo small">
             BoardBerry.me
         </a>
+    </div>
+
+    <div data-role="panel" id="customPanel" data-custom-panel data-display="push" data-position="right">
+        <canvas class="resultsChart"></canvas>
     </div>
 
     <div data-role="content" class="wrapper">
@@ -271,6 +294,10 @@
         </a>
     </div>
 
+    <div data-role="panel" id="customPanel" data-custom-panel data-display="push" data-position="right">
+        <canvas class="resultsChart"></canvas>
+    </div>
+
     <div data-role="content" class="wrapper">
         <% if (me.id == explainer.id) { %>
         <a href="#" data-game-action="next-turn" class="ui-btn btn-start">
@@ -288,6 +315,11 @@
             BoardBerry.me
         </a>
     </div>
+
+    <div data-role="panel" id="customPanel" data-custom-panel data-display="push" data-position="right">
+        <canvas class="resultsChart"></canvas>
+    </div>
+
 
     <div data-role="content" class="wrapper">
         Поздравляем команду победителей!
