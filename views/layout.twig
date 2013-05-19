@@ -21,30 +21,56 @@
 </head>
 <body>
 <div data-role="page" id="main_page">
-    <div class="wrapper ui-content" data-role="content" role="main">
-        <div data-time-container="" class="time-container">00:00:00</div>
-        <div data-time-progress="" class="time-progress">
-            <div class="time-progress-bar" data-time-progress-bar="" style="width: 100%;"></div>
-        </div>
-        <div data-word-container="" class="word-container">
-            <div data-word-text class="inner-word">Пассажир</div>
-        </div>
-        <div class="controls-container">
-            <div class="control">
-                <a data-skip-btn="" class="btn-word-skip btn ui-btn" href=""><i class="icon-left"></i>Пропустить</a>
-                <a data-answer-btn="" class="btn-word-skip btn btn-blue ui-btn" href="">Отгадал <i class="icon-right"></i></a>
+    <div class="content wrapper" data-content>
 
-
-                <span class="words-count fleft red" data-skipped-count="">-1</span>
-                <span class="words-count fright green" data-answered-count="">+5</span>
-            </div>
+        <div class="logo">
+            BoardBerry.me
         </div>
+
+        {#<h1 class="choose-game-title">Выберите игру:</h1>#}
+
+        <div class="game-item">
+            <a href="/alias" data-game="alias">
+                <img src="img/logos/alias.png" alt="Alias">
+            </a>
+        </div>
+
+        <div class="game-item disabled">
+            <img src="img/logos/monopoly.png" alt="Monopoly">
+        </div>
+
+        <div class="game-item disabled">
+            <img src="img/logos/dixit.png" alt="Dixit">
+        </div>
+
+        {#<a href="#" class="request-link">
+            Напишите нам о своей любимой игре и мы постараемся её добавить!
+        </a>#}
+
+        <div class="top-links">
+            {#<a href="#">
+                Что это?
+            </a>#}
+
+            <a href="mailto: dev@lingualeo.com">
+                Написать разработчику
+            </a>
+
+            <a href="#">
+                Добавить новую игру
+            </a>
+        </div>
+
+        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fboardberry.me&amp;send=false&amp;layout=standard&amp;width=300&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=35&amp;appId=163743487134776" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:320px; height: 24px; border-radius: 3px; background: white;"></iframe>
     </div>
+
+    <div class="footer">
+        <div class="copyright">&copy; 2013 BoardBerry.me</div>
+    </div>
+
 </div>
 
 <script src="js/lib/jquery.js"></script>
-<script src="js/lib/jquery-mobile.js"></script>
 
-<!-- <script src="jsTemplates.php?module=main"></script> -->
 </body>
 </html>

@@ -383,20 +383,6 @@ BB.classes.GameFinishedView = Class.extend({
         this.private_assignEvents();
     },
 
-    private_assignEvents: function (){
-        this.root
-            .on('click', this.loc.nextTurnBtn, function () {
-                $.post('/api/room/' + BB.roomData.id,{
-                        action: 'next-turn'
-                    },
-                    function (data) {
-                        console.log ('next turn response ', data)
-                    });
-
-                return false;
-            })
-    },
-
     initView: function (data) {
 
         var winnerTeam = {position: 0};

@@ -307,7 +307,7 @@ a {
 }
 
 .user-list {
-    padding: 70px 0 40px;
+    padding: 40px 0 40px;
 }
 
 .word-container {
@@ -375,3 +375,19 @@ a {
     width: 320px;
     height: 400px;
 }
+
+.winners-list {
+    clear: both;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+    .winners-item {
+        margin: 5px 0;
+    }
+
+    .winners-item * {
+        vertical-align: middle;
+        line-height: 50px;
+        height: 50px;
+    }

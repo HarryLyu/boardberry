@@ -29,7 +29,7 @@
 
 <div data-role="page" id="main_page" data-theme="b">
     <div class="wrapper" data-role="header">
-        <a href="/" class="logo small">
+        <a href="/alias" class="logo small">
             BoardBerry.me
         </a>
     </div>
@@ -47,7 +47,7 @@
 
             <li>
                 <div class="mode-description">
-                    Чтобы присоедениться, нужен номер игры.
+                    Чтобы присоединиться, нужен номер игры.
                 </div>
 
                 <input type="text" data-room-id placeholder="Введите номер игры" autofocus="autofocus" class="input-number" />
@@ -92,7 +92,7 @@
 
 <script type="text/html" id="tplTeams">
     <div class="wrapper" data-role="header">
-        <a href="/" class="logo small">
+        <a href="/alias" class="logo small">
             BoardBerry.me
         </a>
     </div>
@@ -100,7 +100,7 @@
     <div class="wrapper team-container" data-role="content">
         <div class="room-link-container">
             Номер игры: <b><%=data.id%></b><br/>
-            <span class="font12">Дайте номер друзьям, чтобы они присоеденились.</span>
+            <span class="font12">Дайте номер друзьям, чтобы они присоединились.</span>
         </div>
 
         <div class="users-count">
@@ -132,7 +132,7 @@
 
 <script type="text/html" id="tplTurnStarted">
     <div class="wrapper" data-role="header">
-        <a href="/" class="logo small">
+        <a href="/alias" class="logo small">
             BoardBerry.me
         </a>
     </div>
@@ -162,7 +162,7 @@
 
 <script type="text/html" id="tplTurnExplain">
     <div class="wrapper" data-role="header">
-        <a href="/" class="logo small">
+        <a href="/alias" class="logo small">
             BoardBerry.me
         </a>
     </div>
@@ -193,7 +193,7 @@
 
 <script type="text/html" id="tplTurnWait">
     <div class="wrapper" data-role="header">
-        <a href="/" class="logo small">
+        <a href="/alias" class="logo small">
             BoardBerry.me
         </a>
     </div>
@@ -224,7 +224,7 @@
 
 <script type="text/html" id="tplTurnResult">
     <div class="wrapper" data-role="header">
-        <a href="/" class="logo small">
+        <a href="/alias" class="logo small">
             BoardBerry.me
         </a>
     </div>
@@ -236,9 +236,9 @@
             <% }); %>
         </div>
 
-        <div class="results-description">
+        <h3>
             Нажмите на слово, чтобы изменить результат
-        </div>
+        </h3>
 
         <div class="turn-results">
             <% words.forEach(function (wordItem, index) { %>
@@ -260,7 +260,7 @@
 
 <script type="text/html" id="tplTurnFinished">
     <div class="wrapper" data-role="header">
-        <a href="/" class="logo small">
+        <a href="/alias" class="logo small">
             BoardBerry.me
         </a>
     </div>
@@ -268,9 +268,13 @@
     <div data-role="content" class="wrapper">
         <% if (me.id == explainer.id) { %>
         <a href="#" data-game-action="next-turn" class="ui-btn btn-start">
-            Следующий ход
+            Следующий ход <i class="icon-right"></i>
         </a>
         <% } %>
+
+        <h3>
+            Результаты хода
+        </h3>
 
         <canvas class="resultsChart" width="320" height="320"></canvas>
     </div>
@@ -278,20 +282,34 @@
 
 <script type="text/html" id="tplGameFinished">
     <div class="wrapper" data-role="header">
-        <a href="/" class="logo small">
+        <a href="/alias" class="logo small">
             BoardBerry.me
         </a>
     </div>
 
     <div data-role="content" class="wrapper">
-        Поздравляем команду победителей!
 
-        <div class="team-item team-item-<%=winner.id%>">
+        <h3 style="text-align: left; height: 55px;">
+            <img src="/img/winner-cup.png" style="float: right;">
+            Поздравляем<br>команду победителей!
+        </h3>
+
+        <div class="winners-list">
             <% team.forEach(function (playerItem, index) { %>
-                <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" /> <%=playerItem.name%> <br>
+            <div class="winners-item">
+                <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
+                <span>
+                    <%=playerItem.name%>
+                </span>
+            </div>
             <% }); %>
         </div>
 
+        <a href="/alias" class="btn btn-blue" style="margin-bottom: 20px;">
+            Начать еще одну игру
+        </a>
+
+        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fboardberry.me&amp;send=false&amp;layout=standard&amp;width=300&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=35&amp;appId=163743487134776" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:320px; height: 24px; border-radius: 3px; background: white;"></iframe>
     </div>
 </script>
 
