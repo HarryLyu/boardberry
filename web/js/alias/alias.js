@@ -43,6 +43,7 @@
                         function (roomData) {
                             console.log('room created', roomData);
                             BB.views.teams.initView(roomData.data);
+                            BB.subscribeOnChannel(roomData.data);
                         }
                     );
                 }
@@ -82,6 +83,7 @@
                                 return;
                             }
                             BB.views.teams.initView(data.data);
+                            BB.subscribeOnChannel(data.data);
                         });
                     }
                 );
