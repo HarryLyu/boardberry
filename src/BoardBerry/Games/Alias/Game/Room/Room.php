@@ -180,11 +180,14 @@ class Room
 
     public function nextTurn()
     {
-        $this->explainerId = $this->redis->rpoplpush(
+        $this->redis->rpoplpush(
             $this->roomPlayerTurnsKey . ":" . $this->activeTeamId,
             $this->roomPlayerTurnsKey . ":" . $this->activeTeamId
         );
-        $this->activeTeamId = $this->redis->rpoplpush($this->roomTeamTurnsKey, $this->roomTeamTurnsKey);
+        $this->redis->rpoplpush($this->roomTeamTurnsKey, $this->roomTeamTurnsKey);
+
+        $this->activeTeamId = $this->redis->lindex($this->roomTeamTurnsKey, -1);
+        $this->explainerId = $this->redis->lindex($this->roomPlayerTurnsKey . ":" . $this->activeTeamId, -1);
     }
 
     public function restore()
