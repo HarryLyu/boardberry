@@ -38,9 +38,7 @@ class RoomResponseFormatter
     {
         $data = [];
         foreach ($this->room->teams as $team) {
-            if (count($team->players) > 0) {
                 $data[] = ['id' => $team->id, 'users' => array_keys($team->players)];
-            }
         }
 
         return $data;
