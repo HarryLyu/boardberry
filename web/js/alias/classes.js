@@ -395,16 +395,26 @@ BB.classes.GameFinishedView = Class.extend({
     },
 
     initView: function (data) {
-        this.private_render(data);
+
+        var winnerTeam = {position: 0};
+
+        data.forEach(function (teamItem) {
+            if (teamItem.position > winnerTeam.position) {
+                winnerTeam = teamItem
+            }
+        });
+
+        this.private_render({
+            winner: winnerTeam
+        });
     },
 
     private_render: function (data) {
         this.root.html(tmpl('tplGameFinished', {
-            data: data,
-            teams: BB.teams,
-            me: BB.user,
-            explainer: BB.explainer
+            winner: winnerTeam,
+            team: BB.teams[winnerTeam.id]
         }));
-        $.mobile.navigate('#turn-finished');
+
+        $.mobile.navigate('#game-finished');
     }
 });
