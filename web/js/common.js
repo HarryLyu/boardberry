@@ -1,6 +1,6 @@
 (function(BB){
     location.hash = '';
-    $.mobile.defaultPageTransition = 'pop';
+    $.mobile.defaultPageTransition = 'flip';
     BB.templates = {};
     BB.classes = {};
     BB.user = {};
