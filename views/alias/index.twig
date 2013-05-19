@@ -44,6 +44,7 @@
 
             <li>
                 <input type="text" data-room-id palceholder="Room ID" />
+
                 <a href="" data-game-action="join" class="btn btn-blue">
                     Присоединиться
                 </a>
@@ -64,8 +65,6 @@
 
     </div>
 </div>
-<div data-role="page" id="join" data-theme="b" data-view-name="join" data-transition="flip">
-</div>
 
 <div data-role="page" id="teams" data-theme="b" data-view-name="teams" data-transition="flip">
 </div>
@@ -84,22 +83,6 @@
 
 <div data-role="page" id="game-finished" data-theme="b" data-view-name="game-finished">
 </div>
-
-
-
-<script type="text/html" id="tplJoin">
-    <div data-role="content" class="wrapper">
-        <h1>
-            Введите номер игры
-        </h1>
-
-        <input type="text" data-room-id palceholder="Room ID" />
-
-        <a href="" data-game-action="join-room">
-            Присоединиться
-        </a>
-    </div>
-</script>
 
 <script type="text/html" id="tplTeams">
     <div class="wrapper team-container" data-role="content">
@@ -127,7 +110,7 @@
         </a>
 
         <% if (me.id == data.owner) { %>
-            <a href="#" data-game-action="start-game" class="ui-btn btn-start">
+            <a href="#" data-game-action="start-game" class="ui-btn btn-start" style="display: none">
                 Поехали!
             </a>
         <% } %>
