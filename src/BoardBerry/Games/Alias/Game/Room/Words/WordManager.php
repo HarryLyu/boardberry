@@ -255,12 +255,9 @@ class WordManager
 
     public function generateWordSet()
     {
-
         $words = $this->loadWords();
         shuffle($words);
+
         return $words;
-
     }
-
-
 }

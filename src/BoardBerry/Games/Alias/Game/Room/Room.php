@@ -136,7 +136,7 @@ class Room
 
     public function deleteWordsFromPool($wordsCount)
     {
-        return $this->redis->ltrim($this->roomWordSetKey, 0, $wordsCount);
+        return $this->redis->ltrim($this->roomWordSetKey, 0, -$wordsCount);
     }
 
     public function saveResults($results)
