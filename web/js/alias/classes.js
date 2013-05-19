@@ -34,7 +34,7 @@ BB.classes.JoinView = Class.extend({
                     BB.views.teams.initView(data.data);
                 });
 
-            });
+            })
     },
 
     initView: function(data){
