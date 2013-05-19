@@ -392,3 +392,7 @@ a {
     width: 320px;
     height: 400px;
 }
+
+.explainer-container {
+    padding-bottom: 20px;
+}
