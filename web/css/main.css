@@ -219,3 +219,15 @@ a {
     }
 
     .copyright {font-size: 10px;}
+
+
+.choose-mode {
+    padding-top: 80px;
+}
+
+    .choose-mode li {
+        padding-bottom: 15px;
+    }
+    .choose-mode a {
+        width: 140px;
+    }
