@@ -116,6 +116,7 @@ BB.classes.TurnStartedView = Class.extend({
 BB.classes.ExplanationStartedView = Class.extend({
     loc: {
         time: '[data-time-container]',
+        progressBar: '[data-time-progress-bar]',
         word: '[data-word-container]',
         skipBtn: '[data-skip-btn]',
         answerBtn: '[data-answer-btn]',
@@ -195,6 +196,7 @@ BB.classes.ExplanationStartedView = Class.extend({
         console.log('init timer');
         var self = this,
             $timer = $(this.loc.time),
+            $pBar = $(this.loc.progressBar),
             startTime = new Date().getTime(),
             maxDiff = 10 * 1000;
 
@@ -217,8 +219,9 @@ BB.classes.ExplanationStartedView = Class.extend({
                 resString = '00:' + seconds + ':' + milliSeconds;
                 resString.slice(resString.length-1);
                 $timer.html(resString);
+                $pBar.css('width', (100 - (seconds/maxDiff)*100) + '%')
             }
-        }, 100)
+        }, 100);
     },
 
     private_onEndTimer: function (){
