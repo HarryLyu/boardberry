@@ -118,6 +118,7 @@ BB.classes.ExplanationStartedView = Class.extend({
         time: '[data-time-container]',
         progressBar: '[data-time-progress-bar]',
         word: '[data-word-container]',
+        wordText: '[data-word-text]',
         skipBtn: '[data-skip-btn]',
         answerBtn: '[data-answer-btn]',
         skippedCount: '[data-skipped-count]',
@@ -169,7 +170,7 @@ BB.classes.ExplanationStartedView = Class.extend({
             $word.css('left', '500px');
             setTimeout(function(){
                 $word.css('display', 'none');
-                console.log($word[0].offsetHeight);
+                $word[0].offsetHeight;
                 $word.css('left', '0');
                 $word.css('display', 'block')
             }, 400);
@@ -179,7 +180,7 @@ BB.classes.ExplanationStartedView = Class.extend({
             $word.css('left', '-500px');
             setTimeout(function(){
                 $word.css('display', 'none');
-                console.log($word[0].offsetHeight);
+                $word[0].offsetHeight;
                 $word.css('left', '0');
                 $word.css('display', 'block')
             }, 400);
@@ -193,12 +194,16 @@ BB.classes.ExplanationStartedView = Class.extend({
     },
 
     private_updateAnswersCount: function () {
-        $(this.loc.answeredCount).html(this.answeredCount);
-        $(this.loc.skippedCount).html(this.skippedCount);
+        if (this.answeredCount) {
+            $(this.loc.answeredCount).html('+' + this.answeredCount);
+        }
+        if (this.skippedCount) {
+            $(this.loc.skippedCount).html('-' + this.skippedCount);
+        }
     },
 
     private_loadWord: function () {
-        $(this.loc.word).html(this.data.words[this.currentWordIndex]);
+        $(this.loc.wordText).html(this.data.words[this.currentWordIndex]);
     },
 
     private_render: function (data){
@@ -358,10 +363,14 @@ BB.classes.TurnFinishedView = Class.extend({
             })
         });
 
-        new Chart(document.getElementById("resultsChart").getContext("2d")).Bar({
-            labels : [""],
-            datasets : chartData
-        }, ChartOptions);
+        var charts = document.getElementByClassName("resultsChart");
+
+        charts.forEach(function (element) {
+            new Chart(element.getContext("2d")).Bar({
+                labels : [""],
+                datasets : chartData
+            }, ChartOptions);
+        });
     }
 });
 

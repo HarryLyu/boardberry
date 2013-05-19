@@ -9,6 +9,10 @@ h1 {
     font-size: 24px;
 }
 
+div[data-role='page'] {
+    background: url(../img/background.jpg);
+}
+
 .ui-mobile-viewport {
     margin: 0 auto;
 }
@@ -342,4 +346,26 @@ a {
 .control .words-count {
     margin-top: 13px;
     width: 29px;
+}
+
+
+.panel-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    background: white;
+    border-radius: 15px;
+    float: right;
+    margin: 10px 10px 0 0;
+}
+
+    .panel-icon i {
+        font-size: 14px;
+        color: #5b3528;
+    }
+
+.resultsChart {
+    width: 320px;
+    height: 400px;
 }
