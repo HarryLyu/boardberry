@@ -124,8 +124,9 @@ class ApiRouting implements ControllerProviderInterface
 
 
                 case 'finish-explanation':
-                    if (($tempResult = $request->get('words')) === null) {
-                        throw new \Exception('No words passed');
+                    $tempResult = [];
+                    if (($rawTempResult = $request->get('words')) !== null) {
+                        $tempResult = $rawTempResult;
                     };
 
                     $room = $roomManager->getRoom($roomId);
