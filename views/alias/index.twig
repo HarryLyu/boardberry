@@ -35,13 +35,20 @@
 <div data-role="page" id="main_page" data-theme="b">
     <div data-role="content" class="wrapper">
 
-        <a data-game-action="create" href="" class="ui-btn">
-            Создать игру
-        </a>
+        <ul class="choose-mode">
+            <li>
+                <a data-game-action="create" href="" class="btn btn-blue">
+                    Новая игра
+                </a>
+            </li>
 
-        <a href="" data-game-action="join" class="ui-btn">
-            Присоединиться к игре
-        </a>
+            <li>
+                <a href="" data-game-action="join" class="btn btn-blue">
+                    Присоединиться
+                </a>
+            </li>
+        </ul>
+
 
         <!--
         <div class="gold-promo">
@@ -272,6 +279,7 @@
                 <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" /> <%=playerItem.name%> <br>
             <% }); %>
         </div>
+
 
 
     </div>
