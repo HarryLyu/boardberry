@@ -10,10 +10,6 @@
     };
 
     $(document.body)
-        .on('click', '[data-toggle-panel]', function () {
-            drawCharts(BB.chartData);
-            $('[data-custom-panel]').panel('toggle');
-        })
         .on('click', '[data-game-action="create"]', function () {
             FBApp.login(function (authData, userProfile) {
                 $.post(

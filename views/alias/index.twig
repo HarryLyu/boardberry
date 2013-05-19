@@ -32,10 +32,6 @@
         <a href="/" class="logo small">
             BoardBerry.me
         </a>
-
-        <span class="panel-icon" data-toggle-panel>
-            <i class="icon-chart-bar"></i>
-        </span>
     </div>
     <div data-role="content" class="wrapper">
 
@@ -99,16 +95,7 @@
         <a href="/" class="logo small">
             BoardBerry.me
         </a>
-
-        <span class="panel-icon" data-toggle-panel>
-            <i class="icon-chart-bar"></i>
-        </span>
     </div>
-
-    <div data-role="panel"  data-custom-panel data-display="push" data-position="right">
-        <canvas class="resultsChart"></canvas>
-    </div>
-
 
     <div class="wrapper team-container" data-role="content">
         <div class="room-link-container">
@@ -148,16 +135,7 @@
         <a href="/" class="logo small">
             BoardBerry.me
         </a>
-
-        <span class="panel-icon" data-toggle-panel>
-            <i class="icon-chart-bar"></i>
-        </span>
     </div>
-
-    <div data-role="panel"  data-custom-panel data-display="push" data-position="right">
-        <canvas class="resultsChart"></canvas>
-    </div>
-
 
     <div data-role="content" class="wrapper">
         <div class="user-list">
@@ -187,16 +165,7 @@
         <a href="/" class="logo small">
             BoardBerry.me
         </a>
-
-        <span class="panel-icon" data-toggle-panel>
-            <i class="icon-chart-bar"></i>
-        </span>
     </div>
-
-    <div data-role="panel"  data-custom-panel data-display="push" data-position="right">
-        <canvas class="resultsChart"></canvas>
-    </div>
-
 
     <div data-role="content" class="wrapper">
 
@@ -227,33 +196,27 @@
         <a href="/" class="logo small">
             BoardBerry.me
         </a>
-
-        <span class="panel-icon" data-toggle-panel>
-            <i class="icon-chart-bar"></i>
-        </span>
     </div>
-
-    <div data-role="panel"  data-custom-panel data-display="push" data-position="right">
-        <canvas class="resultsChart"></canvas>
-    </div>
-
 
     <div data-role="content" class="wrapper">
-        <div class="explainer-container">
-            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> объясняет
+        <div class="time-container" data-time-container>00:59:99</div>
+
+        <div class="time-progress" data-time-progress>
+            <div data-time-progress-bar class="time-progress-bar"></div>
         </div>
 
         <div class="user-list">
-            <% team.forEach(function (playerItem, index) {
-                if (playerItem.id != explainer.id) { %>
+            <h3>Угадывают</h3>
+            <% team.forEach(function (playerItem) {
+               if (playerItem.id != explainer.id) { %>
                     <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
-                <% }
+               <% }
             }); %>
-            guess
         </div>
 
-        <div class="time-container" data-time-container>
-            00:60:99
+        <div class="explainer-container">
+            <h3>Объясняет<br/><%=explainer.name%></h3>
+            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" />
         </div>
     </div>
 </script>
@@ -264,14 +227,6 @@
         <a href="/" class="logo small">
             BoardBerry.me
         </a>
-
-        <span class="panel-icon" data-toggle-panel>
-            <i class="icon-chart-bar"></i>
-        </span>
-    </div>
-
-    <div data-role="panel"  data-custom-panel data-display="push" data-position="right">
-        <canvas class="resultsChart"></canvas>
     </div>
 
     <div data-role="content" class="wrapper">
@@ -308,14 +263,6 @@
         <a href="/" class="logo small">
             BoardBerry.me
         </a>
-
-        <span class="panel-icon" data-toggle-panel>
-            <i class="icon-chart-bar"></i>
-        </span>
-    </div>
-
-    <div data-role="panel"  data-custom-panel data-display="push" data-position="right">
-        <canvas class="resultsChart"></canvas>
     </div>
 
     <div data-role="content" class="wrapper">
@@ -325,7 +272,7 @@
         </a>
         <% } %>
 
-        <canvas class="resultsChart"></canvas>
+        <canvas class="resultsChart" width="320" height="320"></canvas>
     </div>
 </script>
 
@@ -334,16 +281,7 @@
         <a href="/" class="logo small">
             BoardBerry.me
         </a>
-
-        <span class="panel-icon" data-toggle-panel>
-            <i class="icon-chart-bar"></i>
-        </span>
     </div>
-
-    <div data-role="panel"  data-custom-panel data-display="push" data-position="right">
-        <canvas class="resultsChart"></canvas>
-    </div>
-
 
     <div data-role="content" class="wrapper">
         Поздравляем команду победителей!
