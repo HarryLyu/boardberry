@@ -196,6 +196,10 @@ class Room
             $this->$fieldName = $this->redis->hget($this->roomKey, $fieldName);
         }
 
+        if ($this->ownerId === false) {
+            throw new \Exception('Room not found');
+        }
+
         $this->players = [];
         $playerIds = $this->redis->smembers($this->roomPlayersKey);
         foreach ($playerIds as $playerId) {
