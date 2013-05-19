@@ -21,53 +21,12 @@
 </head>
 <body>
 <div data-role="page" id="main_page">
-    <div class="content wrapper" data-content>
-
-
-
-        <div class="logo">
-            BoardBerry.me
-        </div>
-
-        {#<h1 class="choose-game-title">Выберите игру:</h1>#}
-
-        <div class="game-item">
-            <a href="/alias" data-game="alias">
-                <img src="img/logos/alias.png" alt="Alias">
-            </a>
-        </div>
-
-        <div class="game-item disabled">
-            <img src="img/logos/monopoly.png" alt="Monopoly">
-        </div>
-
-        <div class="game-item disabled">
-            <img src="img/logos/dixit.png" alt="Dixit">
-        </div>
-
-        {#<a href="#" class="request-link">
-            Напишите нам о своей любимой игре и мы постараемся её добавить!
-        </a>#}
-
-        <div class="top-links">
-            {#<a href="#">
-                Что это?
-            </a>#}
-
-            <a href="mailto: dev@lingualeo.com">
-                Написать разработчику
-            </a>
-
-            <a href="#">
-                Добавить новую игру
-            </a>
-        </div>
+    <div data-role="header" class="wrapper">
+        <a class="logo small" href="/">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
+        <div class="wrapper ui-content" data-role="content" role="main">         <div class="explainer-container">             <img src="https://graph.facebook.com/100001500414514/picture?type=square"> Баграт Гобедашвили объясняет         </div>          <div class="user-list">                                  <img src="https://graph.facebook.com/100002756517646/picture?type=square">                                      <img src="https://graph.facebook.com/100000704898453/picture?type=square">                              угадыает         </div>                       <a class="btn-start ui-link" data-game-action="start-explanation">                 Я готов!             </a>              </div>
     </div>
-
-    <div class="footer">
-        <div class="copyright">&copy; 2013 BoardBerry.me</div>
-    </div>
-
 </div>
 
 <script src="js/lib/jquery.js"></script>
