@@ -40,10 +40,20 @@ class GameLogic
         $this->eventManager->playerJoinedToRoom($playerId, $this->room->playerCount);
     }
 
+    private function isGameCanBeStarted()
+    {
+        $c = 0;
+        foreach ($this->room->teams as $team) {
+            $c += $team->players;
+        }
+
+        return $c > 4 && $c == $this->room->playerCount;
+    }
+
     public function addPlayerToTeam($teamId, $playerId)
     {
         $this->room->joinPlayerToTeam($teamId, $playerId);
-        $this->eventManager->playerJoinedToTeam($teamId, $playerId);
+        $this->eventManager->playerJoinedToTeam($teamId, $playerId, $this->isGameCanBeStarted());
     }
 
     public function addTeam($playerId)
