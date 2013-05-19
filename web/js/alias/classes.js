@@ -231,7 +231,7 @@ BB.classes.ExplanationStartedView = Class.extend({
             $timer = $(this.loc.time),
             $pBar = $(this.loc.progressBar),
             startTime = new Date().getTime(),
-            maxDiff = 60 * 1000;
+            maxDiff = 10 * 1000;
 
         this.timerInterval = setInterval(function () {
             var currentTime = new Date().getTime(),
