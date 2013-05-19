@@ -74,7 +74,12 @@ class ApiRouting implements ControllerProviderInterface
                         throw new \Exception('No player passed');
                     };
 
-                    $room = $roomManager->getRoom($roomId);
+                    try {
+                        $room = $roomManager->getRoom($roomId);
+                    } catch (\Exception $e) {
+                        return new JsonResponse(['result' => 0, 'error' => 'Игра с таким номером не найдена']);
+                    }
+
                     $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->addPlayer($playerId);
 
@@ -124,8 +129,9 @@ class ApiRouting implements ControllerProviderInterface
 
 
                 case 'finish-explanation':
-                    if (($tempResult = $request->get('words')) === null) {
-                        throw new \Exception('No words passed');
+                    $tempResult = [];
+                    if (($rawTempResult = $request->get('words')) !== null) {
+                        $tempResult = $rawTempResult;
                     };
 
                     $room = $roomManager->getRoom($roomId);

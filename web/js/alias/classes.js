@@ -1,52 +1,3 @@
-BB.classes.JoinView = Class.extend({
-    loc: {
-        input: '[data-room-id]',
-        joinBtn: '[data-game-action=join-room]'
-    },
-
-    init: function (params){
-        this.params = params;
-        this.root = $(params.root);
-        this.private_assignEvents();
-    },
-
-
-    private_assignEvents: function (){
-        var self = this;
-        this.root
-            .on('click', this.loc.joinBtn, function(){
-                var roomId = $(self.loc.input).val();
-
-                if (!roomId) {
-                    alert('Введите номер игры!');
-                    return;
-                }
-
-                if (!/\d{8}/.test(roomId)) {
-                    alert('Номер игры должен состоять из восьми цифр!');
-                    return;
-                }
-
-                $.post('/api/room/' + roomId,{
-                    action: 'join-room',
-                    user: BB.user.id
-                }, function (data) {
-                    BB.views.teams.initView(data.data);
-                });
-
-            })
-    },
-
-    initView: function(data){
-        this.private_render(data);
-    },
-
-    private_render: function (data){
-        this.root.html(tmpl('tplJoin', {data:data}));
-        $.mobile.navigate('#join');
-    }
-});
-
 BB.classes.TeamsView = Class.extend({
     loc: {
         teamItem: '[data-team-item]'
@@ -113,6 +64,8 @@ BB.classes.TeamsView = Class.extend({
             .attr('src', 'https://graph.facebook.com/' + data.playerId + '/picture?type=square')
             .attr('data-user-item', data.playerId)
             .appendTo(this.root.find('[data-team-item="' + data.teamId + '"]'));
+
+        this.root.find('[data-game-action="start-game"]').toggle(!!data.isGameCanBeStarted);
     },
 
     playerJoinedToRoom_handler: function (data) {
@@ -250,16 +203,20 @@ BB.classes.ExplanationStartedView = Class.extend({
                 deltaTime = currentTime - startTime,
                 timeToShow = maxDiff - deltaTime,
                 seconds = Math.round(timeToShow / 1000),
-                milliSeconds = timeToShow % 1000;
+                milliSeconds = (timeToShow % 1000) / 1000,
+                resString = "";
 
-            $timer.html('00:' + seconds + ':' + milliSeconds);
 
             if (deltaTime > maxDiff) {
                 clearInterval(self.timerInterval);
                 self.private_onEndTimer();
             }
             else {
-                $timer.html('00:' + Math.max(seconds, 0) + ':' + Math.max(milliSeconds, 0));
+                seconds = (seconds<10) ? '0' + seconds : seconds;
+                milliSeconds = milliSeconds.toFixed(2).toString().slice(2,4);
+                resString = '00:' + seconds + ':' + milliSeconds;
+                resString.slice(resString.length-1);
+                $timer.html(resString);
             }
         }, 100)
     },
@@ -411,8 +368,8 @@ BB.classes.GameFinishedView = Class.extend({
 
     private_render: function (data) {
         this.root.html(tmpl('tplGameFinished', {
-            winner: data.winnerTeam,
-            team: BB.teams[data.winnerTeam.id]
+            winner: data.winner,
+            team: BB.teams[data.winner.id]
         }));
 
         $.mobile.navigate('#game-finished');

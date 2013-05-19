@@ -54,7 +54,6 @@ class GameLogic
         $this->addPlayerToTeam($teamId, $playerId);
     }
 
-
     public function startExplanation()
     {
         $wordSet = $this->room->getWordsForTurn();
