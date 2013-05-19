@@ -387,7 +387,6 @@ BB.classes.GameFinishedView = Class.extend({
     init: function (params){
         this.params = params;
         this.root = $(params.root);
-        this.private_assignEvents();
     },
 
     initView: function (data) {
