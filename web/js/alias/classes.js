@@ -60,8 +60,10 @@ BB.classes.TeamsView = Class.extend({
     playerJoinedToTeam_handler: function (data) {
         this.root.find('[data-user-item="' + data.playerId + '"]').remove();
 
-        $('<img/>')
-            .attr('src', 'https://graph.facebook.com/' + data.playerId + '/picture?type=square')
+        var imgFb = $('<img/>')
+            .attr('src', 'https://graph.facebook.com/' + data.playerId + '/picture?type=square');
+
+        $('<div/>').addClass('team-item-color team-item-color-' + data.teamId).html(imgFb)
             .attr('data-user-item', data.playerId)
             .appendTo(this.root.find('[data-team-item="' + data.teamId + '"]'));
 
@@ -75,7 +77,12 @@ BB.classes.TeamsView = Class.extend({
     teamAdded_handler: function (data) {
         $('<div/>')
             .attr('data-team-item', data.teamId)
-            .addClass('team-item team-item-' + data.teamId)
+            .addClass('team-item')
+            .html(
+                $('<div/>').addClass('team-item-add team-item-color team-item-color-' + data.teamId)
+                    .attr('data-user-item', data.playerId)
+                    .text('+')
+                )
             .appendTo(this.root.find('[data-team-container]'));
     }
 });

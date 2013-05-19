@@ -41,6 +41,10 @@ ul li {
     color: #333;
 }
 
+.btn:hover {
+    background: #eee;
+}
+
 .btn-blue {
     background-color: #5FB2D9;
     box-shadow: 0 3px #4F95B6;
@@ -166,56 +170,69 @@ a {
 **/
 
 .team-item {
-    display: block;
-    min-height: 50px;
-    padding: 10px;
     margin: 15px 0;
-    border-radius: 10px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    text-align: left;
 }
+    .team-item .team-item-add {
+        cursor: pointer;
+    }
+    .team-item .team-item-color {
+        height: 60px;
+        width: 60px;
+        color: #fff;
+        font-size: 41px;
+        border-radius: 2px;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        vertical-align: top;
+    }
     .team-item img {
         margin: 5px;
         width: 50px;
         height: 50px;
     }
 
-    .team-item-0 {
+    .team-item-color-0 {
         background-image: -webkit-linear-gradient(#08c,#04c);
         background-image: linear-gradient(#08c,#04c);
     }
-    .team-item-1 {
-        background-image: -webkit-linear-gradient(#5bc0de,#2f96b4);
-        background-image: linear-gradient(#5bc0de,#2f96b4);
-    }
-    .team-item-2 {
-        background-image: -webkit-linear-gradient(#62c462,#51a351);
-        background-image: linear-gradient(#62c462,#51a351);
-    }
-    .team-item-3 {
-        background-image: -webkit-linear-gradient(#fbb450,#f89406);
-        background-image: linear-gradient(#fbb450,#f89406);
-    }
-    .team-item-4 {
+    .team-item-color-1 {
         background-image: -webkit-linear-gradient(#ee5f5b,#bd362f);
         background-image: linear-gradient(#ee5f5b,#bd362f);
     }
-    .team-item-5 {
-        background-image: -webkit-linear-gradient(#08c,#04c);
-        background-image: linear-gradient(#08c,#04c);
-    }
-    .team-item-6 {
-        background-image: -webkit-linear-gradient(#5bc0de,#2f96b4);
-        background-image: linear-gradient(#5bc0de,#2f96b4);
-    }
-    .team-item-7 {
+
+    .team-item-color-2 {
         background-image: -webkit-linear-gradient(#62c462,#51a351);
         background-image: linear-gradient(#62c462,#51a351);
     }
-    .team-item-8 {
+    .team-item-color-3 {
         background-image: -webkit-linear-gradient(#fbb450,#f89406);
         background-image: linear-gradient(#fbb450,#f89406);
     }
-    .team-item-9 {
+    .team-item-color-4 {
+        background-image: -webkit-linear-gradient(#5bc0de,#2f96b4);
+        background-image: linear-gradient(#5bc0de,#2f96b4);
+    }
+
+    .team-item-color-5 {
+        background-image: -webkit-linear-gradient(#08c,#04c);
+        background-image: linear-gradient(#08c,#04c);
+    }
+    .team-item-color-6 {
+        background-image: -webkit-linear-gradient(#5bc0de,#2f96b4);
+        background-image: linear-gradient(#5bc0de,#2f96b4);
+    }
+    .team-item-color-7 {
+        background-image: -webkit-linear-gradient(#62c462,#51a351);
+        background-image: linear-gradient(#62c462,#51a351);
+    }
+    .team-item-color-8 {
+        background-image: -webkit-linear-gradient(#fbb450,#f89406);
+        background-image: linear-gradient(#fbb450,#f89406);
+    }
+    .team-item-color-9 {
         background-image: -webkit-linear-gradient(#fbb450,#f89406);
         background-image: linear-gradient(#fbb450,#f89406);
     }
@@ -247,7 +264,7 @@ a {
 
 
 .choose-mode {
-    padding-top: 80px;
+    padding-top: 30px;
 }
 
     .choose-mode li {
@@ -288,7 +305,7 @@ a {
 
 
 .room-link-container {
-    padding-top: 20px;
+    padding: 40px 0;
 }
 .time-progress{
     width: 100%;

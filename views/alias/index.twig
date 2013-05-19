@@ -34,6 +34,7 @@
         </a>
     </div>
     <div data-role="content" class="wrapper">
+        <img src="img/logos/alias.png" alt="Alias">
 
         <ul class="choose-mode">
             <li>
@@ -100,19 +101,22 @@
     <div class="wrapper team-container" data-role="content">
         <div class="room-link-container">
             Номер игры: <b><%=data.id%></b><br/>
-            <span class="font12">Дайте номер друзьям, чтобы они присоединились.</span>
+            <span class="mode-description">Дайте номер друзьям, чтобы они присоеденились.</span>
         </div>
 
         <div class="users-count">
             <span data-players-count><%=(data.player_count || 1)%></span> игроков в игре
         </div>
-        <div class="font12">Выберите команду:</div>
+        <div class="font12">Выберите цвет команды:</div>
 
         <div data-team-container>
             <% data.teams.forEach(function (team, index) { %>
-            <div data-team-item="<%=team.id%>" class="team-item team-item-<%=team.id%>">
+            <div data-team-item="<%=team.id%>" class="team-item">
+                <div class="team-item-add team-item-color team-item-color-<%=team.id%>">+</div>
                 <% team.users.forEach(function (user, userIndex) { %>
-                    <img src="https://graph.facebook.com/<%=user%>/picture?type=square" data-user-item="<%=user%>" />
+                    <div class="team-item-color team-item-color-<%=team.id%>" data-user-item="<%=user%>">
+                        <img src="https://graph.facebook.com/<%=user%>/picture?type=square" />
+                    </div>
                 <% }); %>
             </div>
             <% }); %>
