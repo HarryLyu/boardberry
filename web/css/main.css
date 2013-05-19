@@ -9,6 +9,10 @@ h1 {
     font-size: 24px;
 }
 
+div[data-role='page'] {
+    background: url(../img/background.jpg);
+}
+
 .ui-mobile-viewport {
     margin: 0 auto;
 }

@@ -26,13 +26,13 @@
 </head>
 <body>
 
-<div class="wrapper" data-role="header">
-    <a href="/" class="logo small">
-        <i class="icon-reply"></i> BoardBerry.me
-    </a>
-</div>
 
 <div data-role="page" id="main_page" data-theme="b">
+    <div class="wrapper" data-role="header">
+        <a href="/" class="logo small">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
+    </div>
     <div data-role="content" class="wrapper">
 
         <ul class="choose-mode">
@@ -92,6 +92,12 @@
 </div>
 
 <script type="text/html" id="tplTeams">
+    <div class="wrapper" data-role="header">
+        <a href="/" class="logo small">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
+    </div>
+
     <div class="wrapper team-container" data-role="content">
         <div class="room-link-container">
             Номер игры: <b><%=data.id%></b><br/>
@@ -126,6 +132,12 @@
 </script>
 
 <script type="text/html" id="tplTurnStarted">
+    <div class="wrapper" data-role="header">
+        <a href="/" class="logo small">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
+    </div>
+
     <div data-role="content" class="wrapper">
         <div class="user-list">
             <h3>Угадывают</h3>
@@ -150,6 +162,12 @@
 </script>
 
 <script type="text/html" id="tplTurnExplain">
+    <div class="wrapper" data-role="header">
+        <a href="/" class="logo small">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
+    </div>
+
     <div data-role="content" class="wrapper">
 
         <div class="time-container" data-time-container>
@@ -179,6 +197,12 @@
 </script>
 
 <script type="text/html" id="tplTurnWait">
+    <div class="wrapper" data-role="header">
+        <a href="/" class="logo small">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
+    </div>
+
     <div data-role="content" class="wrapper">
         <div class="explainer-container">
             <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> объясняет
@@ -201,6 +225,12 @@
 
 
 <script type="text/html" id="tplTurnResult">
+    <div class="wrapper" data-role="header">
+        <a href="/" class="logo small">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
+    </div>
+
     <div data-role="content" class="wrapper">
         <div class="user-list">
             <% team.forEach(function (playerItem, index) { %>
@@ -231,6 +261,12 @@
 </script>
 
 <script type="text/html" id="tplTurnFinished">
+    <div class="wrapper" data-role="header">
+        <a href="/" class="logo small">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
+    </div>
+
     <div data-role="content" class="wrapper">
         <% if (me.id == explainer.id) { %>
         <a href="#" data-game-action="next-turn" class="ui-btn btn-start">
@@ -243,6 +279,12 @@
 </script>
 
 <script type="text/html" id="tplGameFinished">
+    <div class="wrapper" data-role="header">
+        <a href="/" class="logo small">
+            <i class="icon-reply"></i> BoardBerry.me
+        </a>
+    </div>
+
     <div data-role="content" class="wrapper">
         Поздравляем команду победителей!
 
