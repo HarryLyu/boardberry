@@ -11,7 +11,7 @@ var ChartOptions = {
     //Number - The value jump in the hard coded scale
     scaleStepWidth : 5,
     //Number - The scale starting value
-    scaleStartValue : 1,
+    scaleStartValue : 0,
 
     //String - Colour of the scale line
     scaleLineColor : "rgba(0,0,0,.1)",
