@@ -94,7 +94,7 @@ class GameLogic
 
         $score = $this->room->addTeamScore($this->room->activeTeamId, $score);
 
-        if ($score < 50) {
+        if ($score < 10) {
             $this->eventManager->turnFinished($this->room->getAllTeamScores());
         } else {
             $this->eventManager->gameFinished($this->room->getAllTeamScores());
@@ -131,8 +131,8 @@ class GameLogic
         $results = $this->room->getResults();
         $this->room->deleteWordsFromPool(sizeof($results) + 1);
 
-        $name = $this->userManager->getName($this->room->explainerId);
         $this->room->nextTurn();
+        $name = $this->userManager->getName($this->room->explainerId);
         $this->eventManager->turnStarted($this->room->explainerId, $name, $this->room->activeTeamId);
     }
 }
