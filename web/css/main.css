@@ -13,6 +13,10 @@ h1 {
     margin: 0 auto;
 }
 
+.ui-mobile .ui-page {
+    top: 20px;
+}
+
 .wrapper {
     max-width: 320px;
     width: auto;
