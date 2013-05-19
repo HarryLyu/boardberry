@@ -69,6 +69,9 @@
 <div data-role="page" id="turn-finished" data-theme="b" data-view-name="turn-finished">
 </div>
 
+<div data-role="page" id="game-finished" data-theme="b" data-view-name="game-finished">
+</div>
+
 
 
 <script type="text/html" id="tplJoin">
@@ -257,39 +260,15 @@
 
 <script type="text/html" id="tplGameFinished">
     <div data-role="content" class="wrapper">
+        Поздравляем команду победителей!
 
-        Встерчаем победителей!
+        <div class="team-item team-item-<%=winner.id%>">
+            <% team.forEach(function (playerItem, index) { %>
+                <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" /> <%=playerItem.name%> <br>
+            <% }); %>
+        </div>
 
-        <table>
-            <tbody>
-            <% for (var i = 0; i < 50; i++) { %>
-            <tr>
-                <td>
-                    <span class="result-position">
-                        <%=(i+1)%>
-                    </span>
-                </td>
-                <td>
-                    <% data.forEach(function (dataItem) {
-                    if (dataItem.position == i) { %>
-                    <div class="team-item team-item-<%=dataItem.id%>">
-                        <% teams[dataItem.id].forEach(function (playerItem, index) { %>
-                        <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
-                        <% }); %>
-                    </div>
-                    <% } %>
-                    <% }); %>
-                </td>
-            </tr>
-            <% } %>
-            </tbody>
-        </table>
 
-        <% if (me.id == explainer.id) { %>
-        <a href="#" data-game-action="next-turn" class="ui-btn btn-start">
-            Следующий ход
-        </a>
-        <% } %>
     </div>
 </script>
 
