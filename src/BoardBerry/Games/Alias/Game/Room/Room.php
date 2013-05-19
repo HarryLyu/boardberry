@@ -149,6 +149,11 @@ class Room
         return $this->redis->hGetAll($this->roomTurnResultsKey);
     }
 
+    public function clearResults()
+    {
+        return $this->redis->hdel($this->roomTurnResultsKey);
+    }
+
     public function addTeamScore($teamId, $score)
     {
         $value = $this->redis->hincrby($this->roomTeamScoresKey, $teamId, $score);
