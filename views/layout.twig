@@ -21,7 +21,26 @@
 </head>
 <body>
 <div data-role="page" id="main_page">
-    <div class="wrapper ui-content" data-role="content" role="main">          <div data-time-container="" class="time-container">00:00:00</div>         <div data-time-progress="" class="time-progress">             <div class="time-progress-bar" data-time-progress-bar="" style="width: 100%;"></div>         </div>         <div data-word-container="" class="word-container">пассажир</div>          <div class="controls-container">             <div class="control">                 <span class="words-count" data-skipped-count="">0</span>                 <a data-skip-btn="" class="btn-word-skip ui-btn" href="">                     <i class="icon-left"></i>Пропустить                 </a>             </div>             <div class="control">                 <span class="words-count" data-answered-count="">0</span>                 <a data-answer-btn="" class="btn-word-skip ui-btn" href="">                     Отгадал <i class="icon-right"></i>                 </a>             </div>         </div>     </div> </div>
+    <div class="wrapper ui-content" data-role="content" role="main">
+        <div data-time-container="" class="time-container">00:00:00</div>
+        <div data-time-progress="" class="time-progress">
+            <div class="time-progress-bar" data-time-progress-bar="" style="width: 100%;"></div>
+        </div>
+        <div data-word-container="" class="word-container">
+            <div data-word-text class="inner-word">Пассажир</div>
+        </div>
+        <div class="controls-container">
+            <div class="control">
+                <a data-skip-btn="" class="btn-word-skip btn ui-btn" href=""><i class="icon-left"></i>Пропустить</a>
+                <a data-answer-btn="" class="btn-word-skip btn btn-blue ui-btn" href="">Отгадал <i class="icon-right"></i></a>
+
+
+                <span class="words-count fleft red" data-skipped-count="">-1</span>
+                <span class="words-count fright green" data-answered-count="">+5</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="js/lib/jquery.js"></script>
 <script src="js/lib/jquery-mobile.js"></script>
