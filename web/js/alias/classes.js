@@ -202,6 +202,9 @@ BB.classes.ExplanationStartedView = Class.extend({
     },
 
     private_answer: function (isRight) {
+        if (BB.user.id != BB.explainer.id){
+            return false
+        }
         this.wordAnswers.push(isRight ? 1 : 0);
         this.currentWordIndex += 1;
         if (isRight) {
