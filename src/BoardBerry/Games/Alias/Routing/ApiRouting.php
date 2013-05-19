@@ -74,7 +74,12 @@ class ApiRouting implements ControllerProviderInterface
                         throw new \Exception('No player passed');
                     };
 
-                    $room = $roomManager->getRoom($roomId);
+                    try {
+                        $room = $roomManager->getRoom($roomId);
+                    } catch (\Exception $e) {
+                        return new JsonResponse(['result' => 0, 'error' => 'Игра с таким номером не найдена']);
+                    }
+
                     $game = new GameLogic($roomEventManager, $room, $userManager);
                     $game->addPlayer($playerId);
 
