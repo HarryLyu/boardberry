@@ -86,10 +86,12 @@ var ChartColors = [
 
 var drawCharts = function (chartData) {
     var charts = document.getElementsByClassName("resultsChart");
-    charts.forEach(function (element) {
-        new Chart(element.getContext("2d")).Bar({
+
+    for (var i = 0, l = charts.length; i < l; i++) {
+        var chart = charts[i];
+        new Chart(chart.getContext("2d")).Bar({
             labels : [""],
             datasets : chartData
         }, ChartOptions);
-    });
+    }
 };
