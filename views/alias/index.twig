@@ -225,13 +225,13 @@
 
 <script type="text/html" id="tplTurnFinished">
     <div data-role="content" class="wrapper">
-        <canvas id="resultsChart" width="150" height="480"></canvas>
-
         <% if (me.id == explainer.id) { %>
         <a href="#" data-game-action="next-turn" class="ui-btn btn-start">
             Следующий ход
         </a>
         <% } %>
+
+        <canvas id="resultsChart" width="300" height="400"></canvas>
     </div>
 </script>
 
@@ -244,8 +244,6 @@
                 <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" /> <%=playerItem.name%> <br>
             <% }); %>
         </div>
-
-
 
     </div>
 </script>

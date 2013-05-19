@@ -338,7 +338,7 @@ BB.classes.TurnFinishedView = Class.extend({
         data.forEach(function (item) {
             chartData.push({
                 fillColor: ChartColors[item.id],
-                data: [item.position]
+                data: [item.position || 1]
             })
         });
 
