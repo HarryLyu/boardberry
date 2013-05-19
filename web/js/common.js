@@ -1,6 +1,6 @@
 (function(BB){
     location.hash = '';
-
+    $.mobile.defaultPageTransition = 'flip';
     BB.templates = {};
     BB.classes = {};
     BB.user = {};
@@ -28,4 +28,5 @@
             BB.realplexor.execute();
         }
     }
+
 })(window.BB = {});
