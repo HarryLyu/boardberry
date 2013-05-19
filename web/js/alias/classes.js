@@ -352,6 +352,7 @@ BB.classes.TurnFinishedView = Class.extend({
             me: BB.user,
             explainer: BB.explainer
         }));
+
         $.mobile.navigate('#turn-finished');
 
         var chartData = [];
@@ -371,6 +372,8 @@ BB.classes.TurnFinishedView = Class.extend({
                 datasets : chartData
             }, ChartOptions);
         });
+
+        $(document.body).addClass('show-charts');
     }
 });
 

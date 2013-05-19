@@ -349,8 +349,12 @@ a {
 }
 
 
-.panel-icon {
+.show-charts .panel-icon {
     display: inline-block;
+}
+
+.panel-icon {
+    display: none;
     width: 22px;
     height: 22px;
     line-height: 22px;
