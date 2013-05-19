@@ -231,3 +231,18 @@ a {
     .choose-mode a {
         width: 140px;
     }
+
+.time-progress{
+    width: 100%;
+    text-align: center;
+    height: 15px;
+}
+.time-progress-bar {
+    width: 100%;
+    display: inline-block;
+    background: red;
+    height: 15px;
+}
+
+
+

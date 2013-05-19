@@ -7,8 +7,8 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-touch-fullscreen" content="yes" />
-    <meta names="apple-mobile-web-app-status-bar-style" content="white" />
-    <meta id="viewport" name="viewport" content ="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+    <meta name="viewport" id="vp" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" />
 
     <link rel="apple-touch-icon" href="logo.jpg" />
     <link rel="apple-touch-icon" sizes="72x72" href="logo.jpg" />
@@ -87,13 +87,14 @@
 <script type="text/html" id="tplTeams">
     <div class="wrapper team-container" data-role="content">
         <div class="room-link-container">
-            Ваши друзья могут подключитсья к игре, используя этот номер: <b><%=data.id%></b>
+            Номер игры: <b><%=data.id%></b><br/>
+            <span class="font12">Дайте номер друзьям, чтобы они присоеденились.</span>
         </div>
 
         <div class="users-count">
             <span data-players-count><%=(data.player_count || 1)%></span> игроков в игре
         </div>
-        <h1>Выберите цвет своей команды</h1>
+        <div class="font12">Выберите команду:</div>
 
         <div data-team-container>
             <% data.teams.forEach(function (team, index) { %>
@@ -119,21 +120,22 @@
 
 <script type="text/html" id="tplTurnStarted">
     <div data-role="content" class="wrapper">
-        <div class="explainer-container">
-            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> объясняет
-        </div>
-
         <div class="user-list">
+            <h3>Угадыают</h3>
             <% team.forEach(function (playerItem) {
                 if (playerItem.id != explainer.id) { %>
                     <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
                 <% }
             }); %>
-            угадыает
+        </div>
+
+        <div class="explainer-container">
+            <h3>Объясняет<br/><%=explainer.name%></h3>
+            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" />
         </div>
 
         <% if (explainer.id == me.id) { %>
-            <a data-game-action="start-explanation" class="btn-start">
+            <a data-game-action="start-explanation" class="btn-start btn btn-blue">
                 Я готов!
             </a>
         <% } %>
@@ -146,7 +148,9 @@
         <div class="time-container" data-time-container>
             00:60:99
         </div>
-
+        <div class="time-progress" data-time-progress>
+            <div data-time-progress-bar class="time-progress-bar"></div>
+        </div>
         <div class="word-container" data-word-container>
         </div>
 
