@@ -184,8 +184,8 @@ BB.classes.ExplanationStartedView = Class.extend({
         this.root
                 .on('click', this.loc.answerBtn, right)
                 .on('click', this.loc.skipBtn, fail)
-                .on('swipeleft', right)
-                .on('swiperight', fail)
+                .on('swipeleft', fail)
+                .on('swiperight', right)
     },
 
     initView: function(data){
