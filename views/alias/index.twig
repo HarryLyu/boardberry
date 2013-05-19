@@ -221,30 +221,7 @@
 
 <script type="text/html" id="tplTurnFinished">
     <div data-role="content" class="wrapper">
-        <table>
-            <tbody>
-        <% for (var i = 0; i < 50; i++) { %>
-            <tr>
-                <td>
-                    <span class="result-position">
-                        <%=(i+1)%>
-                    </span>
-                </td>
-                <td>
-                    <% data.forEach(function (dataItem) {
-                        if (dataItem.position == i) { %>
-                            <div class="team-item team-item-<%=dataItem.id%>">
-                                <% teams[dataItem.id].forEach(function (playerItem, index) { %>
-                                    <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
-                                <% }); %>
-                            </div>
-                        <% } %>
-                    <% }); %>
-                </td>
-            </tr>
-        <% } %>
-            </tbody>
-        </table>
+        <canvas id="resultsChart" width="150" height="480"></canvas>
 
         <% if (me.id == explainer.id) { %>
         <a href="#" data-game-action="next-turn" class="ui-btn btn-start">
@@ -269,8 +246,14 @@
     </div>
 </script>
 
+<audio src="http://lingualeo.com/sound/training/incorrect.mp3" id="audio_incorrect" />
+<audio src="http://lingualeo.com/sound/training/correct.mp3" id="audio_correct" />
+<audio src="http://lingualeo.com/sound/training/gong.mp3" id="audio_gong" />
+<audio src="http://lingualeo.com/sound/training/show_result.mp3" id="audio_show_result" />
 
 <script src="/js/lib/realplextor.js"></script>
+<script src="/js/alias/chart.js"></script>
+<script src="/js/lib/Chart.js"></script>
 
 <script src="/js/lib/jquery.js"></script>
 <script src="/js/lib/jquery-mobile.js"></script>

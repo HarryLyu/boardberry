@@ -152,6 +152,8 @@ BB.classes.ExplanationStartedView = Class.extend({
         this.private_render(data);
         this.private_initTimer();
         this.private_loadWord();
+
+        document.getElementById('audio_gong').play();
     },
 
     private_answer: function (isRight) {
@@ -160,10 +162,13 @@ BB.classes.ExplanationStartedView = Class.extend({
         }
         this.wordAnswers.push(isRight ? 1 : 0);
         this.currentWordIndex += 1;
+
         if (isRight) {
             this.answeredCount += 1;
+            document.getElementById('audio_correct').play();
         } else {
             this.skippedCount += 1;
+            document.getElementById('audio_incorrect').play();
         }
 
         this.private_updateAnswersCount();
@@ -273,6 +278,7 @@ BB.classes.ExplanationFinishedView = Class.extend({
 
     initView: function(data){
         this.private_render(data);
+        document.getElementById('audio_show_result').play();
     },
 
     private_render: function (data){
@@ -323,6 +329,20 @@ BB.classes.TurnFinishedView = Class.extend({
             explainer: BB.explainer
         }));
         $.mobile.navigate('#turn-finished');
+
+        var chartData = [];
+
+        data.forEach(function (item) {
+            chartData.push({
+                fillColor: ChartColors[item.id],
+                data: [item.position]
+            })
+        });
+
+        new Chart(document.getElementById("resultsChart").getContext("2d")).Bar({
+            labels : [""],
+            datasets : chartData
+        }, ChartOptions);
     }
 });
 
