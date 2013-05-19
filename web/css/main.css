@@ -39,12 +39,13 @@ ul li {
     box-shadow: 0 1px #FFFFFF inset, 1px 0 #F7F7F7 inset, -1px 0 #F7F7F7 inset,
     0 -1px #F1F1F1 inset, 0 3px #ccc;
     color: #333;
-    text-shadow: 0 1px #F0F0F0;
 }
 
 .btn-blue {
     background-color: #5FB2D9;
     box-shadow: 0 3px #4F95B6;
+    color: #fff;
+    text-shadow: none;
 }
 .btn-blue:hover {
     background-color: #64BCE5;
@@ -331,7 +332,7 @@ a {
     vertical-align: middle;
     height: 80px;
     line-height: 25px;
-    width: 290px;
+    width: 320px;
 }
 
 .control {
