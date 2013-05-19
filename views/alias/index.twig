@@ -120,21 +120,22 @@
 
 <script type="text/html" id="tplTurnStarted">
     <div data-role="content" class="wrapper">
-        <div class="explainer-container">
-            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" /> <%=explainer.name%> объясняет
-        </div>
-
         <div class="user-list">
+            <h3>Угадыают</h3>
             <% team.forEach(function (playerItem) {
                 if (playerItem.id != explainer.id) { %>
                     <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" />
                 <% }
             }); %>
-            угадыает
+        </div>
+
+        <div class="explainer-container">
+            <h3>Объясняет<br/><%=explainer.name%></h3>
+            <img src="https://graph.facebook.com/<%=explainer.id%>/picture?type=square" />
         </div>
 
         <% if (explainer.id == me.id) { %>
-            <a data-game-action="start-explanation" class="btn-start">
+            <a data-game-action="start-explanation" class="btn-start btn btn-blue">
                 Я готов!
             </a>
         <% } %>

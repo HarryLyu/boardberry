@@ -9,6 +9,11 @@ h1 {
     font-size: 24px;
 }
 
+h3 {
+    font-size: 14px;
+    margin: 0 0 7px;
+}
+
 .ui-mobile-viewport {
     margin: 0 auto;
 }
@@ -27,11 +32,12 @@ ul li {
 
 .btn {
     display: inline-block;
-    padding: 5px;
+    padding: 5px 20px;
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
     border: 0;
+    cursor: pointer;
 }
 
 .btn-blue {
@@ -44,6 +50,13 @@ ul li {
 .btn-blue:active {
     background-color: #5CACD2;
     box-shadow: 0 2px #4F95B6, -2px 2px 2px #4F95B6 inset;
+}
+
+.aleft {
+    text-align: left;
+}
+.aright {
+    text-align: right;
 }
 
 .wrapper {
@@ -240,4 +253,17 @@ a {
 
 .room-link-container {
     padding-top: 20px;
+}
+
+.explainer-container {
+    margin-bottom: 30px;
+    font-size: 12px;
+}
+.explainer-container img {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.user-list {
+    padding: 70px 0 40px;
 }
