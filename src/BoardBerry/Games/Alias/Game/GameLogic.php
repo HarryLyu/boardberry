@@ -44,7 +44,7 @@ class GameLogic
     {
         $c = 0;
         foreach ($this->room->teams as $team) {
-            $c += $team->players;
+            $c += count($team->players);
         }
 
         return $c > 4 && $c == $this->room->playerCount;
