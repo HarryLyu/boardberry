@@ -3,11 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BoardBerry</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta id="viewport" name="viewport" content ="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="apple-touch-icon" href="logo.jpg" />
+    <link rel="apple-touch-icon" sizes="72x72" href="logo.jpg" />
+    <link rel="apple-touch-icon" sizes="114x114" href="logo.jpg" />
 
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/main.css">
@@ -74,6 +79,9 @@
 </div>
 
 <div data-role="page" id="turn-finished" data-theme="b" data-view-name="turn-finished">
+</div>
+
+<div data-role="page" id="game-finished" data-theme="b" data-view-name="game-finished">
 </div>
 
 
@@ -227,7 +235,7 @@
     </div>
 </script>
 
-<script type="text/html" id="tplGameResults">
+<script type="text/html" id="tplTurnFinished">
     <div data-role="content" class="wrapper">
         <table>
             <tbody>
@@ -254,11 +262,26 @@
             </tbody>
         </table>
 
-        <% if (me.id == roomData.owner) { %>
+        <% if (me.id == explainer.id) { %>
         <a href="#" data-game-action="next-turn" class="ui-btn btn-start">
             Следующий ход
         </a>
         <% } %>
+    </div>
+</script>
+
+<script type="text/html" id="tplGameFinished">
+    <div data-role="content" class="wrapper">
+        Поздравляем команду победителей!
+
+        <div class="team-item team-item-<%=winner.id%>">
+            <% team.forEach(function (playerItem, index) { %>
+                <img src="https://graph.facebook.com/<%=playerItem.id%>/picture?type=square" /> <%=playerItem.name%> <br>
+            <% }); %>
+        </div>
+
+
+
     </div>
 </script>
 

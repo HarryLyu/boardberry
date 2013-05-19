@@ -1,5 +1,6 @@
 (function(BB){
     location.hash = '';
+    window.top.scrollTo(0, 1);
     $.mobile.defaultPageTransition = 'flip';
     BB.templates = {};
     BB.classes = {};

@@ -170,7 +170,7 @@ BB.classes.ExplanationStartedView = Class.extend({
         answeredCount: '[data-answered-count]'
     },
 
-    init: function (params){
+    init: function (params) {
         this.params = params;
         this.root = $(params.root);
         this.private_assignEvents();
@@ -180,11 +180,12 @@ BB.classes.ExplanationStartedView = Class.extend({
     private_assignEvents: function (){
         var right = this.private_answer.bind(this, true),
             fail = this.private_answer.bind(this, false);
+
         this.root
                 .on('click', this.loc.answerBtn, right)
                 .on('click', this.loc.skipBtn, fail)
-                .on('swipeleft', right)
-                .on('swiperight', fail)
+                .on('swipeleft', fail)
+                .on('swiperight', right)
     },
 
     initView: function(data){
@@ -201,6 +202,9 @@ BB.classes.ExplanationStartedView = Class.extend({
     },
 
     private_answer: function (isRight) {
+        if (BB.user.id != BB.explainer.id){
+            return false
+        }
         this.wordAnswers.push(isRight ? 1 : 0);
         this.currentWordIndex += 1;
         if (isRight) {
@@ -223,6 +227,7 @@ BB.classes.ExplanationStartedView = Class.extend({
     },
 
     private_render: function (data){
+        BB.explainer = data.explainer;
         if (data.explainer.id == BB.user.id){
             console.log('render explanation for Explainer');
             this.root.html(tmpl('tplTurnExplain', {}));
@@ -354,12 +359,62 @@ BB.classes.TurnFinishedView = Class.extend({
     },
 
     private_render: function (data){
-        this.root.html(tmpl('tplGameResults', {
+        this.root.html(tmpl('tplTurnFinished', {
             data: data,
             teams: BB.teams,
             me: BB.user,
-            roomData: BB.roomData
+            explainer: BB.explainer
         }));
         $.mobile.navigate('#turn-finished');
+    }
+});
+
+BB.classes.GameFinishedView = Class.extend({
+    loc: {
+
+    },
+
+    init: function (params){
+        this.params = params;
+        this.root = $(params.root);
+        this.private_assignEvents();
+    },
+
+    private_assignEvents: function (){
+        this.root
+            .on('click', this.loc.nextTurnBtn, function () {
+                $.post('/api/room/' + BB.roomData.id,{
+                        action: 'next-turn'
+                    },
+                    function (data) {
+                        console.log ('next turn response ', data)
+                    });
+
+                return false;
+            })
+    },
+
+    initView: function (data) {
+
+        var winnerTeam = {position: 0};
+
+        data.forEach(function (teamItem) {
+            if (teamItem.position > winnerTeam.position) {
+                winnerTeam = teamItem
+            }
+        });
+
+        this.private_render({
+            winner: winnerTeam
+        });
+    },
+
+    private_render: function (data) {
+        this.root.html(tmpl('tplGameFinished', {
+            winner: data.winnerTeam,
+            team: BB.teams[data.winnerTeam.id]
+        }));
+
+        $.mobile.navigate('#game-finished');
     }
 });

@@ -131,12 +131,12 @@ class Room
 
     public function getWordsForTurn()
     {
-        return $this->redis->lrange($this->roomWordSetKey, 0, 5);
+        return $this->redis->lrange($this->roomWordSetKey, 0, 100);
     }
 
     public function deleteWordsFromPool($wordsCount)
     {
-        return $this->redis->ltrim($this->roomWordSetKey, 0, $wordsCount);
+        return $this->redis->ltrim($this->roomWordSetKey, 0, -$wordsCount);
     }
 
     public function saveResults($results)
@@ -180,11 +180,14 @@ class Room
 
     public function nextTurn()
     {
-        $this->activeTeamId = $this->redis->rpoplpush($this->roomTeamTurnsKey, $this->roomTeamTurnsKey);
-        $this->explainerId = $this->redis->rpoplpush(
+        $this->redis->rpoplpush(
             $this->roomPlayerTurnsKey . ":" . $this->activeTeamId,
             $this->roomPlayerTurnsKey . ":" . $this->activeTeamId
         );
+        $this->redis->rpoplpush($this->roomTeamTurnsKey, $this->roomTeamTurnsKey);
+
+        $this->activeTeamId = $this->redis->lindex($this->roomTeamTurnsKey, -1);
+        $this->explainerId = $this->redis->lindex($this->roomPlayerTurnsKey . ":" . $this->activeTeamId, -1);
     }
 
     public function restore()

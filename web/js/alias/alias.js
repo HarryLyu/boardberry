@@ -20,7 +20,8 @@
         turnStarted: new BB.classes.TurnStartedView({root: '[data-view-name=turn-started]'}),
         explanationStarted: new BB.classes.ExplanationStartedView({root:'[data-view-name=explanation-started]'}),
         explanationFinished: new BB.classes.ExplanationFinishedView({root: '[data-view-name=explanation-finished]'}),
-        turnFinished: new BB.classes.TurnFinishedView({root: '[data-view-name=turn-finished]'})
+        turnFinished: new BB.classes.TurnFinishedView({root: '[data-view-name=turn-finished]'}),
+        gameFinished: new BB.classes.GameFinishedView({root: '[data-view-name=game-finished]'})
     };
 
     $(document.body).on('click', '[data-game-action="create"]', function () {
