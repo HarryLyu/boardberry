@@ -7,11 +7,11 @@ var ChartOptions = {
 
     //** Required if scaleOverride is true **
     //Number - The number of steps in a hard coded scale
-    scaleSteps : 50,
+    scaleSteps : 10,
     //Number - The value jump in the hard coded scale
-    scaleStepWidth : null,
+    scaleStepWidth : 5,
     //Number - The scale starting value
-    scaleStartValue : null,
+    scaleStartValue : 1,
 
     //String - Colour of the scale line
     scaleLineColor : "rgba(0,0,0,.1)",
