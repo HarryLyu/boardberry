@@ -88,7 +88,14 @@ class RoomEventManager
     {
         $this->sendEvent(
             'turnStarted',
-            ['explainer' => ['id' => $explainerId, 'name' => $explainerName], 'activeTeamId' => $activeTeamId]
+            [
+                'explainer' =>
+                [
+                    'id' => $explainerId,
+                    'name' => $explainerName
+                ],
+                'activeTeamId' => $activeTeamId
+            ]
         );
     }
 
