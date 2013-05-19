@@ -188,27 +188,23 @@
 
     <div data-role="content" class="wrapper">
 
-        <div class="time-container" data-time-container>
-            00:60:99
-        </div>
+        <div class="time-container" data-time-container>00:60:99</div>
+
         <div class="time-progress" data-time-progress>
             <div data-time-progress-bar class="time-progress-bar"></div>
         </div>
+
         <div class="word-container" data-word-container>
+            <div data-word-text class="inner-word"></div>
         </div>
 
         <div class="controls-container">
             <div class="control">
-                <span data-skipped-count class="words-count">0</span>
-                <a href="" class="btn-word-skip ui-btn" data-skip-btn>
-                    <i class="icon-left"></i>Пропустить
-                </a>
-            </div>
-            <div class="control">
-                <span data-answered-count class="words-count">0</span>
-                <a href="" class="btn-word-skip ui-btn" data-answer-btn>
-                    Отгадал <i class="icon-right"></i>
-                </a>
+                <a href="" class="btn-word-skip ui-btn btn" data-skip-btn><i class="icon-left"></i>Пропустить</a>
+                <a href="" class="btn-word-skip ui-btn btn btn-blue" data-answer-btn>Отгадал <i class="icon-right"></i></a>
+
+                <span data-skipped-count class="words-count fleft red"></span>
+                <span data-answered-count class="words-count fright green"></span>
             </div>
         </div>
     </div>
