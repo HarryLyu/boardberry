@@ -161,13 +161,29 @@ BB.classes.ExplanationStartedView = Class.extend({
         if (BB.user.id != BB.explainer.id){
             return false
         }
+        var $word = $(this.loc.word)
         this.wordAnswers.push(isRight ? 1 : 0);
         this.currentWordIndex += 1;
 
         if (isRight) {
+            $word.css('left', '500px');
+            setTimeout(function(){
+                $word.css('display', 'none');
+                console.log($word[0].offsetHeight);
+                $word.css('left', '0');
+                $word.css('display', 'block')
+            }, 400);
             this.answeredCount += 1;
             document.getElementById('audio_correct').play();
         } else {
+            $word.css('left', '-500px');
+            setTimeout(function(){
+                $word.css('display', 'none');
+                console.log($word[0].offsetHeight);
+                $word.css('left', '0');
+                $word.css('display', 'block')
+            }, 400);
+
             this.skippedCount += 1;
             document.getElementById('audio_incorrect').play();
         }
@@ -203,7 +219,7 @@ BB.classes.ExplanationStartedView = Class.extend({
             $timer = $(this.loc.time),
             $pBar = $(this.loc.progressBar),
             startTime = new Date().getTime(),
-            maxDiff = 10 * 1000;
+            maxDiff = 60 * 1000;
 
         this.timerInterval = setInterval(function () {
             var currentTime = new Date().getTime(),
@@ -224,7 +240,7 @@ BB.classes.ExplanationStartedView = Class.extend({
                 resString = '00:' + seconds + ':' + milliSeconds;
                 resString.slice(resString.length-1);
                 $timer.html(resString);
-                $pBar.css('width', (100 - (seconds/maxDiff)*100) + '%')
+                $pBar.css('width', (100 - (deltaTime/maxDiff)*100) + '%')
             }
         }, 100);
     },

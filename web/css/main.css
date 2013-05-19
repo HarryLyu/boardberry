@@ -288,3 +288,17 @@ a {
 .user-list {
     padding: 70px 0 40px;
 }
+
+.word-container {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    background: red;
+    left: 0;
+    transition: left 0.3s linear;
+    /* Safari */
+    -webkit-transition: left 0.3s linear;
+    -moz-transition: left 0.3s linear;
+    -o-transition: left 0.3s linear;
+
+}
