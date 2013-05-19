@@ -64,6 +64,8 @@ BB.classes.TeamsView = Class.extend({
             .attr('src', 'https://graph.facebook.com/' + data.playerId + '/picture?type=square')
             .attr('data-user-item', data.playerId)
             .appendTo(this.root.find('[data-team-item="' + data.teamId + '"]'));
+
+        this.root.find('[data-game-action="start-game"]').toggle(!!data.isGameCanBeStarted);
     },
 
     playerJoinedToRoom_handler: function (data) {
