@@ -103,13 +103,14 @@
 <script type="text/html" id="tplTeams">
     <div class="wrapper team-container" data-role="content">
         <div class="room-link-container">
-            Ваши друзья могут подключитсья к игре, используя этот номер: <b><%=data.id%></b>
+            Номер игры: <b><%=data.id%></b><br/>
+            <span class="font12">Дайте номер друзьям, чтобы они присоеденились.</span>
         </div>
 
         <div class="users-count">
             <span data-players-count><%=(data.player_count || 1)%></span> игроков в игре
         </div>
-        <h1>Выберите цвет своей команды</h1>
+        <div class="font12">Выберите команду:</div>
 
         <div data-team-container>
             <% data.teams.forEach(function (team, index) { %>
