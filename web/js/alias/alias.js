@@ -23,7 +23,11 @@
         gameFinished: new BB.classes.GameFinishedView({root: '[data-view-name=game-finished]'})
     };
 
-    $(document.body).on('click', '[data-game-action="create"]', function () {
+    $(document.body)
+        .on('click', '[data-toggle-panel]', function () {
+            $('[data-custom-panel]').panel('toggle');
+        })
+    .on('click', '[data-game-action="create"]', function () {
         FBApp.login(function (authData, userProfile) {
             $.post(
                 '/api/user', {

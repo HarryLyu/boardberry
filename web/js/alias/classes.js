@@ -194,8 +194,12 @@ BB.classes.ExplanationStartedView = Class.extend({
     },
 
     private_updateAnswersCount: function () {
-        $(this.loc.answeredCount).html(this.answeredCount);
-        $(this.loc.skippedCount).html(this.skippedCount);
+        if (this.answeredCount) {
+            $(this.loc.answeredCount).html('+' + this.answeredCount);
+        }
+        if (this.skippedCount) {
+            $(this.loc.skippedCount).html('-' + this.skippedCount);
+        }
     },
 
     private_loadWord: function () {
@@ -359,10 +363,14 @@ BB.classes.TurnFinishedView = Class.extend({
             })
         });
 
-        new Chart(document.getElementById("resultsChart").getContext("2d")).Bar({
-            labels : [""],
-            datasets : chartData
-        }, ChartOptions);
+        var charts = document.getElementByClassName("resultsChart");
+
+        charts.forEach(function (element) {
+            new Chart(element.getContext("2d")).Bar({
+                labels : [""],
+                datasets : chartData
+            }, ChartOptions);
+        });
     }
 });
 
