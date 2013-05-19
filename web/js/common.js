@@ -28,6 +28,6 @@
 
             BB.realplexor.execute();
         }
-    }
+    };
 
 })(window.BB = {});

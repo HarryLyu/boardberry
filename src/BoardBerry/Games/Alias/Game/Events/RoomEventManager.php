@@ -75,9 +75,15 @@ class RoomEventManager
         $teamsRaw = [];
         foreach ($teams as $team) {
             $playersRaw = [];
+
+            if (count($team->players) == 0) {
+                continue;
+            }
+
             foreach ($team->players as $playerId => $_) {
                 $playersRaw[] = ['id' => $playerId, 'name' => $userManager->getName($playerId)];
             }
+            
             $teamsRaw[] = ['id' => $team->id, 'players' => $playersRaw];
         }
 

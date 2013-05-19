@@ -116,6 +116,7 @@ BB.classes.TurnStartedView = Class.extend({
 BB.classes.ExplanationStartedView = Class.extend({
     loc: {
         time: '[data-time-container]',
+        progressBar: '[data-time-progress-bar]',
         word: '[data-word-container]',
         skipBtn: '[data-skip-btn]',
         answerBtn: '[data-answer-btn]',
@@ -152,6 +153,8 @@ BB.classes.ExplanationStartedView = Class.extend({
         this.private_render(data);
         this.private_initTimer();
         this.private_loadWord();
+
+        document.getElementById('audio_gong').play();
     },
 
     private_answer: function (isRight) {
@@ -160,10 +163,13 @@ BB.classes.ExplanationStartedView = Class.extend({
         }
         this.wordAnswers.push(isRight ? 1 : 0);
         this.currentWordIndex += 1;
+
         if (isRight) {
             this.answeredCount += 1;
+            document.getElementById('audio_correct').play();
         } else {
             this.skippedCount += 1;
+            document.getElementById('audio_incorrect').play();
         }
 
         this.private_updateAnswersCount();
@@ -195,6 +201,7 @@ BB.classes.ExplanationStartedView = Class.extend({
         console.log('init timer');
         var self = this,
             $timer = $(this.loc.time),
+            $pBar = $(this.loc.progressBar),
             startTime = new Date().getTime(),
             maxDiff = 10 * 1000;
 
@@ -217,8 +224,9 @@ BB.classes.ExplanationStartedView = Class.extend({
                 resString = '00:' + seconds + ':' + milliSeconds;
                 resString.slice(resString.length-1);
                 $timer.html(resString);
+                $pBar.css('width', (100 - (seconds/maxDiff)*100) + '%')
             }
-        }, 100)
+        }, 100);
     },
 
     private_onEndTimer: function (){
@@ -273,6 +281,7 @@ BB.classes.ExplanationFinishedView = Class.extend({
 
     initView: function(data){
         this.private_render(data);
+        document.getElementById('audio_show_result').play();
     },
 
     private_render: function (data){
@@ -323,6 +332,20 @@ BB.classes.TurnFinishedView = Class.extend({
             explainer: BB.explainer
         }));
         $.mobile.navigate('#turn-finished');
+
+        var chartData = [];
+
+        data.forEach(function (item) {
+            chartData.push({
+                fillColor: ChartColors[item.id],
+                data: [item.position || 1]
+            })
+        });
+
+        new Chart(document.getElementById("resultsChart").getContext("2d")).Bar({
+            labels : [""],
+            datasets : chartData
+        }, ChartOptions);
     }
 });
 

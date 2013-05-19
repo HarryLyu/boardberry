@@ -45,7 +45,7 @@ class GameLogic
         $c = 0;
         foreach ($this->room->teams as $team) {
             $playerCount = count($team->players);
-            if ($playerCount < 2) {
+            if ($playerCount == 1) {
                 return false;
             }
             $c += $playerCount;
@@ -145,6 +145,9 @@ class GameLogic
         $this->room->deleteWordsFromPool(sizeof($results) + 1);
 
         $this->room->nextTurn();
+
+        $this->room->clearResults();
+
         $name = $this->userManager->getName($this->room->explainerId);
         $this->eventManager->turnStarted($this->room->explainerId, $name, $this->room->activeTeamId);
     }

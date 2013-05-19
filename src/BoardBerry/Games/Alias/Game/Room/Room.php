@@ -149,6 +149,11 @@ class Room
         return $this->redis->hGetAll($this->roomTurnResultsKey);
     }
 
+    public function clearResults()
+    {
+        return $this->redis->hdel($this->roomTurnResultsKey);
+    }
+
     public function addTeamScore($teamId, $score)
     {
         $value = $this->redis->hincrby($this->roomTeamScoresKey, $teamId, $score);
@@ -166,7 +171,15 @@ class Room
 
     public function getAllTeamScores()
     {
-        return $this->redis->hgetall($this->roomTeamScoresKey);
+        $scores = $this->redis->hgetall($this->roomTeamScoresKey);
+        $scoresRaw = [];
+        foreach ($scores as $teamId => $score) {
+            if (count($this->teams[$teamId]->players) > 0) {
+                $scoresRaw[$teamId] = $score;
+            }
+        }
+
+        return $scoresRaw;
     }
 
     public function editResult($wordId)
