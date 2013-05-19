@@ -47,7 +47,7 @@ class GameLogic
             $c += count($team->players);
         }
 
-        return $c > 4 && $c == $this->room->playerCount;
+        return $c >= 4 && $c == $this->room->playerCount;
     }
 
     public function addPlayerToTeam($teamId, $playerId)
