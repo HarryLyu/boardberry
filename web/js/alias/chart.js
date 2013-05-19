@@ -83,3 +83,13 @@ var ChartColors = [
     '#fbb450',
     '#fbb450'
 ];
+
+var drawCharts = function (chartData) {
+    var charts = document.getElementsByClassName("resultsChart");
+    charts.forEach(function (element) {
+        new Chart(element.getContext("2d")).Bar({
+            labels : [""],
+            datasets : chartData
+        }, ChartOptions);
+    });
+};
