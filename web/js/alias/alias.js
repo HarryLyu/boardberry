@@ -15,7 +15,6 @@
 
 
     BB.views = {
-        join: new BB.classes.JoinView({root: '[data-view-name=join]'}),
         teams: new BB.classes.TeamsView({root: '[data-view-name=teams]'}),
         turnStarted: new BB.classes.TurnStartedView({root: '[data-view-name=turn-started]'}),
         explanationStarted: new BB.classes.ExplanationStartedView({root:'[data-view-name=explanation-started]'}),
@@ -50,21 +49,43 @@
             );
         });
     }).on('click', '[data-game-action="join"]', function () {
-        FBApp.login(function (authData, userProfile) {
-            $.post(
-                '/api/user', {
-                    auth: authData,
-                    user: userProfile
-                },
-                function (response) {
-                    if (response.user.userID) {
-                        BB.user.id = response.user.userID
-                    }
-                    BB.views.join.initView();
-                }
-            );
+            var roomId = $('[data-room-id]').val();
 
-        });
+            if (!roomId) {
+                alert('Введите номер игры!');
+                return;
+            }
+
+            if (!/\d{8}/.test(roomId)) {
+                alert('Номер игры должен состоять из восьми цифр!');
+                return;
+            }
+
+            FBApp.login(function (authData, userProfile) {
+                $.post(
+                    '/api/user', {
+                        auth: authData,
+                        user: userProfile
+                    },
+                    function (response) {
+                        if (response.user.userID) {
+                            BB.user.id = response.user.userID;
+                            BB.user.name = response.user.name;
+                        }
+
+                        $.post('/api/room/' + roomId, {
+                            action: 'join-room',
+                            user: BB.user.id
+                        }, function (data) {
+                            if (data.error) {
+                                alert(data.error);
+                                return;
+                            }
+                            BB.views.teams.initView(data.data);
+                        });
+                    }
+                );
+            });
     });
 
     BB.realplexor = new Dklab_Realplexor(

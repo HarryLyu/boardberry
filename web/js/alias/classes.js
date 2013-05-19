@@ -1,52 +1,3 @@
-BB.classes.JoinView = Class.extend({
-    loc: {
-        input: '[data-room-id]',
-        joinBtn: '[data-game-action=join-room]'
-    },
-
-    init: function (params){
-        this.params = params;
-        this.root = $(params.root);
-        this.private_assignEvents();
-    },
-
-
-    private_assignEvents: function (){
-        var self = this;
-        this.root
-            .on('click', this.loc.joinBtn, function(){
-                var roomId = $(self.loc.input).val();
-
-                if (!roomId) {
-                    alert('Введите номер игры!');
-                    return;
-                }
-
-                if (!/\d{8}/.test(roomId)) {
-                    alert('Номер игры должен состоять из восьми цифр!');
-                    return;
-                }
-
-                $.post('/api/room/' + roomId,{
-                    action: 'join-room',
-                    user: BB.user.id
-                }, function (data) {
-                    BB.views.teams.initView(data.data);
-                });
-
-            })
-    },
-
-    initView: function(data){
-        this.private_render(data);
-    },
-
-    private_render: function (data){
-        this.root.html(tmpl('tplJoin', {data:data}));
-        $.mobile.navigate('#join');
-    }
-});
-
 BB.classes.TeamsView = Class.extend({
     loc: {
         teamItem: '[data-team-item]'
@@ -411,8 +362,8 @@ BB.classes.GameFinishedView = Class.extend({
 
     private_render: function (data) {
         this.root.html(tmpl('tplGameFinished', {
-            winner: data.winnerTeam,
-            team: BB.teams[data.winnerTeam.id]
+            winner: data.winner,
+            team: BB.teams[data.winner.id]
         }));
 
         $.mobile.navigate('#game-finished');
