@@ -126,44 +126,44 @@ a {
     }
 
     .team-item-0 {
-        background-image: -webkit-linear-gradient(to bottom,#08c,#04c);
-        background-image: linear-gradient(to bottom,#08c,#04c);
+        background-image: -webkit-linear-gradient(#08c,#04c);
+        background-image: linear-gradient(#08c,#04c);
     }
     .team-item-1 {
-        background-image: -webkit-linear-gradient(to bottom,#5bc0de,#2f96b4);
-        background-image: linear-gradient(to bottom,#5bc0de,#2f96b4);
+        background-image: -webkit-linear-gradient(#5bc0de,#2f96b4);
+        background-image: linear-gradient(#5bc0de,#2f96b4);
     }
     .team-item-2 {
-        background-image: -webkit-linear-gradient(to bottom,#62c462,#51a351);
-        background-image: linear-gradient(to bottom,#62c462,#51a351);
+        background-image: -webkit-linear-gradient(#62c462,#51a351);
+        background-image: linear-gradient(#62c462,#51a351);
     }
     .team-item-3 {
-        background-image: -webkit-linear-gradient(to bottom,#fbb450,#f89406);
-        background-image: linear-gradient(to bottom,#fbb450,#f89406);
+        background-image: -webkit-linear-gradient(#fbb450,#f89406);
+        background-image: linear-gradient(#fbb450,#f89406);
     }
     .team-item-4 {
-        background-image: -webkit-linear-gradient(to bottom,#ee5f5b,#bd362f);
-        background-image: linear-gradient(to bottom,#ee5f5b,#bd362f);
+        background-image: -webkit-linear-gradient(#ee5f5b,#bd362f);
+        background-image: linear-gradient(#ee5f5b,#bd362f);
     }
     .team-item-5 {
-        background-image: -webkit-linear-gradient(to bottom,#08c,#04c);
-        background-image: linear-gradient(to bottom,#08c,#04c);
+        background-image: -webkit-linear-gradient(#08c,#04c);
+        background-image: linear-gradient(#08c,#04c);
     }
     .team-item-6 {
-        background-image: -webkit-linear-gradient(to bottom,#5bc0de,#2f96b4);
-        background-image: linear-gradient(to bottom,#5bc0de,#2f96b4);
+        background-image: -webkit-linear-gradient(#5bc0de,#2f96b4);
+        background-image: linear-gradient(#5bc0de,#2f96b4);
     }
     .team-item-7 {
-        background-image: -webkit-linear-gradient(to bottom,#62c462,#51a351);
-        background-image: linear-gradient(to bottom,#62c462,#51a351);
+        background-image: -webkit-linear-gradient(#62c462,#51a351);
+        background-image: linear-gradient(#62c462,#51a351);
     }
     .team-item-8 {
-        background-image: -webkit-linear-gradient(to bottom,#fbb450,#f89406);
-        background-image: linear-gradient(to bottom,#fbb450,#f89406);
+        background-image: -webkit-linear-gradient(#fbb450,#f89406);
+        background-image: linear-gradient(#fbb450,#f89406);
     }
     .team-item-9 {
-        background-image: -webkit-linear-gradient(to bottom,#fbb450,#f89406);
-        background-image: linear-gradient(to bottom,#fbb450,#f89406);
+        background-image: -webkit-linear-gradient(#fbb450,#f89406);
+        background-image: linear-gradient(#fbb450,#f89406);
     }
 
 .result-item {
