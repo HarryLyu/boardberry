@@ -170,7 +170,7 @@ BB.classes.ExplanationStartedView = Class.extend({
         answeredCount: '[data-answered-count]'
     },
 
-    init: function (params){
+    init: function (params) {
         this.params = params;
         this.root = $(params.root);
         this.private_assignEvents();
@@ -184,8 +184,8 @@ BB.classes.ExplanationStartedView = Class.extend({
         this.root
                 .on('click', this.loc.answerBtn, right)
                 .on('click', this.loc.skipBtn, fail)
-                .on('swipeleft', right)
-                .on('swiperight', fail)
+                .on('swipeleft', fail)
+                .on('swiperight', right)
     },
 
     initView: function(data){
@@ -411,8 +411,8 @@ BB.classes.GameFinishedView = Class.extend({
 
     private_render: function (data) {
         this.root.html(tmpl('tplGameFinished', {
-            winner: winnerTeam,
-            team: BB.teams[winnerTeam.id]
+            winner: data.winnerTeam,
+            team: BB.teams[data.winnerTeam.id]
         }));
 
         $.mobile.navigate('#game-finished');
